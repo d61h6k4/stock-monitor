@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "stock-monitor"
+description = ''
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Danil Petrov", email = "danil.petrov@arrival.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "altair",
+  "pandas",
+  "yfinance",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/unknown/stock-monitor#readme"
+Issues = "https://github.com/unknown/stock-monitor/issues"
+Source = "https://github.com/unknown/stock-monitor"
+
+[tool.hatch.version]
+path = "stock_monitor/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=stock_monitor --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+
+[tool.hatch.envs.web]
+dependencies = [
+    "streamlit"
+]
+[tool.hatch.env.web.scripts]
+webapp = "streamlit run stock_monitor/bin/web.py"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["37", "38", "39", "310", "311"]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "stock_monitor/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
