@@ -35,6 +35,8 @@ def base_strategy(stock: Stock) -> Stock:
                           frame=[-10, 0]) \
         .encode(y="ma10:Q",
                 tooltip=[Tooltip("ma10:Q", title="Moving average 10 days")])
+
+    stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
     if stock.buy_date is None:
         stock.title = f"{stock.ticker_name}"
         stock.price_chart = t_line + t_ma_line

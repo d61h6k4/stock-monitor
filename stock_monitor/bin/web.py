@@ -1,3 +1,4 @@
+from altair import vconcat
 from datetime import datetime, timezone
 from streamlit import altair_chart, tabs, write, title, caption, sidebar, selectbox, set_page_config, markdown, cache
 from stock_monitor.models import Stock, Arbitrage
@@ -291,7 +292,9 @@ def render_ticker(stock: Stock):
         stock = vix_strategy(stock)
 
     title(stock.title)
-    altair_chart(stock.price_chart, use_container_width=True)
+    altair_chart(vconcat(stock.price_chart.properties(width=1192),
+                         stock.volume_chart.properties(height=50, width=1192)),
+                 use_container_width=True)
     caption(stock.description)
 
 
