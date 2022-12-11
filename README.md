@@ -13,7 +13,10 @@
 ## Installation
 
 ```console
+python3 -m venv venv
+source venv/bin/activate
 pip install stock-monitor
+streamlit run stock_monitor/bin/web.py
 ```
 
 ## License
