@@ -1,14 +1,15 @@
 from datetime import datetime, timezone
 from streamlit import altair_chart, tabs, write, title, caption, sidebar, selectbox, set_page_config, markdown, cache
-from stock_monitor.renders.stock import Stock
-from stock_monitor.renders.arbitrages import Arbitrage
+from stock_monitor.models import Stock, Arbitrage
+from stock_monitor.renders.stock import base_strategy, vix_strategy
+from stock_monitor.renders.arbitrages import arbitrage_strategy
 
 
 def tickers():
     return ["GOOG", "NVDA", "ASML", "KLAC", "PBR", "TGNA", "FSTX", "KOP", "CEG"]
 
 
-@cache(persist=False, ttl=3600)
+@cache(persist=False, ttl=3600, allow_output_mutation=True)
 def stocks(period: str):
     res = []
     for ticker_name in tickers():
@@ -29,7 +30,8 @@ def stocks(period: str):
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
 def arbitrages(period: str):
-    res = [Arbitrage(target_ticker_name="ATVI", buyer_ticker_name="MSFT", offer_price=95, additional_buyer_ratio=0,
+    res = [Arbitrage(target=Stock(ticker_name="ATVI", period=period), buyer=Stock(ticker_name="MSFT", period=period),
+                     offer_price=95, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The spread mainly exists due to regulatory
                                     concerns over MSFT's potential abuse of power and potential restriciton of ATVI
@@ -39,17 +41,17 @@ def arbitrages(period: str):
                                     simplified filling request for the merger. Recent rumors on the merger suggest that
                                     FTC plans to block the merger. Warren Buffet's Berkshire is also participating in
                                     this merger arb play providing some confidence in the successful outcome and/or
-                                    a well-protected downside on ATVI standalone basis.""",
-                     period=period),
-           Arbitrage(target_ticker_name="IRBT", buyer_ticker_name="AMZN", offer_price=61, additional_buyer_ratio=0,
+                                    a well-protected downside on ATVI standalone basis."""),
+           Arbitrage(target=Stock(ticker_name="IRBT", period=period), buyer=Stock(ticker_name="AMZN", period=period),
+                     offer_price=61, additional_buyer_ratio=0,
                      expecting_closing=datetime(2022, 12, 31, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The spread has widened from 5% to over 15% as market
                                 started pricing in higher likelihood of regulatory hurdles. Two months ago the parties
                                 received the 2nd request from the FTC. Soon after, several senators began pushing the FTC to
                                 block the transaction. Concerns were raised regarding potential privacy infringements and
-                                Amazon's history of anti-competitive acquisitions. FTC review is ongoing.""",
-                     period=period),
-           Arbitrage(target_ticker_name="SAVE", buyer_ticker_name="JBLU", offer_price=31, additional_buyer_ratio=0,
+                                Amazon's history of anti-competitive acquisitions. FTC review is ongoing."""),
+           Arbitrage(target=Stock(ticker_name="SAVE", period=period), buyer=Stock(ticker_name="JBLU", period=period),
+                     offer_price=31, additional_buyer_ratio=0,
                      expecting_closing=datetime(2024, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. Bidding war for Spirit Airlines seems to have come to
                                 an end. Shareholders voted for JBLU's offer. The current spread is mainly due to antitrust
@@ -58,9 +60,9 @@ def arbitrages(period: str):
                                 concerns. Another DOJ concern relates to JBLU's Northeast parnership (NEA) with American Airlines.
                                 Recently, a motion to dismiss the DOJ case against NEA has been denied. Now the decision comes down
                                 to the judge's reading of antitrust law which could signifacntly delay the decision. Hence
-                                SAVE-JBLU merger outcome might also depend on the outcome of NEA trial.""",
-                     period=period),
-           Arbitrage(target_ticker_name="BKI", buyer_ticker_name="ICE", offer_price=68, additional_buyer_ratio=0.144,
+                                SAVE-JBLU merger outcome might also depend on the outcome of NEA trial."""),
+           Arbitrage(target=Stock(ticker_name="BKI", period=period), buyer=Stock(ticker_name="ICE", period=period),
+                     offer_price=68, additional_buyer_ratio=0.144,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. Shareholders have already approved the merger. However,
                                 Community Home Lender Association has called regulators to block the merger over antitrust
@@ -69,9 +71,9 @@ def arbitrages(period: str):
                                 software segments - servicing (BKI) and origination (ICE) - suggesting the merger will lead to
                                 substantial vertical integration. Recently ICE agreed to an extended FTC review with reiterating
                                 its expectation merger completion by H1'23
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="FSTX", buyer_ticker_name="1177.HK", offer_price=7.12, additional_buyer_ratio=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="FSTX", period=period), buyer=Stock(ticker_name="1177.HK", period=period),
+                     offer_price=7.12, additional_buyer_ratio=0,
                      expecting_closing=datetime(2022, 12, 19, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The market seems to be concerned that the merger
                                 might get blocked by CDIUS due to the buyer being a Chinese firm. Such regulatory
@@ -80,9 +82,9 @@ def arbitrages(period: str):
                                 to withdraw and refile the merger documents to CFIUS. As a result of this, the
                                 transaction end date was extended till the 19th Dec. Downside to pre-announcement price
                                 is very steep, which also partally explains the spread.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="TGNA", buyer_ticker_name="Standard General", offer_price=24.15,
+                                """),
+           Arbitrage(target=Stock(ticker_name="TGNA", period=period),
+                     buyer="Standard General", offer_price=24.15,
                      additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 2, 28, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The buyer consortium includes Standard General,
@@ -94,9 +96,9 @@ def arbitrages(period: str):
                                 ownership rules, whereas the merger will not affect competition. Recently Telecom
                                 regulators noted they have no objections to the merger. However, both FCC and DOJ
                                 reviews are still ongoing. Merger end date has now bee extended till Feb'23.
-                                """,
-                     period=period, is_buyer_company=False),
-           Arbitrage(target_ticker_name="TSEM", buyer_ticker_name="INTC", offer_price=53, additional_buyer_ratio=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="TSEM", period=period), buyer=Stock(ticker_name="INTC", period=period),
+                     offer_price=53, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 12, 31, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The merger will require numerous antitrust
                                 and foreign investment approvals. Intel's CEO has noted that regulatory clearance has
@@ -107,9 +109,9 @@ def arbitrages(period: str):
                                 succesfull closing - to avoid tese foreign investors will be required to provide some
                                 paperwork, which might delay the eventual payout of the merger consideration and might
                                 explain part of the spread.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="VMW", buyer_ticker_name="AVGO", offer_price=71.25,
+                                """),
+           Arbitrage(target=Stock(ticker_name="VMW", period=period), buyer=Stock(ticker_name="AVGO", period=period),
+                     offer_price=71.25,
                      additional_buyer_ratio=0.125,
                      expecting_closing=datetime(2023, 10, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - long timeline/regulatory review. This is mammoth \\$61bn deal,
@@ -117,9 +119,9 @@ def arbitrages(period: str):
                                 regulators is expected. Broadcom's CEO has noted that regulatory filings have so far
                                 seen good progress in numerous grographies. The merger could take more than a year to
                                 complete.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="LOTZ", buyer_ticker_name="SFT", offer_price=0, additional_buyer_ratio=0.69,
+                                """),
+           Arbitrage(target=Stock(ticker_name="LOTZ", period=period), buyer=Stock(ticker_name="SFT", period=period),
+                     offer_price=0, additional_buyer_ratio=0.69,
                      expecting_closing=datetime(2022, 12, 22, tzinfo=timezone.utc),
                      commentary="""**Main risk** - expensive hedging. The merger is basically an equity raise for the
                                 buyer, however, the combination will also allow SFT to enter East Cost markets.
@@ -127,9 +129,9 @@ def arbitrages(period: str):
                                 are in support. THe main issue is hedging - borrow fees are volatile and quite high at
                                 nearly 15%. There is also a minimum net cash condition, but it shouldn't be a problem
                                 if the merger closes with no delays.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="ACI", buyer_ticker_name="KR", offer_price=27.25, additional_buyer_ratio=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="ACI", period=period), buyer=Stock(ticker_name="KR", period=period),
+                     offer_price=27.25, additional_buyer_ratio=0,
                      expecting_closing=datetime(2024, 3, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. US senators have raised anticompetitive concerns
                                 to the FTC. To satisfy potential regulatory hurdles ACI and KR proposed divesting a
@@ -140,10 +142,10 @@ def arbitrages(period: str):
                                 Management remains confident that divestments will be enough to satisfy potential
                                 regulatory concerns while also stating that a lawsuit related to divident payments is
                                 groundless and should ger resolved in court.
-                                """,
-                     period=period),
+                                """),
 
-           Arbitrage(target_ticker_name="SIMO", buyer_ticker_name="MXL", offer_price=93.54,
+           Arbitrage(target=Stock(ticker_name="SIMO", period=period), buyer=Stock(ticker_name="MXL", period=period),
+                     offer_price=93.54,
                      additional_buyer_ratio=0.388,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - Chinese regulatory approval. Approval from China's regulators is the main hurdle.
@@ -151,35 +153,34 @@ def arbitrages(period: str):
                                 its largest market. Both parties had previously filed under the simplified procedures, but have
                                 now re-filed under a normal procedure as advised by Chinese regulators. This month the documents
                                 have been accepted and regulatory review is underway.
-                                Management reiterated the expected closing date to be in mid-late 2023.""",
-                     period=period),
-           Arbitrage(target_ticker_name="IAA", buyer_ticker_name="RBA", offer_price=10, additional_buyer_ratio=0.5804,
+                                Management reiterated the expected closing date to be in mid-late 2023."""),
+           Arbitrage(target=Stock(ticker_name="IAA", period=period), buyer=Stock(ticker_name="RBA", period=period),
+                     offer_price=10, additional_buyer_ratio=0.5804,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - shareholder approval. The current spread largely reflects the risk of IAA
                                 shareholder approval (meeting date TBD). Recently, reputable activist Ancore (4% stake)
                                 voiced its opposition to the merger, arguing that it undervalues the company. Given the
                                 strong strategic rationale and relatively low transaction multiple, there is a decent
                                 chance for an improved offer. Both parties seem confident that regulatory approvals will pass.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="HVBC", buyer_ticker_name="CZFS", offer_price=6.1, additional_buyer_ratio=0.32,
+                                """),
+           Arbitrage(target=Stock(ticker_name="HVBC", period=period), buyer=Stock(ticker_name="CZFS", period=period),
+                     offer_price=6.1, additional_buyer_ratio=0.32,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - expensive hedging. The key reason for the spread is high borrow fees,
                                 currently standing at 13%. Merger is expected to close succesfully by H1'23. Both
                                 shareholder and regulatory approval are likely to pass given the larget premium over
                                 the historical TBV as wll as the small size of the combined enterprise.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="OIIM", buyer_ticker_name="Management", offer_price=4.93,
+                                """),
+           Arbitrage(target=Stock(ticker_name="OIIM", period=period), buyer="Management", offer_price=4.93,
                      additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - Chinese privatization. The spread exists mainly due to the market's
                                 skepticism towards anything China-realted. Privatization is led by a reputable PE firm
                                 that has carried out similar transactions in the past. Moreover, management is  also
                                 particiapating in the buyout that increase the chances of a successful closing.
-                                """,
-                     period=period, is_buyer_company=False),
-           Arbitrage(target_ticker_name="SJR", buyer_ticker_name="RCI", offer_price=30.12, additional_buyer_ratio=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="SJR", period=period), buyer=Stock(ticker_name="RCI", period=period),
+                     offer_price=30.12, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. Regulators have blocked the transaction saying
                                 it will significantly dampen competition in Canda (where telecom rates are already
@@ -189,9 +190,9 @@ def arbitrages(period: str):
                                 Anticipated settlement during the attempted mediation has failed. This month, the
                                 heaing started a competition Tribunal. Both parties expect to receive regulatory
                                 clearance sometime in 2023.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="FCRD", buyer_ticker_name="CCAP", offer_price=1.89,
+                                """),
+           Arbitrage(target=Stock(ticker_name="FCRD", period=period), buyer=Stock(ticker_name="CCAP", period=period),
+                     offer_price=1.89,
                      additional_buyer_ratio=0.2063,
                      expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - NAV volatiltiy. This is essentally a NAV for NAV merger with an
@@ -200,9 +201,9 @@ def arbitrages(period: str):
                                 due to small capitalization, somewhat confusing consideration calculations, and unknown,
                                 but predictable transaction expenses. The main risk is NAV volatility, however, due to
                                 short timeline NAV changes are likelty to be minimal.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="ONEM", buyer_ticker_name="AMZN", offer_price=18,
+                                """),
+           Arbitrage(target=Stock(ticker_name="ONEM", period=period), buyer=Stock(ticker_name="AMZN", period=period),
+                     offer_price=18,
                      additional_buyer_ratio=0, expecting_closing=datetime(2022, 12, 22, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. Several senators sent a letter to FTC,
                                 expressing concerns about Amazon potentially dominating the primary care market as well
@@ -210,27 +211,25 @@ def arbitrages(period: str):
                                 information from the parties. However, an eventual merger block seems unlikely, given
                                 Amazon's limited presence in the primary care market, the highly fragmented nature of
                                 the industry, and a negligible One Mediacal market share.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="FORG", buyer_ticker_name="Thoma Bravo", offer_price=23.25,
+                                """),
+           Arbitrage(target=Stock(ticker_name="FORG", period=period), buyer="Thoma Bravo", offer_price=23.25,
                      additional_buyer_ratio=0, expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - antitrust approval. FORG is getting acquired by PE firm Thoma Bravo.
                                 The main risk is regulatory approval due to increased market concentration. Just this
                                 year Thomas Bravo has already acquired 2 players in the IAM space - one of which is a
                                 direct peer to FORG. Recently, reports came out that Thomas Bravo plans to pull and
                                 refile its merger docs with DOJ. Merger is expected to close in the first half of 2023.
-                                """,
-                     period=period, is_buyer_company=False),
-           Arbitrage(target_ticker_name="SGFY", buyer_ticker_name="CVS", offer_price=30.5, additional_buyer_ratio=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="SGFY", period=period), buyer=Stock(ticker_name="CVS", period=period),
+                     offer_price=30.5, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The reason for the small spread is still pending
                                 regualtory approval. Recently FTC requested additional information due to
                                 anti-competitive concerns of the proporsed merger. CSV's managements suggests the deal
                                 will pass as both companies provide different products and services. Merger is expected
                                 to close in H1'23.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="GSMG", buyer_ticker_name="Management", offer_price=1.55,
+                                """),
+           Arbitrage(target=Stock(ticker_name="GSMG", period=period), buyer="Management", offer_price=1.55,
                      additional_buyer_ratio=0, expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - Chinese company and material downside. The price was already raised
                                 once from the initial \\$1.27\\/share, which was rejected by the special committee. An
@@ -238,9 +237,9 @@ def arbitrages(period: str):
                                 US hedge fund Shah Capital is rolling its 11% stake. Shareholder approval has been granted.
                                 Downside is very material, which coupled with GSMG being a Chineese company, probably
                                 explains the current spread.
-                                """,
-                     period=period, is_buyer_company=False),
-           Arbitrage(target_ticker_name="CCHWF", buyer_ticker_name="CRLBF", offer_price=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="CCHWF", period=period), buyer=Stock(ticker_name="CRLBF", period=period),
+                     offer_price=0,
                      additional_buyer_ratio=0.5579, expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - potential dilution to the consideration due to certain earn-out
                                 provisions. The merger has already received shareholder approval. Antitrust risks are
@@ -250,9 +249,9 @@ def arbitrages(period: str):
                                 the amount of Columbia Care shares issued as an earn-out for its historical acqusition
                                 form Dec'20. Information on the earn-out would lower the exchange rate to 0.5255 and
                                 reduce the spread to 2%.
-                                """,
-                     period=period),
-           Arbitrage(target_ticker_name="SWIR", buyer_ticker_name="SMTC", offer_price=31, additional_buyer_ratio=0,
+                                """),
+           Arbitrage(target=Stock(ticker_name="SWIR", period=period), buyer=Stock(ticker_name="SMTC", period=period),
+                     offer_price=31, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 3, 31, tzinfo=timezone.utc),
                      commentary="""The spread used to stand at 2% before widening to the current 7% on the news of the
                                     2nd request from DOJ. \\$SWIR is \\$1.1bn mcap company designing and selling hardware and
@@ -261,8 +260,7 @@ def arbitrages(period: str):
                                     modules (IoT Solutions). In Aug'22, \\$SWIR agreed to be acquired by semiconductor supplier
                                     \\$SMTC at \\$31/share in cash. The transaction has already been approved by \\$SWIR's
                                     shareholders. The only remaining hurdle is regulatory approval in the US.
-                                    Parties expect the merger to close by Mar'23.""",
-                     period=period)]
+                                    Parties expect the merger to close by Mar'23.""")]
     return sorted(res, key=lambda x: x.expecting_closing)
 
 
@@ -275,20 +273,26 @@ def render_sentiment():
 
 
 def render_arbitrage(a: Arbitrage):
-    title(f"{a.buyer_ticker_name} buys {a.target_ticker_name}")
-    altair_chart(a(), use_container_width=True)
+    a.target = base_strategy(a.target)
+    if isinstance(a.buyer, str):
+        buyer_ticker_name = a.buyer
+    else:
+        buyer_ticker_name = a.buyer.ticker_name
+        a.buyer = base_strategy(a.buyer)
+
+    title(f"{buyer_ticker_name} buys {a.target.ticker_name}")
+    altair_chart(arbitrage_strategy(a), use_container_width=True)
     markdown(a.commentary)
 
 
 def render_ticker(stock: Stock):
-    if stock.ticker_name in set(["GOOG", "NVDA", "ASML", "KLAC"]):
-        s = stock.vix_strategy()
-    else:
-        s = stock.base_strategy()
+    stock = base_strategy(stock)
+    if stock.ticker_name in {"GOOG", "NVDA", "ASML", "KLAC"}:
+        stock = vix_strategy(stock)
 
-    title(s.title)
-    altair_chart(s.chart, use_container_width=True)
-    caption(s.description)
+    title(stock.title)
+    altair_chart(stock.price_chart, use_container_width=True)
+    caption(stock.description)
 
 
 set_page_config(layout="wide", initial_sidebar_state="collapsed")
