@@ -1,4 +1,4 @@
-from altair import Axis, Chart, Scale, X, Y, layer, Tooltip, value, datum
+from altair import Axis, Chart, Scale, X, Y, layer, Tooltip, value, datum, condition, Y2
 from datetime import datetime, timedelta, timezone
 from pandas import DataFrame
 from yfinance import Ticker
@@ -17,30 +17,75 @@ class Stock:
         self.period = period
         self.ticker = Ticker(self.ticker_name)
         self.history = self.ticker.history(period=self.period).reset_index()
+
+        # when buy date is today but we don't have data for today yet.
+        if buy_date is not None:
+            last_date = self.history.Date.max()
+            if last_date < buy_date:
+                buy_date = None
+
         self.buy_date = buy_date
 
     def base_strategy(self) -> Optional[StockChart]:
+
+        description = ""
+        loss_th = 0.08
+
+        open_close_color = condition("datum.Open <= datum.Close",
+                                     value("#06982d"),
+                                     value("#ae1325"))
+
+        base = Chart(self.history).encode(X("Date:T", axis=Axis(title=None)),
+                                          color=open_close_color)
+
+        rule = base.mark_rule().encode(
+            Y(
+                'Low:Q',
+                title=f'{self.ticker_name}',
+                scale=Scale(zero=False)
+            ),
+            Y2('High:Q')
+        )
+
+        bar = base.mark_bar().encode(
+            Y('Open:Q'),
+            Y2('Close:Q')
+        )
+        t_line = rule + bar
+
+        t_ma_line = base.mark_line(stroke="#FF8788", strokeDash=[1, 5]) \
+            .transform_window(ma10="mean(Close)",
+                              frame=[-10, 0]) \
+            .encode(y="ma10:Q",
+                    tooltip=[Tooltip("ma10:Q", title="Moving average 10 days")])
         if self.buy_date is None:
-            return None
+            return StockChart(title=f"{self.ticker_name}", chart=t_line + t_ma_line, description=description)
+
         description = "\n\nSell when the stock price crosses `cut the loss` line."
+        buy_price = self.history.iloc[self.history.Date.searchsorted(self.buy_date)]["Open"]
 
-        base = Chart(self.history).encode(X("Date:T", axis=Axis(title=None)))
-        buy_price = self.history.iloc[self.history.Date.searchsorted(self.buy_date)]["Close"]
-
-        cut_loss = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(buy_price * (1 - 0.07)))
-        cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=60, dy=7, text="cut the loss (-7% of buy price)",
+        cut_loss = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(buy_price * (1 - loss_th)))
+        cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=60, dy=7,
+                                           text=f"cut the loss (-{100 * loss_th:.0f}% of buy price)",
                                            fontSize=8) \
             .encode(x=value(0))
         cut_loss_intersection = base.mark_point(color="#F03F35") \
             .encode(y="Close") \
-            .transform_filter(datum.Date > self.buy_date and datum.Close < buy_price * (1 - 0.07))
-        take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]).encode(y=datum(buy_price * (1 + 0.25)))
+            .transform_filter(f"year(datum.Date)>={self.buy_date.year} && "
+                              f"month(datum.Date)>={self.buy_date.month - 1} && "
+                              f"date(datum.Date)>={self.buy_date.day}") \
+            .transform_filter(datum.Close < buy_price * (1 - loss_th))
+        take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
+            .encode(y=datum(buy_price * (1 + 0.25)))
         take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
                                              fontSize=8) \
             .encode(x=value(0))
         take_gain_intersection = base.mark_point(color="#32B67A") \
             .encode(y="Close") \
-            .transform_filter(datum.Date > self.buy_date and datum.Close > buy_price * (1 + 0.25))
+            .transform_filter(f"year(datum.Date)>={self.buy_date.year} && "
+                              f"month(datum.Date)>={self.buy_date.month - 1} && "
+                              f"date(datum.Date)>={self.buy_date.day}") \
+            .transform_filter(datum.Close > buy_price * (1 + 0.25))
 
         dates = [self.buy_date]
         texts = ["bought"]
@@ -55,8 +100,9 @@ class Stock:
                                  'text': texts})).mark_rule(strokeDash=[1, 5]).encode(x="Date:T")
         rules_text = rules.mark_text(angle=270, baseline="bottom").encode(text="text:N")
 
-        chart = cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + take_gain_intersection + rules + rules_text
-        return StockChart(title="Base", chart=chart, description=description)
+        chart = t_line + t_ma_line + cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + \
+                take_gain_intersection + rules + rules_text
+        return StockChart(title=f"{self.ticker_name}", chart=chart, description=description)
 
     def vix_strategy(self) -> StockChart:
         description = "When ^VIX crosses `sell` line, sell the stock, when ^VIX crosses `buy` line, buy the stock." \
@@ -69,25 +115,10 @@ class Stock:
         base = Chart(source).encode(
             X("Date:T", axis=Axis(title=None))
         )
-        t_line = base.mark_line(stroke="#9C9CDD") \
-            .encode(Y("Close:Q",
-                      axis=Axis(title=f"{self.ticker_name}", titleColor="#9C9CDD"),
-                      scale=Scale(zero=False)),
-                    tooltip=[Tooltip("Close", title=f"Price ({self.ticker_name})")]
-                    )
-
-        t_ma_line = t_line.mark_line(stroke="#FF8788", strokeDash=[1, 5]) \
-            .transform_window(ma10="mean(Close)",
-                              frame=[-10, 0]) \
-            .encode(y="ma10:Q",
-                    tooltip=[Tooltip("ma10:Q", title="Moving average 10 days")])
 
         base_strategy = self.base_strategy()
-        if base_strategy is not None:
-            description += base_strategy.description
-            t_chart = t_line + t_ma_line + base_strategy.chart
-        else:
-            t_chart = t_line + t_ma_line
+        description += base_strategy.description
+        t_chart = base_strategy.chart
 
         vix_line = base.mark_line(stroke="#8B743D") \
             .encode(Y("Close_vix:Q",
