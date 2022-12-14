@@ -28,14 +28,14 @@ def arbitrage_strategy(arbitrage: Arbitrage) -> Arbitrage:
                                            fontSize=12) \
         .encode(x=value(0))
 
-    yield_rule = base.mark_rule() \
+    yield_rule = base.mark_rule(color="#ABCEE2", ) \
         .transform_filter(f"year(datum.Date)=={last_date.year} && "
                           f"month(datum.Date)=={last_date.month - 1} && "
                           f"date(datum.Date)=={last_date.day}") \
         .encode(Y("Close:Q"),
                 Y2Datum(
                     datum=final_offer_price))
-    yield_rule_text = yield_rule.mark_text(angle=270, baseline="bottom", dx=50, fontSize=12) \
+    yield_rule_text = yield_rule.mark_text(color="#ABCEE2", angle=270, baseline="bottom", dx=50, fontSize=12) \
         .transform_calculate(spread=(final_offer_price - datum.Close) / datum.Close) \
         .encode(text=Text("spread:Q", format=".2%", formatType="number"))
 

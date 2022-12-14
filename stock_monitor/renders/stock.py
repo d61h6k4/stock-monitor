@@ -77,8 +77,8 @@ def base_strategy(stock: Stock) -> Stock:
         texts.append('reevaluate')
 
     rules = Chart(DataFrame({'Date': dates,
-                             'text': texts})).mark_rule(strokeDash=[1, 5]).encode(x="Date:T")
-    rules_text = rules.mark_text(angle=270, baseline="bottom").encode(text="text:N")
+                             'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
+    rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
 
     chart = t_line + t_ma_line + cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + \
             take_gain_intersection + rules + rules_text
