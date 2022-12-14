@@ -21,9 +21,9 @@ def arbitrage_strategy(arbitrage: Arbitrage) -> Arbitrage:
         "Arbitrage strategy appliable only to the already evaluated strategy"
 
     base = Chart(target_history).encode(X("Date:T", axis=Axis(title=None)))
-    offer_line = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]) \
+    offer_line = base.mark_line(color="#ABCEE2", strokeDash=[1, 2]) \
         .encode(y=datum(final_offer_price))
-    offer_line_text = offer_line.mark_text(color="#F03F35", dx=65, dy=7,
+    offer_line_text = offer_line.mark_text(color="#ABCEE2", dx=65, dy=7,
                                            text=f"Offer price = {final_offer_price:.1f}",
                                            fontSize=12) \
         .encode(x=value(0))
