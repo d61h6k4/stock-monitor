@@ -46,9 +46,9 @@ def arbitrage_strategy(arbitrage: Arbitrage) -> Arbitrage:
         dates.append(last_date + timedelta(days=10))
     texts = [f"Exp. closing {arbitrage.expecting_closing.date()}"]
     e_closing_rule = Chart(DataFrame({'Date': dates,
-                                      'text': texts})).mark_rule(stroke="#F03F35", strokeDash=[1, 5]) \
+                                      'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]) \
         .encode(x="Date:T")
-    e_closing_rule_text = e_closing_rule.mark_text(stroke="#F03F35", angle=270, baseline="bottom") \
+    e_closing_rule_text = e_closing_rule.mark_text(color="#ABCEE2", angle=270, baseline="bottom") \
         .encode(text="text:N")
 
     if isinstance(arbitrage.buyer, str):
