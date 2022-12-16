@@ -27,6 +27,7 @@ dependencies = [
   "altair",
   "pandas",
   "yfinance",
+  "streamlit",
 ]
 dynamic = ["version"]
 
@@ -47,10 +48,6 @@ dependencies = [
 cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=stock_monitor --cov=tests {args}"
 no-cov = "cov --no-cov {args}"
 
-[tool.hatch.envs.web]
-dependencies = [
-    "streamlit"
-]
 [tool.hatch.env.web.scripts]
 webapp = "streamlit run stock_monitor/bin/web.py"
 
