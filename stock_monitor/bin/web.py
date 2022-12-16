@@ -51,7 +51,8 @@ def render_ticker(stock: Stock):
     caption(stock.description)
 
 
-set_page_config(layout="wide", initial_sidebar_state="collapsed")
+set_page_config(page_title="lawallstra&szlig;e", page_icon=":chart:", layout="wide",
+                initial_sidebar_state="collapsed")
 title(u":orange[L]och :orange[A]uf :orange[W]allstra&szlig;e")
 
 with sidebar:
