@@ -84,7 +84,7 @@ def base_strategy(stock: Stock) -> Stock:
             take_gain_intersection + rules + rules_text
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
-    stock.description = description
+    stock.description += description
     return stock
 
 
@@ -128,7 +128,7 @@ def vix_strategy(stock: Stock) -> Stock:
 
     chart = layer(vix_line + sell_line + sell_text + sell_intersection + buy_line + buy_text + buy_intersection,
                   t_chart).resolve_scale(y="independent")
-    stock.title = "^VIX strategy"
+    stock.title = stock.ticker_name
     stock.price_chart = chart
-    stock.description = description
+    stock.description += description
     return stock
