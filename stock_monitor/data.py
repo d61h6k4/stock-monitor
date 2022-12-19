@@ -9,7 +9,7 @@ def tickers():
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
 def vix_stocks(period: str):
-    return [Stock(ticker_name, period=period) for ticker_name in ["GOOG", "NVDA", "ASML", "KLAC"]]
+    return [Stock(ticker_name, period=period) for ticker_name in ["GOOG", "NVDA", "ASML", "KLAC", "WAF.DE"]]
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
