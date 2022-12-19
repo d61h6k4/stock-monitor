@@ -4,7 +4,7 @@ from streamlit import cache
 
 
 def tickers():
-    return ["PBR", "TGNA", "FSTX", "KOP", "CEG", "VST"]
+    return ["PBR", "TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ"]
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
@@ -57,6 +57,8 @@ def stocks(period: str):
             buy_date = datetime(2022, 12, 6, tzinfo=timezone.utc)
         elif ticker_name == "VST":
             buy_date = datetime(2022, 12, 16, tzinfo=timezone.utc)
+        elif ticker_name == "CNQ":
+            buy_date = datetime(2022, 12, 19, tzinfo=timezone.utc)
         res.append(Stock(ticker_name, period=period, buy_date=buy_date))
     return res
 
