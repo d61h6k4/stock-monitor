@@ -35,7 +35,7 @@ def render_arbitrage(a: Arbitrage):
         a.buyer = base_strategy(a.buyer)
 
     title(f"{buyer_ticker_name} buys {a.target.ticker_name}")
-    altair_chart(arbitrage_strategy(a), use_container_width=True)
+    altair_chart(arbitrage_strategy(a), use_container_width=True, theme="streamlit")
     markdown(a.commentary)
 
 
@@ -44,7 +44,7 @@ def render_vix_strategy(stock: Stock):
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
                          stock.volume_chart.properties(height=50, width=1192)),
-                 use_container_width=True)
+                 use_container_width=True, theme="streamlit")
     caption(stock.description)
 
 
@@ -54,7 +54,7 @@ def render_ticker(stock: Stock):
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
                          stock.volume_chart.properties(height=50, width=1192)),
-                 use_container_width=True)
+                 use_container_width=True, theme="streamlit")
     caption(stock.description)
 
 

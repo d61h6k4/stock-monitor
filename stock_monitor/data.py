@@ -4,7 +4,7 @@ from streamlit import cache
 
 
 def tickers():
-    return ["PBR", "TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ"]
+    return ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ"]
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
@@ -109,7 +109,7 @@ def arbitrages(period: str):
                                 """),
            Arbitrage(target=Stock(ticker_name="FSTX", period=period), buyer=Stock(ticker_name="1177.HK", period=period),
                      offer_price=7.12, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2022, 12, 19, tzinfo=timezone.utc),
+                     expecting_closing=datetime(2022, 12, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The market seems to be concerned that the merger
                                 might get blocked by CDIUS due to the buyer being a Chinese firm. Such regulatory
                                 concerns are quite unusual given this is a tiny acquisition of an oncology treatment
