@@ -100,7 +100,6 @@ def vix_strategy(stock: Stock) -> Stock:
         X("Date:T", axis=Axis(title=None))
     )
 
-    description += stock.description
     assert stock.price_chart is not None, "Vix strategy appliable only to the already evaluated strategy"
     t_chart = stock.price_chart
 
