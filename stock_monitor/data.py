@@ -8,33 +8,34 @@ def tickers():
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
-def vix_stocks(period: str):
-    return [Stock(ticker_name, period=period) for ticker_name in ["GOOG", "NVDA", "ASML", "KLAC", "WAF.DE", "MSFT"]]
+def vix_stocks(period: str, interval: str):
+    return [Stock(ticker_name, period=period, interval=interval) for ticker_name in
+            ["GOOG", "NVDA", "ASML", "KLAC", "WAF.DE", "MSFT"]]
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
-def tax_loss_jan_stocks(period: str):
-    return [Stock("SLGC", period=period,
+def tax_loss_jan_stocks(period: str, interval: str):
+    return [Stock("SLGC", period=period, interval=interval,
                   description=r"""Somalogic \$SLGC, \$2.26 - A leading platform for proteomics analysis,
                                   \$SLGC has a \$435 mm cap w/ \$550 mm+ of cash. \$SLGC has cut costs and
                                   should burn ~\$80-\$100 mm in '23, w/ a partnership with \$ILMN due to
                                   launch in '24.  New Exec Chair seems like validation."""),
-            Stock("ALLT", period=period,
+            Stock("ALLT", period=period, interval=interval,
                   description=r"""Allot \$ALLT, \$2.86 - A provider of carrier networking solutions,
                                   \$ALLT's move into a new consumer facing security biz has been a disaster.
                                   Mgmt, however, now appears under pressure to rollback that effort.
                                   Core DPI biz is very strong. \$110 mm cap with good balance sheet."""),
-            Stock("ACTG", period=period,
+            Stock("ACTG", period=period, interval=interval,
                   description=r"""Acacia \$ACTG, \$3.59 - Stock now trades at 68% of \$5.25 per share book
                                   value pro-forma for Starboard deal, and Viamet and Wifi 6 patents are
                                   probably worth \$1+ more per share. Balance sheet is rock solid and loaded
                                   with cash, & $ACTG has bought back a lot of stock in past."""),
-            Stock("DSP", period=period,
+            Stock("DSP", period=period, interval=interval,
                   description=r"""Viant \$DSP, \$3.34 - Trading flat with its ~\$225 mm of cash w/ breakeven
                                   operations (w/ solid EBITDA in past), \$DSP offers a buy side programmatic
                                   ad-tech platform that has nicely grown ad spend volume over the years.
                                   The two brothers who control \$DSP are solid entrepreneurs"""),
-            Stock("CGNT", period=period,
+            Stock("CGNT", period=period, interval=interval,
                   description=r"""Cognyte \$CGNT, \$2.40 - This cybersecurity play had a rocky year of
                                   operations but appears to be regaining its footing with cost cuts and asset sales.
                                   Biz has been profitable in past and balance sheet is now on firmer ground.
@@ -43,7 +44,7 @@ def tax_loss_jan_stocks(period: str):
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
-def stocks(period: str):
+def stocks(period: str, interval: str):
     res = []
     for ticker_name in tickers():
         buy_date = None
@@ -59,7 +60,7 @@ def stocks(period: str):
             buy_date = datetime(2022, 12, 16, tzinfo=timezone.utc)
         elif ticker_name == "CNQ":
             buy_date = datetime(2022, 12, 19, tzinfo=timezone.utc)
-        res.append(Stock(ticker_name, period=period, buy_date=buy_date))
+        res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date))
     return res
 
 

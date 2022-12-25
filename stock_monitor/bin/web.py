@@ -64,7 +64,9 @@ title(u":orange[L]och :orange[A]uf :orange[W]allstra&szlig;e")
 
 with sidebar:
     PERIOD = selectbox("Period", ("3mo", "6mo", "1y", "2y", "5y", "max"))
+    INTERVAL = selectbox("Period", ("1d", "1wk", "1mo"))
 assert PERIOD is not None
+assert INTERVAL is not None
 
 tabs_name = ["Position size", "Arbitrage", "VIX", "January Effect"] + tickers()
 
@@ -83,7 +85,7 @@ for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
         case "VIX":
             with tab:
                 subheader("^VIX strategy")
-                for stock in vix_stocks(PERIOD):
+                for stock in vix_stocks(PERIOD, INTERVAL):
                     render_vix_strategy(stock)
         case "January Effect":
             with tab:
@@ -92,10 +94,10 @@ for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
                        At YE, holders are often eager to lock-in tax losses & clean-up their books. \
                        So we could see some nice bounces once the selling abates.")
                 markdown("[source.](https://twitter.com/RagingVentures/status/1604244196273143808)")
-                for stock in tax_loss_jan_stocks(PERIOD):
+                for stock in tax_loss_jan_stocks(PERIOD, INTERVAL):
                     render_ticker(stock)
         case _:
             with tab:
-                for s in stocks(PERIOD):
+                for s in stocks(PERIOD, INTERVAL):
                     if s.ticker_name == tab_name:
                         render_ticker(s)
