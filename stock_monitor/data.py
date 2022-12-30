@@ -80,7 +80,7 @@ def arbitrages(period: str):
                                     a well-protected downside on ATVI standalone basis."""),
            Arbitrage(target=Stock(ticker_name="IRBT", period=period), buyer=Stock(ticker_name="AMZN", period=period),
                      offer_price=61, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2022, 12, 31, tzinfo=timezone.utc),
+                     expecting_closing=datetime(2023, 8, 31, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The spread has widened from 5% to over 15% as market
                                 started pricing in higher likelihood of regulatory hurdles. Two months ago the parties
                                 received the 2nd request from the FTC. Soon after, several senators began pushing the FTC to
@@ -110,7 +110,7 @@ def arbitrages(period: str):
                                 """),
            Arbitrage(target=Stock(ticker_name="FSTX", period=period), buyer=Stock(ticker_name="1177.HK", period=period),
                      offer_price=7.12, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2022, 12, 30, tzinfo=timezone.utc),
+                     expecting_closing=datetime(2023, 1, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The market seems to be concerned that the merger
                                 might get blocked by CDIUS due to the buyer being a Chinese firm. Such regulatory
                                 concerns are quite unusual given this is a tiny acquisition of an oncology treatment
@@ -155,16 +155,6 @@ def arbitrages(period: str):
                                 regulators is expected. Broadcom's CEO has noted that regulatory filings have so far
                                 seen good progress in numerous grographies. The merger could take more than a year to
                                 complete.
-                                """),
-           Arbitrage(target=Stock(ticker_name="LOTZ", period=period), buyer=Stock(ticker_name="SFT", period=period),
-                     offer_price=0, additional_buyer_ratio=0.69,
-                     expecting_closing=datetime(2022, 12, 22, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - expensive hedging. The merger is basically an equity raise for the
-                                buyer, however, the combination will also allow SFT to enter East Cost markets.
-                                Shareholder approvals shouldn't be a problem as two major shareholders of LOTZ (25%)
-                                are in support. THe main issue is hedging - borrow fees are volatile and quite high at
-                                nearly 15%. There is also a minimum net cash condition, but it shouldn't be a problem
-                                if the merger closes with no delays.
                                 """),
            Arbitrage(target=Stock(ticker_name="ACI", period=period), buyer=Stock(ticker_name="KR", period=period),
                      offer_price=27.25, additional_buyer_ratio=0,
@@ -240,7 +230,7 @@ def arbitrages(period: str):
                                 """),
            Arbitrage(target=Stock(ticker_name="ONEM", period=period), buyer=Stock(ticker_name="AMZN", period=period),
                      offer_price=18,
-                     additional_buyer_ratio=0, expecting_closing=datetime(2022, 12, 22, tzinfo=timezone.utc),
+                     additional_buyer_ratio=0, expecting_closing=datetime(2023, 3, 22, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. Several senators sent a letter to FTC,
                                 expressing concerns about Amazon potentially dominating the primary care market as well
                                 as acquiring vast amounts of personal data. FTC has already requested additional
