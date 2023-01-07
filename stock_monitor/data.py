@@ -44,6 +44,52 @@ def tax_loss_jan_stocks(period: str, interval: str):
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
+def ideas(period: str, interval: str):
+    return [Stock("VONOY", period=period, interval=interval,
+                  title="VNA",
+                  description=r"""Germany's biggest landlord $VNA is priced at a 70% discount to its net asset value.
+                                  Its share price would need to 3x just to reach its net asset value.
+                                  [Source](https://twitter.com/askjussi/status/1611358663754813440)"""),
+            Stock("DBRG", period=period, interval=interval,
+                  description=r"""Pure play alternative asset manager focused exclusively on network infrastructure
+                                  investments. A transformed Colony Capital with nearly all legacy assets sold off.
+                                  Significant step up in earnings expected in 2023 after the launch of several new
+                                  funds. Market is pricing in zero success in fundraising and gives no credit for the
+                                  carried interest. Sentiment is likely to reverse upon successful new fund launches.
+                                  Insiders started buying stock recently. Infrastructure is a key growth engine for
+                                  alternative asset managers. \$KKR, \$BX, etc., are all raising significant capital
+                                  for infrastructure investments and \$DBRG is the fastest-growing manager out there.
+                                  Valuing fee-related earnings at 22x, results in a SOTP valuation of \$32\/share with an
+                                  additional \$5\/share from carried interest.
+                                  **Exp. gain: +200\% to \$40\/share.**
+                                  [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
+            Stock("CRNT", period=period, interval=interval,
+                  description=r"""Vendor for global wireless network operators specializing in backhaul solutions.
+                                  Shareholders have recently rejected a hostile takeover by peer \$AVNW at \$3.8/share.
+                                  Renewed talks between AVNW and CRNT present the potential for near-term upside
+                                  realization. While \$AVNW is the leader in NA backhaul, CRNT is now encroaching on
+                                  its territory, having secured contracts with every NA Tier 1 operator. AVNW used a
+                                  difficult equity market environment to try to opportunistically scoop up an
+                                  undervalued asset.Post proxy fight CRNT management is forced to drive shareholder
+                                  value.Trades near its historical 1x book value floor. Failed takeover attempt at
+                                  \$3.08/share in Aug’22. Management’s internal value estimate of \$5/share.
+                                  **Exp. gain: +70% to\$3.08+**
+                                  [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
+            Stock("SI", period=period, interval=interval,
+                  description=r"""FDIC-regulated bank which specializes in serving the crypto-currency ecosystem and
+                                  acquired the Diem platform from \$META. An institution with a very liquid asset book
+                                  of government securities trading below tangible book. No credit risk exposure to
+                                  crypto.The stock is down from \$220 to \$30 over the past year. At 1xBV, the downside
+                                  is very well protected with material optionality from crypto recovery or Diem getting
+                                  regulatory approval.Trades at 1xBV. In an upside scenario, it is a differentiated
+                                  financial institution worth several multiples of BV. If Diem takes off \$SI becomes a
+                                  high-growth technology company.
+                                  **Exp. gain: 2x-4x.**
+                                  [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)""")
+            ]
+
+
+@cache(persist=False, ttl=3600, allow_output_mutation=True)
 def stocks(period: str, interval: str):
     res = []
     for ticker_name in tickers():

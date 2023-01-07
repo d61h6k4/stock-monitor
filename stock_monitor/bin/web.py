@@ -4,7 +4,7 @@ from streamlit import altair_chart, tabs, write, caption, sidebar, selectbox, se
 from stock_monitor.models import Stock, Arbitrage
 from stock_monitor.renders.stock import base_strategy, vix_strategy
 from stock_monitor.renders.arbitrages import arbitrage_strategy
-from stock_monitor.data import tickers, arbitrages, stocks, vix_stocks, tax_loss_jan_stocks
+from stock_monitor.data import arbitrages, stocks, vix_stocks, tax_loss_jan_stocks, ideas
 
 
 def render_position_size():
@@ -55,7 +55,7 @@ def render_ticker(stock: Stock):
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
                          stock.volume_chart.properties(height=50, width=1192)),
                  use_container_width=True, theme="streamlit")
-    caption(stock.description)
+    markdown(stock.description)
 
 
 set_page_config(page_title="lawallstra&szlig;e", page_icon=":chart:", layout="wide",
@@ -68,7 +68,7 @@ with sidebar:
 assert PERIOD is not None
 assert INTERVAL is not None
 
-tabs_name = ["Position size", "Arbitrage", "VIX", "January Effect"] + tickers()
+tabs_name = ["Position size", "Arbitrage", "VIX", "January Effect", "Portfolio", "Ideas"]
 
 for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
     match tab_name:
@@ -96,8 +96,11 @@ for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
                 markdown("[source.](https://twitter.com/RagingVentures/status/1604244196273143808)")
                 for stock in tax_loss_jan_stocks(PERIOD, INTERVAL):
                     render_ticker(stock)
-        case _:
+        case "Portfolio":
             with tab:
                 for s in stocks(PERIOD, INTERVAL):
-                    if s.ticker_name == tab_name:
-                        render_ticker(s)
+                    render_ticker(s)
+        case "Ideas":
+            with tab:
+                for s in ideas(PERIOD, INTERVAL):
+                    render_ticker(s)
