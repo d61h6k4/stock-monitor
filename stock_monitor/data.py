@@ -85,7 +85,20 @@ def ideas(period: str, interval: str):
                                   financial institution worth several multiples of BV. If Diem takes off \$SI becomes a
                                   high-growth technology company.
                                   **Exp. gain: 2x-4x.**
-                                  [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)""")
+                                  [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
+            Stock("AMKR", period=period, interval=interval,
+                  description=r"""Semiconductor assembly services provider – the world’s most wonderfully boring
+                                  businesses to own. At 9x earnings and shifting into higher margin services.
+                                  For a semi business, it has very low cyclicality and low capex needs, and yet is
+                                  delivering above-industry revenue growth with 3 year CAGR of 20%. Oligopolistic
+                                  industry – AMKR is the No.2 player with a 25% share, behind \$ASX with 35%. Due to
+                                  increasing chip complexity, the industry is shifting towards less commoditized and
+                                  more advanced packaging/assembly solutions, requiring more R&D and tighter
+                                  integration with customers. This also drives increasing margins for key players.
+                                  Should trade at an above-market multiple of 20x vs 9x today. ’23 and ’24 EPS are
+                                  expected at \$3 and \$4. Easy double with \$4 fwd EPS and 10.5x multiple. DCF model
+                                  results in \$87/share. **Exp. gain: +100% by 2H23.**
+                                  [Source.](https://twitter.com/InvestSpecial/status/1612025171879010305)""")
             ]
 
 
