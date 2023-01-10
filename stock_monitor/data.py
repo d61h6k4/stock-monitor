@@ -98,7 +98,17 @@ def ideas(period: str, interval: str):
                                   Should trade at an above-market multiple of 20x vs 9x today. ’23 and ’24 EPS are
                                   expected at \$3 and \$4. Easy double with \$4 fwd EPS and 10.5x multiple. DCF model
                                   results in \$87/share. **Exp. gain: +100% by 2H23.**
-                                  [Source.](https://twitter.com/InvestSpecial/status/1612025171879010305)""")
+                                  [Source.](https://twitter.com/InvestSpecial/status/1612025171879010305)"""),
+            Stock("XMTR", period=period, interval=interval,
+                  description=r"""Marketplace for small batch manufacturing and prototyping. Currently trades at its 
+                                  Jun’21 IPO level and at 4.5x revenue, while comps are in the 1-2x range. Competitive 
+                                  and low-entry barrier industry that is significantly exposed to macro headwinds. 
+                                  Clients and suppliers can as easily connect directly. 
+                                  No clear operating leverage with increasing scale. Relies heavily on Google Adwords 
+                                  to drive traffic. Guidedown in pricing already happened with Q3’22 results, 
+                                  volume might drop in 2023.Trades at 4.5x revenues, still at the IPO price vs. a comp 
+                                  universe 3-D printers and short-run fabricators in the 1-2x range. **Exp. gain: 50%-75%**
+                                  [Source.](https://twitter.com/InvestSpecial/status/1612387567302840320)""")
             ]
 
 
