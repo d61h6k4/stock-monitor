@@ -85,7 +85,7 @@ def base_strategy(stock: Stock) -> Stock:
 
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
-    stock.description += description
+    stock.description = description
     return stock
 
 
