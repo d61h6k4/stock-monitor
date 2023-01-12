@@ -148,7 +148,27 @@ def ideas(period: str, interval: str):
                                   by several transitory factors.Current EV/Sales of 0.75x is far below the peer group’s
                                   3.3x. Full-recovery EV/EBIT of around 7x vs around 15x for the peer group.
                                   At 15x multiple would be valued at \$37/share. **Exp. gain: +300% to \$37/share.**
-                                  [Source](https://twitter.com/InvestSpecial/status/1613508259154984962)""")
+                                  [Source](https://twitter.com/InvestSpecial/status/1613508259154984962)"""),
+             Stock("BJ", period=period, interval=interval,
+                   expectation=Expectation(price=140, date=datetime(2023, 5, 31, tzinfo=timezone.utc)),
+                   description=r"""**What does BJ do?** The business is a discount wholesale club like Costco but
+                                   focused on a more middle-class income demographic (Costco tends to skew higher
+                                   income). BJ’s charges an annual membership fee of \$55 to \$110 and delivers
+                                   extreme savings of 30% on average compared to traditional grocery and general
+                                   merchandise stores. This is a strong value proposition for a family that shops
+                                   once or twice per month for household essentials.
+                                   **Why is it a good bet?** Discount retailers tend to outperform during
+                                   recessionary periods as well as inflationary periods when consumers are looking
+                                   for bargains. During the 2008/2009 recession, discounters such as Dollar General
+                                   posted strong sales comps. We studied several discount retail concepts this summer
+                                   and determined that BJ’s presents the best longterm opportunity
+                                   **Why does the opportunity exist?** With just 226 store units compared to Costco’s
+                                   847 units, BJ’s has a significant opportunity to grow its store base and is
+                                   currently accelerating new unit openings
+                                   **What’s the prize if you’re right?** Investors appreciate the quality of the
+                                   wholesale club model and have awarded Costco a 32x price-to-earnings multiple.
+                                   Despite BJ’s being a ‘Costco clone’, its stock only trades for 17.5x earnings –
+                                   a near 50% discount(!). [Source](https://macro-ops.com)""")
              ]
     return sorted(ideas, key=lambda x: x.expectation.date)
 
