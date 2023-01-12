@@ -5,6 +5,12 @@ from pandas import DataFrame
 from yfinance import Ticker
 
 
+@dataclass(frozen=True)
+class Expectation:
+    price: float
+    date: datetime
+
+
 @dataclass
 class Stock:
     ticker_name: str
@@ -16,6 +22,7 @@ class Stock:
     history: DataFrame | None = None
     # optional data
     buy_date: datetime | None = None
+    expectation: Expectation | None = None
     # mutable data
     title: str = ""
     price_chart: Chart | None = None

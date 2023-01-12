@@ -2,7 +2,7 @@ from altair import vconcat
 from streamlit import altair_chart, tabs, write, caption, sidebar, selectbox, set_page_config, markdown, title, form, \
     number_input, select_slider, form_submit_button, subheader
 from stock_monitor.models import Stock, Arbitrage
-from stock_monitor.renders.stock import base_strategy, vix_strategy
+from stock_monitor.renders.stock import base_strategy, vix_strategy, idea_strategy
 from stock_monitor.renders.arbitrages import arbitrage_strategy
 from stock_monitor.data import arbitrages, stocks, vix_stocks, tax_loss_jan_stocks, ideas
 
@@ -58,6 +58,16 @@ def render_ticker(stock: Stock):
     markdown(stock.description)
 
 
+def render_idea(stock: Stock):
+    stock = idea_strategy(base_strategy(stock))
+
+    title(stock.title)
+    altair_chart(vconcat(stock.price_chart.properties(width=1192),
+                         stock.volume_chart.properties(height=50, width=1192)),
+                 use_container_width=True, theme="streamlit")
+    markdown(stock.description)
+
+
 set_page_config(page_title="lawallstra&szlig;e", page_icon=":chart:", layout="wide",
                 initial_sidebar_state="collapsed")
 title(u":orange[L]och :orange[A]uf :orange[W]allstra&szlig;e")
@@ -103,4 +113,4 @@ for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
         case "Ideas":
             with tab:
                 for s in ideas(PERIOD, INTERVAL):
-                    render_ticker(s)
+                    render_idea(s)

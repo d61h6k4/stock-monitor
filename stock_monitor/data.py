@@ -1,4 +1,4 @@
-from stock_monitor.models import Stock, Arbitrage
+from stock_monitor.models import Stock, Arbitrage, Expectation
 from datetime import datetime, timezone
 from streamlit import cache
 
@@ -45,13 +45,14 @@ def tax_loss_jan_stocks(period: str, interval: str):
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
 def ideas(period: str, interval: str):
-    return [Stock("VONOY", period=period, interval=interval,
-                  title="VNA",
-                  description=r"""Germany's biggest landlord $VNA is priced at a 70% discount to its net asset value.
+    ideas = [Stock("VONOY", period=period, interval=interval,
+                   expectation=Expectation(price=30, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Germany's biggest landlord $VNA is priced at a 70% discount to its net asset value.
                                   Its share price would need to 3x just to reach its net asset value.
                                   [Source](https://twitter.com/askjussi/status/1611358663754813440)"""),
-            Stock("DBRG", period=period, interval=interval,
-                  description=r"""Pure play alternative asset manager focused exclusively on network infrastructure
+             Stock("DBRG", period=period, interval=interval,
+                   expectation=Expectation(price=40, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Pure play alternative asset manager focused exclusively on network infrastructure
                                   investments. A transformed Colony Capital with nearly all legacy assets sold off.
                                   Significant step up in earnings expected in 2023 after the launch of several new
                                   funds. Market is pricing in zero success in fundraising and gives no credit for the
@@ -63,8 +64,9 @@ def ideas(period: str, interval: str):
                                   additional \$5\/share from carried interest.
                                   **Exp. gain: +200\% to \$40\/share.**
                                   [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
-            Stock("CRNT", period=period, interval=interval,
-                  description=r"""Vendor for global wireless network operators specializing in backhaul solutions.
+             Stock("CRNT", period=period, interval=interval,
+                   expectation=Expectation(price=3.08, date=datetime(2023, 5, 31, tzinfo=timezone.utc)),
+                   description=r"""Vendor for global wireless network operators specializing in backhaul solutions.
                                   Shareholders have recently rejected a hostile takeover by peer \$AVNW at \$3.8/share.
                                   Renewed talks between AVNW and CRNT present the potential for near-term upside
                                   realization. While \$AVNW is the leader in NA backhaul, CRNT is now encroaching on
@@ -75,8 +77,9 @@ def ideas(period: str, interval: str):
                                   \$3.08/share in Aug’22. Management’s internal value estimate of \$5/share.
                                   **Exp. gain: +70% to\$3.08+**
                                   [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
-            Stock("SI", period=period, interval=interval,
-                  description=r"""FDIC-regulated bank which specializes in serving the crypto-currency ecosystem and
+             Stock("SI", period=period, interval=interval,
+                   expectation=Expectation(price=120, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""FDIC-regulated bank which specializes in serving the crypto-currency ecosystem and
                                   acquired the Diem platform from \$META. An institution with a very liquid asset book
                                   of government securities trading below tangible book. No credit risk exposure to
                                   crypto.The stock is down from \$220 to \$30 over the past year. At 1xBV, the downside
@@ -86,8 +89,9 @@ def ideas(period: str, interval: str):
                                   high-growth technology company.
                                   **Exp. gain: 2x-4x.**
                                   [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
-            Stock("AMKR", period=period, interval=interval,
-                  description=r"""Semiconductor assembly services provider – the world’s most wonderfully boring
+             Stock("AMKR", period=period, interval=interval,
+                   expectation=Expectation(price=87, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Semiconductor assembly services provider – the world’s most wonderfully boring
                                   businesses to own. At 9x earnings and shifting into higher margin services.
                                   For a semi business, it has very low cyclicality and low capex needs, and yet is
                                   delivering above-industry revenue growth with 3 year CAGR of 20%. Oligopolistic
@@ -99,6 +103,7 @@ def ideas(period: str, interval: str):
                                   expected at \$3 and \$4. Easy double with \$4 fwd EPS and 10.5x multiple. DCF model
                                   results in \$87/share. **Exp. gain: +100% by 2H23.**
                                   [Source.](https://twitter.com/InvestSpecial/status/1612025171879010305)"""),
+<<<<<<< HEAD
             Stock("XMTR", period=period, interval=interval,
                   description=r"""Marketplace for small batch manufacturing and prototyping. Currently trades at its 
                                   Jun’21 IPO level and at 4.5x revenue, while comps are in the 1-2x range. Competitive 
@@ -110,6 +115,45 @@ def ideas(period: str, interval: str):
                                   universe 3-D printers and short-run fabricators in the 1-2x range. **Exp. gain: 50%-75%**
                                   [Source.](https://twitter.com/InvestSpecial/status/1612387567302840320)""")
             ]
+=======
+             Stock("FIP", period=period, interval=interval,
+                   expectation=Expectation(price=7, date=datetime(2023, 6, 1, tzinfo=timezone.utc)),
+                   description=r"""Recent spin-off from \$FTAI with 4 infrastructure assets: 3 energy terminals and a
+                                  railroad business. EBITDA is set to increase from \$140m today to \$250m in the next
+                                  12-18 months. FPI’s Jefferson terminal is now on cusp of generating strong earnings.
+                                  Transtar railroad earnings have been consistently increasing through new business
+                                  initiatives. Construction of the 485MW power plant at Long Ridge is complete.
+                                  Downside is well protected at current share price levels.Base case EBITDA is set to
+                                  grow from \$140 million today to \$250 million over the next 12-18 months.
+                                  At 11x multiple, the target of \$6.7/share. **Exp. gain: +130% to \$7/share.**
+                                  [Source](https://twitter.com/InvestSpecial/status/1613508259154984962)"""),
+             Stock("ALIT", period=period, interval=interval,
+                   expectation=Expectation(price=11, date=datetime(2023, 5, 31, tzinfo=timezone.utc)),
+                   description=r"""Provider of outsourced human capital management services/software with multiple
+                                  upcoming event catalysts. Steady business, with 3-5 year contracts, 15-year average
+                                  customer life, and 97% rev retention. Comp set is performing very well in the stock
+                                  market.Stock was down 20% after a botched secondary offering. However, Bill Foley
+                                  pulled out from selling. His lack of participation in the secondary was extremely
+                                  telling. His number two, Rick Massey, subsequently bought \$840k of stock around
+                                  current levelsPeers \$WTW and \$G with similar expected growth and financial profiles
+                                  trade at 11x-11.5x 1-year forward EBITDA.
+                                  At this multiple \$ALIT is worth \$10.5-11.0/share today.
+                                  **Exp. gain: +20% to \$11/share.**
+                                  [Source](https://twitter.com/InvestSpecial/status/1613508259154984962)"""),
+             Stock("ZIMV", period=period, interval=interval,
+                   expectation=Expectation(price=37, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Recent spin-off from Zimmer Biomet with shares down 80% from the first day of trading.
+                                  Orthopedics company offering spine surgery solutions and dental implants. Stable,
+                                  65% GM business, set to benefit from post-pandemic recovery in elective surgeries.
+                                  Margin improvement potential from the current 9% to 15-20% peer levels. Trades far
+                                  below peer group on a revenue multiple. Trailing revenues were weak due to distortion
+                                  by several transitory factors.Current EV/Sales of 0.75x is far below the peer group’s
+                                  3.3x. Full-recovery EV/EBIT of around 7x vs around 15x for the peer group.
+                                  At 15x multiple would be valued at \$37/share. **Exp. gain: +300% to \$37/share.**
+                                  [Source](https://twitter.com/InvestSpecial/status/1613508259154984962)""")
+             ]
+    return sorted(ideas, key=lambda x: x.expectation.date)
+>>>>>>> 9629f55 (Add new ideas)
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
