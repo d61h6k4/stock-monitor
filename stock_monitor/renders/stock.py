@@ -1,4 +1,4 @@
-from altair import Axis, Chart, Scale, X, Y, layer, Tooltip, value, datum, condition, Y2
+from altair import Axis, Chart, Scale, X, Y, layer, Tooltip, value, datum, condition, Y2, Y2Datum, Text
 from datetime import datetime, timedelta, timezone
 from pandas import DataFrame
 from yfinance import Ticker
@@ -72,7 +72,7 @@ def base_strategy(stock: Stock) -> Stock:
     if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=3))
         texts.append('too early')
-    if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
+    elif stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=8))
         texts.append('reevaluate')
 
@@ -82,6 +82,7 @@ def base_strategy(stock: Stock) -> Stock:
 
     chart = t_line + t_ma_line + cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + \
             take_gain_intersection + rules + rules_text
+
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
     stock.description += description
@@ -130,4 +131,36 @@ def vix_strategy(stock: Stock) -> Stock:
     stock.title = stock.ticker_name
     stock.price_chart = chart
     stock.description += description
+    return stock
+
+
+def idea_strategy(stock: Stock) -> Stock:
+    assert stock.price_chart is not None, "Idea strategy appliable only to the already evaluated strategy"
+    assert stock.expectation is not None, "Idea strategy valid only if we have expectations."
+
+    last_date = stock.history.Date.max()
+    base = Chart(stock.history).encode(X("Date:T", axis=Axis(title=None)))
+
+    expectation_line = base.mark_line(color="#ABCEE2", strokeDash=[1, 2]) \
+        .encode(y=datum(stock.expectation.price))
+    text = f"Expectation price = {stock.expectation.price:.1f} by {stock.expectation.date.strftime('%Y-%m-%d')}"
+    expectation_line_text = expectation_line.mark_text(color="#ABCEE2", dx=105, dy=7,
+                                                       text=text,
+                                                       fontSize=12) \
+        .encode(x=value(0))
+
+    yield_rule = base.mark_rule(color="#ABCEE2", ) \
+        .transform_filter(f"year(datum.Date)=={last_date.year} && "
+                          f"month(datum.Date)=={last_date.month - 1} && "
+                          f"date(datum.Date)=={last_date.day}") \
+        .encode(Y("Close:Q"),
+                Y2Datum(
+                    datum=stock.expectation.price))
+
+    yield_rule_text = yield_rule.mark_text(color="#ABCEE2", angle=270, baseline="bottom", dx=50, fontSize=12) \
+        .transform_calculate(spread=(stock.expectation.price - datum.Close) / datum.Close) \
+        .encode(text=Text("spread:Q", format=".2%", formatType="number"))
+
+    chart = expectation_line + expectation_line_text + yield_rule + yield_rule_text
+    stock.price_chart += chart
     return stock
