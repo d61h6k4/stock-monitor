@@ -168,7 +168,23 @@ def ideas(period: str, interval: str):
                                    **What’s the prize if you’re right?** Investors appreciate the quality of the
                                    wholesale club model and have awarded Costco a 32x price-to-earnings multiple.
                                    Despite BJ’s being a ‘Costco clone’, its stock only trades for 17.5x earnings –
-                                   a near 50% discount(!). [Source](https://macro-ops.com)""")
+                                   a near 50% discount(!). [Source](https://macro-ops.com)"""),
+             Stock("HLS.TO", period=period, interval=interval,
+                   expectation=Expectation(price=25, date=datetime(2023, 5, 31, tzinfo=timezone.utc)),
+                   description=r"""Small cap Canadian pharma with shares near all-time lows and business fundamentals
+                                   finally inflecting to the positive. Investment case is mainly based on one of two
+                                   HLS’s drugs, Vascepa, that is in the initial stages of commercialization.
+                                   Vascepa is approved, clinically effective, and has reimbursement coverage
+                                   Pfizer Canada is the team pushing things forward for commercialization
+                                   Sales are growing 30%-40% QoQ and are only now approaching sufficient prescription
+                                   levels to break evenThe initial Vascepa commercialization difficulties were mainly
+                                   caused by Canada’s lengthy COVID lockdown.
+                                   Precedent drugs suggest management's estimate of 10% penetration is overly conservative
+                                   and that 20-40% levels could be reached.The already commercialized drug Clozaril alone
+                                   supports current HLS valuation, implying less than zero value for Vascepa.
+                                   With Vascepa roll-out, HLS is worth $25/share.
+                                   **Exp. gain: +150% to $25/share.**.
+                                   [Source](https://twitter.com/InvestSpecial/status/1615303074473451521)""")
              ]
     return sorted(ideas, key=lambda x: x.expectation.date)
 
