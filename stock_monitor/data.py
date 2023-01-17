@@ -182,8 +182,8 @@ def ideas(period: str, interval: str):
                                    Precedent drugs suggest management's estimate of 10% penetration is overly conservative
                                    and that 20-40% levels could be reached.The already commercialized drug Clozaril alone
                                    supports current HLS valuation, implying less than zero value for Vascepa.
-                                   With Vascepa roll-out, HLS is worth $25/share.
-                                   **Exp. gain: +150% to $25/share.**.
+                                   With Vascepa roll-out, HLS is worth \$25/share.
+                                   **Exp. gain: +150% to \$25/share.**.
                                    [Source](https://twitter.com/InvestSpecial/status/1615303074473451521)""")
              ]
     return sorted(ideas, key=lambda x: x.expectation.date)
