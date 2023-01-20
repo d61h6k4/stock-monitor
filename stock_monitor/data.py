@@ -186,7 +186,13 @@ def ideas(period: str, interval: str):
                                    **Exp. gain: +150% to \$25/share.**.
                                    [Source](https://twitter.com/InvestSpecial/status/1615303074473451521)""")
              ]
-    return sorted(ideas, key=lambda x: x.expectation.date)
+
+    def yield_per_day(x):
+        y = (x.expectation.price - x.history.iloc[-1]["Open"]) / x.history.iloc[-1]["Open"] * 100.0
+        d = (x.expectation.date - x.history.iloc[-1]["Date"]).days
+        return y / d
+
+    return reversed(sorted(ideas, key=yield_per_day))
 
 
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
