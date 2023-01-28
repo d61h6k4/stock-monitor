@@ -184,7 +184,38 @@ def ideas(period: str, interval: str):
                                    supports current HLS valuation, implying less than zero value for Vascepa.
                                    With Vascepa roll-out, HLS is worth \$25/share.
                                    **Exp. gain: +150% to \$25/share.**.
-                                   [Source](https://twitter.com/InvestSpecial/status/1615303074473451521)""")
+                                   [Source](https://twitter.com/InvestSpecial/status/1615303074473451521)"""),
+             Stock("TCMD", period=period, interval=interval,
+                   expectation=Expectation(price=17, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Meditech company with two products for treating underserved chronic conditions at home.
+                                   Flexitouch for lymphedema and Afflovest for bronchiectasis/fibrosis. Currently,
+                                   TCMD is underearning as investment in Flexitouch salesforce havs't yet paid off due
+                                   to covid. The sales of the second product (Afflovest, acquired in Sep’21) are still
+                                   ramping up, but eventually, 50-60% of incremental revenue should drop down to EBIT.
+                                   The market for Afflovest remains very large and underpenetrated.– Demand has been so
+                                   great thus far in 2022 – the company not only increased revenue guidance for
+                                   Afflovest from \$20m to \$35m (100% yoy growth) but also had to sign on a second
+                                   source supplier to be able to meet the demand.– Assuming Afflovest sales of \$70m
+                                   by '25, it would do ~\$25m of EBITDA with little capex requirements vs. current EV of \$230m.
+                                   Remaining \$208m of Flexitouch sales come free.
+                                   **Exp. gain: +70% to \$17/share in two years.**
+                                   [Source](https://twitter.com/InvestSpecial/status/1617847238239076353)"""),
+             Stock("APD", period=period, interval=interval,
+                   expectation=Expectation(price=600, date=datetime(2027, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Large-cap producer of atmospheric and industrial gases (oxygen, nitrogen, hydrogen
+                                   and etc). APD is in a great position to take advantage of the hydrogen future, and
+                                   they have been the most aggressive of their peers in going after the opportunity.
+                                   Expected high-teens IRR over the next 5 year, potentially above this range if
+                                   hydrogen plays out as hoped. 52% of revenue is supplied on-customer-site with
+                                   15-20 year contracts, while the rest comes from merchant channels typically under
+                                   3-5y contracts. Stable cash flows with proven ability to pass through commodity
+                                   cost increases. 50% of earnings paid out as dividends (2% yield).
+                                   An oligopolistic industry that has historically provided stability and pricing power.
+                                   Trades roughly in line with historical multiples at 28x fwd PE. Investors are not
+                                   paying much for the tremendous optionality around hydrogen, gasification, and carbon
+                                   capture. **Exp. gain: +100% to $600/share in 5 years.**
+                                   [Source](https://twitter.com/InvestSpecial/status/1618241155103064071)"""),
+
              ]
 
     def yield_per_day(x):
@@ -241,14 +272,16 @@ def arbitrages(period: str):
            Arbitrage(target=Stock(ticker_name="SAVE", period=period), buyer=Stock(ticker_name="JBLU", period=period),
                      offer_price=31, additional_buyer_ratio=0,
                      expecting_closing=datetime(2024, 6, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - regulatory approval. Bidding war for Spirit Airlines seems to have come to
-                                an end. Shareholders voted for JBLU's offer. The current spread is mainly due to antitrust
-                                concerns. DOJ has issued a second request and is currently reviewing the merger. That being
-                                said, JBLU has proposed divertitures in overlapping areas - this could alleviate antitrust
-                                concerns. Another DOJ concern relates to JBLU's Northeast parnership (NEA) with American Airlines.
-                                Recently, a motion to dismiss the DOJ case against NEA has been denied. Now the decision comes down
-                                to the judge's reading of antitrust law which could signifacntly delay the decision. Hence
-                                SAVE-JBLU merger outcome might also depend on the outcome of NEA trial."""),
+                     commentary=r"""**Main risk** - regulatory approval. The current soread is mainly due to antitrust
+                                    concerns. DOJ has issued a second request and is currently reviewing the merger.
+                                    JBLU has proposed divestitures in overlapping areas - this could alleviate
+                                    antitrust concerns. Moreover, SAVE recently reached agreement with pilots union.
+                                    Another DOJ concern relates to JBLU's Northeast Alliance partnership (NEA) with
+                                    American Airlines. In October, a motion to dismiss the DOJ case against NEA has been
+                                    denied. Now the decision comes down to the judges reading of andtrust law which
+                                    could signincantly delay the decision. Hence, SAVE_JBLU merge outcome might also
+                                    depend on the outcome of NEA trial, last month. JBLU's management reiterated
+                                    confidence in merger closing in H1'24"""),
            Arbitrage(target=Stock(ticker_name="BKI", period=period), buyer=Stock(ticker_name="ICE", period=period),
                      offer_price=68, additional_buyer_ratio=0.144,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
@@ -258,7 +291,8 @@ def arbitrages(period: str):
                                 mortgage banking sector. The companies each hold dominant market shares in speicfic US mortgage
                                 software segments - servicing (BKI) and origination (ICE) - suggesting the merger will lead to
                                 substantial vertical integration. Recently ICE agreed to an extended FTC review with reiterating
-                                its expectation merger completion by H1'23
+                                its expectation merger completion by H1'23. Since then, however, a congresswoman came
+                                out, urging the FTC to tightly scrutinize the transaction
                                 """),
            Arbitrage(target=Stock(ticker_name="FSTX", period=period), buyer=Stock(ticker_name="1177.HK", period=period),
                      offer_price=7.12, additional_buyer_ratio=0,
@@ -419,24 +453,29 @@ def arbitrages(period: str):
            Arbitrage(target=Stock(ticker_name="CCHWF", period=period), buyer=Stock(ticker_name="CRLBF", period=period),
                      offer_price=0,
                      additional_buyer_ratio=0.5579, expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - potential dilution to the consideration due to certain earn-out
-                                provisions. The merger has already received shareholder approval. Antitrust risks are
-                                low. Both parties have recently signed asset divestment as a requiremeent for the merger
-                                to close. Other asset divestitues are going as planned. Management expects the merger
-                                to close in Q1 2023. The merger exchange ratio is subject to proration adjustment by
-                                the amount of Columbia Care shares issued as an earn-out for its historical acqusition
-                                form Dec'20. Information on the earn-out would lower the exchange rate to 0.5255 and
-                                reduce the spread to 2%.
+                     commentary=r"""**Main risk** - potential dilution to the consideration due to certain earn-out
+                                provisions, regulatory approval and the buyer walking away. The merger has received
+                                shareholder approval. Some asset divestitures required by the regulators have already
+                                been announced. The spread, however, has recently widened given failed attempts to
+                                pass the federal marijuana banking legislation which has made a big negative impact
+                                on the sector's short-term outlook. This has raised the risk of total proceeds from
+                                divestitures not reaching the targeted \$300m. The market seems to think that both
+                                sides will be unable to complete the divestitures. Also, the merger exchange ratio
+                                is subject to proration adjustment by the amount of Columbia Care shares issued as an
+                                earn-out for its historical acquisition from Dec'20. Information on the earn-out is
+                                limited but the maximum stated size is \$58m in CCHW shares. At current prices,
+                                 the maximum earn-out would lower the exchange rate to 0.5174 and reduce the spread to 23%.
                                 """),
-           Arbitrage(target=Stock(ticker_name="SWIR", period=period), buyer=Stock(ticker_name="SMTC", period=period),
-                     offer_price=31, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 3, 31, tzinfo=timezone.utc),
-                     commentary="""The spread used to stand at 2% before widening to the current 7% on the news of the
-                                    2nd request from DOJ. \\$SWIR is \\$1.1bn mcap company designing and selling hardware and
-                                    services for cellular wireless connectivity, such as 5G. The company produces cellular
-                                    wireless routers and gateways (Enterprise Solutions segment) as well as cellular wireless
-                                    modules (IoT Solutions). In Aug'22, \\$SWIR agreed to be acquired by semiconductor supplier
-                                    \\$SMTC at \\$31/share in cash. The transaction has already been approved by \\$SWIR's
-                                    shareholders. The only remaining hurdle is regulatory approval in the US.
-                                    Parties expect the merger to close by Mar'23.""")]
+           Arbitrage(target=Stock(ticker_name="IDFB", period=period), buyer=Stock(ticker_name="BG.VI", period=period),
+                     offer_price=12.05, additional_buyer_ratio=0,
+                     expecting_closing=datetime(2023, 2, 28, tzinfo=timezone.utc),
+                     commentary=r"""**Acquisition of a US community bank by a European bank.**
+                                    **Main risk** - regulatory approval. The merger was announced in Feb'22. BAWAG is a
+                                    large Vienna-listed holding company owning one of Austria's largest banks. The
+                                    acquisition would allow the buyer - which currently provides loans in the US - to
+                                    obtain a local banking license and would thus support its further US expansion
+                                    efforts. While the target is a tiny Idaho-located community bank, regulatory issues
+                                    are possible given a lack of such cross-border merger precedents. In early 2022,
+                                    the Federal Reserve Board approved BAWAG's attempt to establish a representative
+                                    office in the US. The buyer's management expects the transaction to close by Feb'23""")]
     return sorted(res, key=lambda x: x.expecting_closing)
