@@ -215,7 +215,31 @@ def ideas(period: str, interval: str):
                                    paying much for the tremendous optionality around hydrogen, gasification, and carbon
                                    capture. **Exp. gain: +100% to $600/share in 5 years.**
                                    [Source](https://twitter.com/InvestSpecial/status/1618241155103064071)"""),
-
+             Stock("ALGN", period=period, interval=interval,
+                   expectation=Expectation(price=120, date=datetime(2023, 6, 31, tzinfo=timezone.utc)),
+                   description=r"""Producer of Invisalign clear teeth aligners. Invented and won the category,
+                                   crushed the competition – 75% market share. However, the market does not appreciate
+                                   how much the demand was pulled forward during COVID. Has grown 20-25% during
+                                   2010-2019, but then growth exploded to 50-60% in 2021. Channel checks indicate
+                                   prescribers of Invisalign are seeing a slowdown in their business, with the 2022
+                                   year expected to be down 10% vs 2019 levels. Given that treatment times are 6-18
+                                   months in length, this slowdown is not yet fully visible in ALGN numbers, but
+                                   inventory is increasing and deferred revenue growth is decelerating. 2023 earnings
+                                   are set to decline from \$8/share today to closer to \$6/share.
+                                   At 20-25x PE, the target is \$120-\$150/share.
+                                   **Exp. gain: 20-40% to \$120-\$150/share.**
+                                   [Source](https://twitter.com/InvestSpecial/status/1620009107309699072)"""),
+             Stock("CAL", period=period, interval=interval,
+                   expectation=Expectation(price=40, date=datetime(2023, 6, 31, tzinfo=timezone.utc)),
+                   description=r"""Diversified footwear retailer at 5x PE. Owns the Famous Footwear brand of stores
+                                   (870 stores). Equity is materially mispriced and generates significant free cash
+                                   flow. Q4 results are expected to be nicely above guidance as a normal seasonal
+                                   pattern recovers into Christmas. Set to fully repay its debt over the next 18 months.
+                                   Repurchased 7% of shares over last 3 quarters and has large remaining repo
+                                   authorization. Significant upside if CAL trades up to the mean of non-growth shoe
+                                   retailers. At PE of 7x-8x 2023, would be \$40 stock.
+                                   **Exp. gain: +85% to \$40/share.**
+                                   [Source](https://twitter.com/InvestSpecial/status/1620009107309699072)"""),
              ]
 
     def yield_per_day(x):
