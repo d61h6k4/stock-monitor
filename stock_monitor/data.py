@@ -216,7 +216,7 @@ def ideas(period: str, interval: str):
                                    capture. **Exp. gain: +100% to $600/share in 5 years.**
                                    [Source](https://twitter.com/InvestSpecial/status/1618241155103064071)"""),
              Stock("ALGN", period=period, interval=interval,
-                   expectation=Expectation(price=120, date=datetime(2023, 6, 31, tzinfo=timezone.utc)),
+                   expectation=Expectation(price=120, date=datetime(2023, 6, 30, tzinfo=timezone.utc)),
                    description=r"""Producer of Invisalign clear teeth aligners. Invented and won the category,
                                    crushed the competition – 75% market share. However, the market does not appreciate
                                    how much the demand was pulled forward during COVID. Has grown 20-25% during
@@ -230,7 +230,7 @@ def ideas(period: str, interval: str):
                                    **Exp. gain: 20-40% to \$120-\$150/share.**
                                    [Source](https://twitter.com/InvestSpecial/status/1620009107309699072)"""),
              Stock("CAL", period=period, interval=interval,
-                   expectation=Expectation(price=40, date=datetime(2023, 6, 31, tzinfo=timezone.utc)),
+                   expectation=Expectation(price=40, date=datetime(2023, 6, 30, tzinfo=timezone.utc)),
                    description=r"""Diversified footwear retailer at 5x PE. Owns the Famous Footwear brand of stores
                                    (870 stores). Equity is materially mispriced and generates significant free cash
                                    flow. Q4 results are expected to be nicely above guidance as a normal seasonal
