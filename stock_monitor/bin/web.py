@@ -40,7 +40,8 @@ def render_arbitrage(a: Arbitrage):
 
 
 def render_vix_strategy(stock: Stock):
-    stock = vix_strategy(base_strategy(stock))
+    if stock.price_chart is None:
+        stock = vix_strategy(base_strategy(stock))
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
                          stock.volume_chart.properties(height=50, width=1192)),
@@ -49,7 +50,8 @@ def render_vix_strategy(stock: Stock):
 
 
 def render_ticker(stock: Stock):
-    stock = base_strategy(stock)
+    if stock.price_chart is None:
+        stock = base_strategy(stock)
 
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
@@ -59,7 +61,8 @@ def render_ticker(stock: Stock):
 
 
 def render_idea(stock: Stock):
-    stock = idea_strategy(base_strategy(stock))
+    if stock.price_chart is None:
+        stock = idea_strategy(base_strategy(stock))
 
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
