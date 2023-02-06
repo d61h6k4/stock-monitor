@@ -3,10 +3,6 @@ from datetime import datetime, timezone
 from streamlit import cache
 
 
-def tickers():
-    return ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ"]
-
-
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
 def vix_stocks(period: str, interval: str):
     return [Stock(ticker_name, period=period, interval=interval) for ticker_name in
@@ -253,21 +249,54 @@ def ideas(period: str, interval: str):
 @cache(persist=False, ttl=3600, allow_output_mutation=True)
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in tickers():
+    for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ", "PHPD.L"]:
         buy_date = None
+        description = None
         if ticker_name == "FSTX":
             buy_date = datetime(2022, 11, 30, tzinfo=timezone.utc)
+            description = "Arbitrage"
         elif ticker_name == "TGNA":
             buy_date = datetime(2022, 12, 1, tzinfo=timezone.utc)
+            description = "Arbitrage"
         elif ticker_name == "KOP":
             buy_date = datetime(2022, 12, 6, tzinfo=timezone.utc)
+            description = """Koppers Holdings Inc. has three business segments: Railroad and Utility Products and
+                             Services (RUPS), Performance Chemicals (PC) and Carbon Materials and Chemicals (CMC).
+                             Basic materials, chemistry.
+                             While waiting for recession.
+                          """
         elif ticker_name == "CEG":
             buy_date = datetime(2022, 12, 6, tzinfo=timezone.utc)
+            description = """Constellation Energy Corporation, formerly Constellation Newholdco, Inc., is a clean
+                             energy company. The Company is focused on carbon-free electricity. It is a supplier
+                             of clean energy and sustainable solutions to homes, businesses, public sector, community
+                             aggregations and a range of wholesale customers, such as municipalities, cooperatives.
+                             Utility, energy.
+                             While waiting for recession.
+                          """
         elif ticker_name == "VST":
             buy_date = datetime(2022, 12, 16, tzinfo=timezone.utc)
+            description = """Vistra Corp. is an integrated retail electricity and power generation company, which
+                             provides essential resources for customers, commerce and communities. The Company offers
+                             its products and services to market in Columbia, Canada and Japan.
+                             Utility, energy.
+                             While waiting for recession.
+                          """
         elif ticker_name == "CNQ":
             buy_date = datetime(2022, 12, 19, tzinfo=timezone.utc)
-        res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date))
+            description = """Canadian Natural Resources Limited is an independent crude oil and natural gas exploration,
+                             development and production company.
+                             Energy, oil & gas.
+                             War in Ukraine and sanctions on the Russia.
+                          """
+        elif ticker_name == "PHPD.L":
+            buy_date = datetime(2023, 2, 6, tzinfo=timezone.utc)
+            description = r"""Palladium ETF. Palladium is a shiny metal used in many electronic and industrial products.
+                              China is reopening.
+                           """
+        assert buy_date is not None
+        assert description is not None
+        res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date, description=description))
     return res
 
 
