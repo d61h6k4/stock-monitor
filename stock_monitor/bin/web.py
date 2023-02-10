@@ -77,7 +77,7 @@ title(u":orange[L]och :orange[A]uf :orange[W]allstra&szlig;e")
 
 with sidebar:
     PERIOD = selectbox("Period", ("3mo", "6mo", "1y", "2y", "5y", "max"))
-    INTERVAL = selectbox("Period", ("1d", "1wk", "1mo"))
+    INTERVAL = selectbox("Inetrval", ("1d", "1wk"))
 assert PERIOD is not None
 assert INTERVAL is not None
 
