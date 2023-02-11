@@ -236,6 +236,21 @@ def ideas(period: str, interval: str):
                                    retailers. At PE of 7x-8x 2023, would be \$40 stock.
                                    **Exp. gain: +85% to \$40/share.**
                                    [Source](https://twitter.com/InvestSpecial/status/1620009107309699072)"""),
+             Stock("MIR", period=period, interval=interval,
+                   expectation=Expectation(price=10, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Industry leader in mission-critical radiation measuring devices and services.
+                                   40-60% market share in the markets it participates. Has been beaten down
+                                   mainly due to quarterly guidance misses from component shortages and canceled
+                                   projects due to the Ukraine. SPAC provenance, poor execution, and its terrible
+                                   public market performance have led investors to trade it like a low-quality
+                                   industrial business. MIR’s acyclicality, market position, and margins argue for
+                                   a better multiple. Expected to revert to normalized earnings after the
+                                   aforementioned temporary pressures ease. The elevated order book indicates
+                                   positive exposure to secular growth in nuclear power.Trades at 11x E2023 EBITDA
+                                   of \$193m. Higher quality industrial peers trade at 15-25x EV/EBITDA.
+                                   Mirion should at least reach the low-end of this range implying a
+                                   \$10/share price target.
+                                   [Source](https://twitter.com/InvestSpecial/status/1623987849052692482)"""),
              ]
 
     def yield_per_day(x):
