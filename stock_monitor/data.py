@@ -1,15 +1,15 @@
 from stock_monitor.models import Stock, Arbitrage, Expectation
 from datetime import datetime, timezone
-from streamlit import cache
+from streamlit import cache_data
 
 
-@cache(persist=False, ttl=3600, allow_output_mutation=True)
+@cache_data(persist=False, ttl=3600, allow_output_mutation=True)
 def vix_stocks(period: str, interval: str):
     return [Stock(ticker_name, period=period, interval=interval) for ticker_name in
             ["GOOG", "NVDA", "ASML", "KLAC", "WAF.DE", "MSFT"]]
 
 
-@cache(persist=False, ttl=3600, allow_output_mutation=True)
+@cache_data(persist=False, ttl=3600, allow_output_mutation=True)
 def tax_loss_jan_stocks(period: str, interval: str):
     return [Stock("SLGC", period=period, interval=interval,
                   description=r"""Somalogic \$SLGC, \$2.26 - A leading platform for proteomics analysis,
@@ -39,7 +39,7 @@ def tax_loss_jan_stocks(period: str, interval: str):
             ]
 
 
-@cache(persist=False, ttl=3600, allow_output_mutation=True)
+@cache_data(persist=False, ttl=3600, allow_output_mutation=True)
 def ideas(period: str, interval: str):
     ideas = [Stock("VONOY", period=period, interval=interval,
                    expectation=Expectation(price=30, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
@@ -261,7 +261,7 @@ def ideas(period: str, interval: str):
     return reversed(sorted(ideas, key=yield_per_day))
 
 
-@cache(persist=False, ttl=3600, allow_output_mutation=True)
+@cache_data(persist=False, ttl=3600, allow_output_mutation=True)
 def stocks(period: str, interval: str):
     res = []
     for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ", "PHPD.L"]:
@@ -315,7 +315,7 @@ def stocks(period: str, interval: str):
     return res
 
 
-@cache(persist=False, ttl=3600, allow_output_mutation=True)
+@cache_data(persist=False, ttl=3600, allow_output_mutation=True)
 def arbitrages(period: str):
     res = [Arbitrage(target=Stock(ticker_name="ATVI", period=period), buyer=Stock(ticker_name="MSFT", period=period),
                      offer_price=95, additional_buyer_ratio=0,
