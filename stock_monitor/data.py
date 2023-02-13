@@ -264,7 +264,7 @@ def ideas(period: str, interval: str):
 @cache_data(persist=False, ttl=3600)
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ", "PHPD.L"]:
+    for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ", "PHPD.L", "IPI"]:
         buy_date = None
         description = None
         if ticker_name == "FSTX":
@@ -308,6 +308,12 @@ def stocks(period: str, interval: str):
             buy_date = datetime(2023, 2, 6, tzinfo=timezone.utc)
             description = r"""Palladium ETF. Palladium is a shiny metal used in many electronic and industrial products.
                               China is reopening.
+                           """
+        elif ticker_name == "IPI":
+            buy_date = datetime(2023, 2, 13, tzinfo=timezone.utc)
+            description = r"""IPI is a small US-based Potash producer with a call option on Permian basin water rights.
+                              The company has a solid balance sheet. The stock trades at 9x FCF. And it has a tiny 9mn share float.
+                              Russo-Ukrane war (Russia and Belarus are the biggest Potash producers).
                            """
         assert buy_date is not None
         assert description is not None
