@@ -30,23 +30,10 @@ def base_strategy(stock: Stock) -> Stock:
     )
     t_line = rule + bar
 
-    t_ma21_line = base.mark_line(stroke="#61BFAD", strokeDash=[1, 5]) \
-        .transform_window(ma21="mean(Close)",
-                          frame=[-21, 0]) \
-        .encode(y="ma21:Q",
-                tooltip=[Tooltip("ma21:Q", title="Moving average 21 days")])
-
-    t_ma200_line = base.mark_line(stroke="#FF8788", strokeDash=[1, 5]) \
-                  .transform_window(ma200="mean(Close)",
-                                    frame=[-200, 0]) \
-                  .encode(y="ma200:Q",
-                          tooltip=[Tooltip("ma200:Q", title="Moving average 200 days")])
-    t_ma_line = t_ma21_line + t_ma200_line
-
     stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
     if stock.buy_date is None:
         stock.title = f"{stock.ticker_name}"
-        stock.price_chart = t_line + t_ma_line
+        stock.price_chart = t_line
         return stock
 
     description = "\n\nSell when the stock price crosses `cut the loss` line."
@@ -87,13 +74,49 @@ def base_strategy(stock: Stock) -> Stock:
                              'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
     rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
 
-    chart = t_line + t_ma_line + cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + \
+    chart = t_line + cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + \
             take_gain_intersection + rules + rules_text
 
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
     stock.description += description
 
+    return stock
+
+
+def mad_strategy(stock: Stock) -> Stock:
+    assert stock.price_chart is not None, "MAD strategy appliable only to the already evaluated strategy"
+    t_chart = stock.price_chart
+
+    data = Ticker(stock.ticker_name).history(period="2y", interval="1d")
+    data.drop(["Open", "Low", "High", "Volume", "Dividends", "Stock Splits"], axis=1, inplace=True)
+
+    mad_data = (data["Close"].rolling(21).mean() / data["Close"].rolling(200).mean()).fillna(1.0).reset_index().rename(columns={"Close": "MAD"})
+
+
+    base = Chart(stock.history.merge(mad_data, on="Date", how="left")).encode(
+        X("Date:T", axis=Axis(title=None))
+    )
+    mad_line = base.mark_line(stroke="#61BFAD", strokeDash=[3, 5]) \
+        .encode(y=Y("MAD",
+                    scale=Scale(zero=False)), tooltip=[Tooltip("MAD", title="Moving average distance 21/200")])
+
+    sell_line = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(0.95))
+    sell_line_text = sell_line.mark_text(color="#F03F35", dx=60, dy=7,
+                                         text=f"sell",
+                                         fontSize=8) \
+        .encode(x=value(0))
+
+    buy_line = base.mark_line(stroke="#32B67A", strokeDash=[1, 2]).encode(y=datum(1.05))
+    buy_line_text = buy_line.mark_text(color="#32B67A", dx=60, dy=7,
+                                       text=f"buy",
+                                       fontSize=8) \
+        .encode(x=value(0))
+
+    chart = layer(t_chart,
+                  mad_line + sell_line + sell_line_text + buy_line + buy_line_text).resolve_scale(y="independent")
+
+    stock.price_chart = chart
     return stock
 
 
