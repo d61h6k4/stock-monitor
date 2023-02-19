@@ -30,11 +30,18 @@ def base_strategy(stock: Stock) -> Stock:
     )
     t_line = rule + bar
 
-    t_ma_line = base.mark_line(stroke="#FF8788", strokeDash=[1, 5]) \
-        .transform_window(ma10="mean(Close)",
-                          frame=[-10, 0]) \
-        .encode(y="ma10:Q",
-                tooltip=[Tooltip("ma10:Q", title="Moving average 10 days")])
+    t_ma21_line = base.mark_line(stroke="#61BFAD", strokeDash=[1, 5]) \
+        .transform_window(ma21="mean(Close)",
+                          frame=[-21, 0]) \
+        .encode(y="ma21:Q",
+                tooltip=[Tooltip("ma21:Q", title="Moving average 21 days")])
+
+    t_ma200_line = base.mark_line(stroke="#FF8788", strokeDash=[1, 5]) \
+                  .transform_window(ma200="mean(Close)",
+                                    frame=[-200, 0]) \
+                  .encode(y="ma200:Q",
+                          tooltip=[Tooltip("ma200:Q", title="Moving average 200 days")])
+    t_ma_line = t_ma21_line + t_ma200_line
 
     stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
     if stock.buy_date is None:
