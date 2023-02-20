@@ -113,8 +113,7 @@ def mad_strategy(stock: Stock) -> Stock:
                                        fontSize=8) \
         .encode(x=value(0))
 
-    chart = layer(t_chart,
-                  mad_line + sell_line + sell_line_text + buy_line + buy_line_text).resolve_scale(y="independent")
+    chart = layer(mad_line + sell_line + sell_line_text + buy_line + buy_line_text, t_chart).resolve_scale(y="independent")
 
     stock.price_chart = chart
     return stock

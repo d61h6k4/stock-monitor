@@ -81,7 +81,7 @@ with sidebar:
 assert PERIOD is not None
 assert INTERVAL is not None
 
-tabs_name = ["Position size", "Arbitrage", "VIX", "January Effect", "Portfolio", "Ideas"]
+tabs_name = ["Position size", "Arbitrage", "VIX", "Portfolio", "Ideas"]
 
 for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
     match tab_name:
