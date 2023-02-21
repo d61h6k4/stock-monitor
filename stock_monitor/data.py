@@ -1,15 +1,12 @@
 from stock_monitor.models import Stock, Arbitrage, Expectation
 from datetime import datetime, timezone
-from streamlit import cache_data
 
 
-@cache_data(persist=False, ttl=3600)
 def vix_stocks(period: str, interval: str):
     return [Stock(ticker_name, period=period, interval=interval) for ticker_name in
             ["GOOG", "NVDA", "ASML", "KLAC", "WAF.DE", "MSFT"]]
 
 
-@cache_data(persist=False, ttl=3600)
 def tax_loss_jan_stocks(period: str, interval: str):
     return [Stock("SLGC", period=period, interval=interval,
                   description=r"""Somalogic \$SLGC, \$2.26 - A leading platform for proteomics analysis,
@@ -39,7 +36,6 @@ def tax_loss_jan_stocks(period: str, interval: str):
             ]
 
 
-@cache_data(persist=False, ttl=3600)
 def ideas(period: str, interval: str):
     ideas = [Stock("VONOY", period=period, interval=interval,
                    expectation=Expectation(price=30, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
@@ -255,13 +251,12 @@ def ideas(period: str, interval: str):
 
     def yield_per_day(x):
         y = (x.expectation.price - x.history.iloc[-1]["Open"]) / x.history.iloc[-1]["Open"] * 100.0
-        d = (x.expectation.date - x.history.iloc[-1]["Date"]).days
+        d = (x.expectation.date - x.last_date).days
         return y / d
 
     return reversed(sorted(ideas, key=yield_per_day))
 
 
-@cache_data(persist=False, ttl=3600)
 def stocks(period: str, interval: str):
     res = []
     for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ", "PHPD.L", "IPI"]:
@@ -321,7 +316,6 @@ def stocks(period: str, interval: str):
     return res
 
 
-@cache_data(persist=False, ttl=3600)
 def arbitrages(period: str):
     res = [Arbitrage(target=Stock(ticker_name="ATVI", period=period), buyer=Stock(ticker_name="MSFT", period=period),
                      offer_price=95, additional_buyer_ratio=0,

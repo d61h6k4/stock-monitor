@@ -6,7 +6,7 @@ from stock_monitor.models import Arbitrage
 
 
 def arbitrage_strategy(arbitrage: Arbitrage) -> Arbitrage:
-    target_history = arbitrage.target.history
+    target_history = arbitrage.target.history.reset_index()
 
     if not isinstance(arbitrage.buyer, str):
         buyer_history = arbitrage.buyer.history

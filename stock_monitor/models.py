@@ -5,6 +5,18 @@ from pandas import DataFrame
 from yfinance import Ticker
 
 
+from requests import Session
+from requests_cache import CacheMixin, SQLiteCache
+from requests_ratelimiter import LimiterMixin, MemoryQueueBucket
+class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
+    """ """
+
+session = CachedLimiterSession(
+    per_second=0.9,
+    bucket_class=MemoryQueueBucket,
+    backend=SQLiteCache("yfinance.cache"),
+)
+
 @dataclass(frozen=True)
 class Expectation:
     price: float
@@ -22,6 +34,7 @@ class Stock:
     history: DataFrame | None = None
     # optional data
     buy_date: datetime | None = None
+    last_date: datetime | None = None
     expectation: Expectation | None = None
     # mutable data
     title: str = ""
@@ -38,14 +51,14 @@ class Stock:
             raise ValueError(
                 f"Given interval {self.interval} is not valid. Valid intervals: {','.join(valid_intervals)}")
 
-        ticker = Ticker(self.ticker_name)
-        self.history = ticker.history(period=self.period, interval=self.interval).reset_index()
+        ticker = Ticker(self.ticker_name, session=session)
+        self.history = ticker.history(period=self.period, interval=self.interval)
 
+        self.last_date = self.history.reset_index().Date.max()
         # when buy date is today but we don't have data for today yet.
         if self.buy_date is not None:
-            last_date = self.history.Date.max()
-            assert isinstance(last_date, datetime), (self.ticker_name, self.history.Date)
-            if last_date < self.buy_date:
+            assert isinstance(self.last_date, datetime), (self.ticker_name, self.history.Date)
+            if self.last_date < self.buy_date:
                 self.buy_date = None
 
 

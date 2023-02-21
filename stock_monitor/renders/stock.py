@@ -1,7 +1,6 @@
 from altair import Axis, Chart, Scale, X, Y, layer, Tooltip, value, datum, condition, Y2, Y2Datum, Text
 from datetime import datetime, timedelta, timezone
 from pandas import DataFrame
-from yfinance import Ticker
 from stock_monitor.models import Stock
 
 
@@ -12,7 +11,7 @@ def base_strategy(stock: Stock) -> Stock:
                                  value("#06982d"),
                                  value("#ae1325"))
 
-    base = Chart(stock.history).encode(X("Date:T", axis=Axis(title=None)),
+    base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)),
                                        color=open_close_color)
 
     rule = base.mark_rule().encode(
@@ -89,7 +88,7 @@ def atr_strategy(stock: Stock) -> Stock:
                                  value("#06982d"),
                                  value("#ae1325"))
 
-    base = Chart(stock.history).encode(X("Date:T", axis=Axis(title=None)),
+    base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)),
                                        color=open_close_color)
 
     rule = base.mark_rule().encode(
@@ -109,7 +108,7 @@ def atr_strategy(stock: Stock) -> Stock:
 
     stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
 
-    df = Ticker(stock.ticker_name).history(period="1y", interval="1d")
+    df = Stock(stock.ticker_name, period="1y", interval="1d").history
     # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
     atr = (DataFrame([df["High"] - df["Low"],
                       (df["High"] - df["Close"].shift(1)).fillna(0.0),
@@ -148,13 +147,13 @@ def mad_strategy(stock: Stock) -> Stock:
     assert stock.price_chart is not None, "MAD strategy appliable only to the already evaluated strategy"
     t_chart = stock.price_chart
 
-    data = Ticker(stock.ticker_name).history(period="1y", interval="1d")
+    data = Stock(stock.ticker_name, period="1y", interval="1d").history
     data.drop(["Open", "Low", "High", "Volume", "Dividends", "Stock Splits"], axis=1, inplace=True)
 
     mad_data = (data["Close"].rolling(21).mean() / data["Close"].rolling(50).mean()).fillna(1.0).reset_index().rename(
         columns={"Close": "MAD"})
 
-    base = Chart(stock.history.merge(mad_data, on="Date", how="left")).encode(
+    base = Chart(stock.history.reset_index().merge(mad_data, on="Date", how="left")).encode(
         X("Date:T", axis=Axis(title=None))
     )
     mad_line = base.mark_line(stroke="#61BFAD", strokeDash=[3, 5]) \
@@ -178,10 +177,10 @@ def vix_strategy(stock: Stock) -> Stock:
     description = "When ^VIX crosses `sell` line, sell the stock, when ^VIX crosses `buy` line, buy the stock." \
                   "\n\nMoving average 10 days - short term price trend."
 
-    vix_history = Ticker("^VIX").history(period=stock.period)
+    vix_history = Stock("^VIX", period=stock.period).history
     vix_history["buy"] = 30
     vix_history["sell"] = 20
-    source = stock.history.join(vix_history, on="Date", rsuffix="_vix").reset_index()
+    source = stock.history.reset_index().join(vix_history, on="Date", rsuffix="_vix").reset_index()
     base = Chart(source).encode(
         X("Date:T", axis=Axis(title=None))
     )
@@ -223,8 +222,8 @@ def idea_strategy(stock: Stock) -> Stock:
     assert stock.price_chart is not None, "Idea strategy appliable only to the already evaluated strategy"
     assert stock.expectation is not None, "Idea strategy valid only if we have expectations."
 
-    last_date = stock.history.Date.max()
-    base = Chart(stock.history).encode(X("Date:T", axis=Axis(title=None)))
+    last_date = stock.history.reset_index().Date.max()
+    base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)))
 
     expectation_line = base.mark_line(color="#ABCEE2", strokeDash=[1, 2]) \
         .encode(y=datum(stock.expectation.price))
