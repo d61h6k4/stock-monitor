@@ -2,7 +2,7 @@ from altair import vconcat
 from streamlit import altair_chart, tabs, write, caption, sidebar, selectbox, set_page_config, markdown, title, form, \
     number_input, select_slider, form_submit_button, subheader
 from stock_monitor.models import Stock, Arbitrage
-from stock_monitor.renders.stock import base_strategy, vix_strategy, idea_strategy, mad_strategy
+from stock_monitor.renders.stock import base_strategy, vix_strategy, idea_strategy, mad_strategy, atr_strategy
 from stock_monitor.renders.arbitrages import arbitrage_strategy
 from stock_monitor.data import arbitrages, stocks, vix_stocks, tax_loss_jan_stocks, ideas
 
@@ -51,7 +51,7 @@ def render_vix_strategy(stock: Stock):
 
 def render_ticker(stock: Stock):
     if stock.price_chart is None:
-        stock = mad_strategy(base_strategy(stock))
+        stock = mad_strategy(atr_strategy(stock))
 
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),
@@ -81,7 +81,7 @@ with sidebar:
 assert PERIOD is not None
 assert INTERVAL is not None
 
-tabs_name = ["Position size", "Arbitrage", "VIX", "Portfolio", "Ideas"]
+tabs_name = ["Portfolio"] #"Position size", "Arbitrage", "VIX", "Portfolio", "Ideas"]
 
 for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
     match tab_name:

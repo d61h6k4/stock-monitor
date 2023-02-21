@@ -84,36 +84,91 @@ def base_strategy(stock: Stock) -> Stock:
     return stock
 
 
+def atr_strategy(stock: Stock) -> Stock:
+    open_close_color = condition("datum.Open <= datum.Close",
+                                 value("#06982d"),
+                                 value("#ae1325"))
+
+    base = Chart(stock.history).encode(X("Date:T", axis=Axis(title=None)),
+                                       color=open_close_color)
+
+    rule = base.mark_rule().encode(
+            Y(
+                'Low:Q',
+                title=f'{stock.ticker_name}',
+                scale=Scale(zero=False)
+            ),
+            Y2('High:Q')
+        )
+
+    bar = base.mark_bar().encode(
+        Y('Open:Q'),
+        Y2('Close:Q')
+    )
+    t_line = rule + bar
+
+    stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
+
+    df = Ticker(stock.ticker_name).history(period="1y", interval="1d")
+    # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
+    atr = (DataFrame([df["High"] - df["Low"],
+                      (df["High"] - df["Close"].shift(1)).fillna(0.0),
+                      (df["Close"].shift(1) - df["Low"]).fillna(0.0)])
+           .T.max(axis=1).rolling(5).mean().last(offset='1d'))
+    price = df["Close"].last(offset='1d')
+    sell_price = (price - 2 * atr).values[0]
+    cut_loss = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(sell_price))
+    cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=20, dy=7,
+                                       text="sell",
+                                       fontSize=12) \
+                    .encode(x=value(0))
+
+    dates = [stock.buy_date]
+    texts = ["bought"]
+    if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
+        dates.append(stock.buy_date + timedelta(weeks=3))
+        texts.append('too early')
+    elif stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
+        dates.append(stock.buy_date + timedelta(weeks=8))
+        texts.append('reevaluate')
+
+    rules = Chart(DataFrame({'Date': dates,
+                             'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
+    rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
+
+    chart = t_line + cut_loss + cut_loss_text + rules + rules_text
+
+    stock.title = f"{stock.ticker_name}"
+    stock.price_chart = chart
+
+    return stock
+
+
 def mad_strategy(stock: Stock) -> Stock:
     assert stock.price_chart is not None, "MAD strategy appliable only to the already evaluated strategy"
     t_chart = stock.price_chart
 
-    data = Ticker(stock.ticker_name).history(period="2y", interval="1d")
+    data = Ticker(stock.ticker_name).history(period="1y", interval="1d")
     data.drop(["Open", "Low", "High", "Volume", "Dividends", "Stock Splits"], axis=1, inplace=True)
 
-    mad_data = (data["Close"].rolling(21).mean() / data["Close"].rolling(200).mean()).fillna(1.0).reset_index().rename(columns={"Close": "MAD"})
-
+    mad_data = (data["Close"].rolling(21).mean() / data["Close"].rolling(50).mean()).fillna(1.0).reset_index().rename(
+        columns={"Close": "MAD"})
 
     base = Chart(stock.history.merge(mad_data, on="Date", how="left")).encode(
         X("Date:T", axis=Axis(title=None))
     )
     mad_line = base.mark_line(stroke="#61BFAD", strokeDash=[3, 5]) \
         .encode(y=Y("MAD",
-                    scale=Scale(zero=False)), tooltip=[Tooltip("MAD", title="Moving average distance 21/200")])
+                    scale=Scale(zero=False)), tooltip=[Tooltip("MAD", title="Moving average distance 21/50")])
 
-    sell_line = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(0.95))
-    sell_line_text = sell_line.mark_text(color="#F03F35", dx=60, dy=7,
-                                         text=f"sell",
-                                         fontSize=8) \
+
+    buy_line = base.mark_line(stroke="#32B67A", strokeDash=[1, 2]).encode(y=datum(1.0))
+    buy_line_text = buy_line.mark_text(color="#32B67A", dx=30, dy=7,
+                                       text="buy",
+                                       fontSize=12) \
         .encode(x=value(0))
 
-    buy_line = base.mark_line(stroke="#32B67A", strokeDash=[1, 2]).encode(y=datum(1.05))
-    buy_line_text = buy_line.mark_text(color="#32B67A", dx=60, dy=7,
-                                       text=f"buy",
-                                       fontSize=8) \
-        .encode(x=value(0))
-
-    chart = layer(mad_line + sell_line + sell_line_text + buy_line + buy_line_text, t_chart).resolve_scale(y="independent")
+    chart = layer(mad_line + buy_line + buy_line_text, t_chart).resolve_scale(y="independent")
 
     stock.price_chart = chart
     return stock
