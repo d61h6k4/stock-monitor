@@ -15,6 +15,7 @@ class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
 
 
 session = CachedLimiterSession(
+    expire_after=3600,
     per_second=0.9,
     bucket_class=MemoryQueueBucket,
     backend=SQLiteCache(str(Path(__file__).parent.parent.resolve() / "yfinance.cache")),
