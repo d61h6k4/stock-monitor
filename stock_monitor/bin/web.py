@@ -1,6 +1,7 @@
 from altair import vconcat
+from pandas import DataFrame
 from streamlit import altair_chart, tabs, write, caption, sidebar, selectbox, set_page_config, markdown, title, form, \
-    number_input, select_slider, form_submit_button, subheader
+    number_input, select_slider, form_submit_button, subheader, text_input
 from stock_monitor.models import Stock, Arbitrage
 from stock_monitor.renders.stock import base_strategy, vix_strategy, idea_strategy, mad_strategy, atr_strategy
 from stock_monitor.renders.arbitrages import arbitrage_strategy
@@ -8,18 +9,32 @@ from stock_monitor.data import arbitrages, stocks, vix_stocks, tax_loss_jan_stoc
 
 
 def render_position_size():
-    with form("position_size_calculator", clear_on_submit=True):
+    with form("position_size_calculator", clear_on_submit=False):
         write("Position size calculator")
+        ticker_name = text_input("Ticker:")
         portfolio_size = number_input("Account size (in $):", min_value=0)
         risk_ratio = select_slider("Risk ratio (in %):", value=2, options=range(1, 9))
         submitted = form_submit_button("Calculate")
         if submitted:
+            s = Stock(ticker_name, period="1y", interval="1d")
+
+            df = s.history
+            # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
+            atr = (DataFrame([df["High"] - df["Low"],
+                              (df["High"] - df["Close"].shift(1)).fillna(0.0),
+                              (df["Close"].shift(1) - df["Low"]).fillna(0.0)])
+                   .T.max(axis=1).rolling(5).mean().last(offset='1d'))
+            price = df["Close"].last(offset='1d').values[0]
+            atr_shares_num = int(risk_ratio * float(portfolio_size) / (2. * atr * price))
+            atr_position_size = atr_shares_num * price
             position_size = portfolio_size * (0.01 * risk_ratio) / 0.08
             msg = f"""When buying **${position_size:,.2f}** worth of stock and following the loss reduction rule
                       (selling a stake when its value is lost by 8% of its purchase price),
                       your losses will not exceed **{risk_ratio}%** of the size of your portfolio.
                    """
             markdown(msg)
+            markdown(f"Another strategy based on ATR: buy **{atr_shares_num}** shares which would cost today **${atr_position_size:,.2f}**")
+            render_ticker(Stock(ticker_name, period="3mo", interval="1d", buy_date=s.last_date))
 
 
 def render_sentiment():
