@@ -12,7 +12,7 @@ def base_strategy(stock: Stock) -> Stock:
                                  value("#ae1325"))
 
     base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)),
-                                       color=open_close_color)
+                                                     color=open_close_color)
 
     rule = base.mark_rule().encode(
         Y(
@@ -89,16 +89,16 @@ def atr_strategy(stock: Stock) -> Stock:
                                  value("#ae1325"))
 
     base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)),
-                                       color=open_close_color)
+                                                     color=open_close_color)
 
     rule = base.mark_rule().encode(
-            Y(
-                'Low:Q',
-                title=f'{stock.ticker_name}',
-                scale=Scale(zero=False)
-            ),
-            Y2('High:Q')
-        )
+        Y(
+            'Low:Q',
+            title=f'{stock.ticker_name}',
+            scale=Scale(zero=False)
+        ),
+        Y2('High:Q')
+    )
 
     bar = base.mark_bar().encode(
         Y('Open:Q'),
@@ -120,8 +120,14 @@ def atr_strategy(stock: Stock) -> Stock:
     cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=20, dy=7,
                                        text="sell",
                                        fontSize=12) \
-                    .encode(x=value(0))
+        .encode(x=value(0))
 
+    buy_price = stock.history.loc[stock.buy_date.replace(tzinfo=None)]["Open"]
+    take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
+        .encode(y=datum(buy_price * (1 + 0.25)))
+    take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
+                                         fontSize=8) \
+        .encode(x=value(0))
     dates = [stock.buy_date]
     texts = ["bought"]
     if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
@@ -135,7 +141,7 @@ def atr_strategy(stock: Stock) -> Stock:
                              'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
     rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
 
-    chart = t_line + cut_loss + cut_loss_text + rules + rules_text
+    chart = t_line + cut_loss + cut_loss_text + rules + rules_text + take_gain + take_gain_text
 
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
@@ -159,7 +165,6 @@ def mad_strategy(stock: Stock) -> Stock:
     mad_line = base.mark_line(stroke="#61BFAD", strokeDash=[3, 5]) \
         .encode(y=Y("MAD",
                     scale=Scale(zero=False)), tooltip=[Tooltip("MAD", title="Moving average distance 21/50")])
-
 
     buy_line = base.mark_line(stroke="#32B67A", strokeDash=[1, 2]).encode(y=datum(1.0))
     buy_line_text = buy_line.mark_text(color="#32B67A", dx=30, dy=7,

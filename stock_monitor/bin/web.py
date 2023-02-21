@@ -33,7 +33,7 @@ def render_position_size():
                       your losses will not exceed **{risk_ratio}%** of the size of your portfolio.
                    """
             markdown(msg)
-            markdown(f"Another strategy based on ATR: buy **{atr_shares_num}** shares which would cost today **${atr_position_size:,.2f}**")
+            markdown(f"Another strategy based on ATR: buy **{atr_shares_num}** shares which cost today **${atr_position_size:,.2f}**")
             render_ticker(Stock(ticker_name, period="3mo", interval="1d", buy_date=s.last_date))
 
 
