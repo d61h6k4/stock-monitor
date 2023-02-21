@@ -2,20 +2,24 @@ from altair import Chart
 from dataclasses import dataclass
 from datetime import datetime, timedelta
 from pandas import DataFrame
+from pathlib import Path
 from yfinance import Ticker
-
 
 from requests import Session
 from requests_cache import CacheMixin, SQLiteCache
 from requests_ratelimiter import LimiterMixin, MemoryQueueBucket
+
+
 class CachedLimiterSession(CacheMixin, LimiterMixin, Session):
     """ """
+
 
 session = CachedLimiterSession(
     per_second=0.9,
     bucket_class=MemoryQueueBucket,
-    backend=SQLiteCache("yfinance.cache"),
+    backend=SQLiteCache(str(Path(__file__).parent.parent.resolve() / "yfinance.cache")),
 )
+
 
 @dataclass(frozen=True)
 class Expectation:
