@@ -65,6 +65,9 @@ class Stock:
             assert isinstance(self.last_date, datetime), (self.ticker_name, self.history.Date)
             if self.last_date < self.buy_date:
                 self.buy_date = None
+            else:
+                self.buy_date = datetime(self.buy_date.year, self.buy_date.month, self.buy_date.day, self.buy_date.hour,
+                                         self.buy_date.minute, self.buy_date.second, tzinfo=self.history.index.tz)
 
 
 @dataclass

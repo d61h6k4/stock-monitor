@@ -247,6 +247,29 @@ def ideas(period: str, interval: str):
                                    Mirion should at least reach the low-end of this range implying a
                                    \$10/share price target.
                                    [Source](https://twitter.com/InvestSpecial/status/1623987849052692482)"""),
+             Stock("BALL", period=period, interval=interval,
+                   expectation=Expectation(price=70, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Beverage can producer with a 30% market share globally and 40% in the US.
+                                   Primary customers are companies like \$BUD and \$KO. Stock sold off due to
+                                   a combination of post-covid oversupply in the beverage can industry, increased
+                                   aluminum prices, and moderating consumer demand. Operating margins contracted
+                                   from 13% in 2020 to 10% in 2022.These factors are expected to unwind in 2023
+                                   setting up the perfect storm for BALL. The supply/demand disbalance is expected
+                                   to normalize in 2023, while decreases in aluminum prices are expected to bring margins
+                                   to historical levels. EPS is expected to reach \$3.5/share in 2023 (7% above consensus).
+                                   Historical 20x multiple implies a \$70/share price target.
+                                   [Source](https://twitter.com/InvestSpecial/status/1627623767869386752)"""),
+             Stock("MATV", period=period, interval=interval,
+                   expectation=Expectation(price=32, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Specialty materials business formed in 2022 as a result of merger with significant synergies.
+                                   Good business with cyclically depressed EBITDA. Should be a ~MSD revenue grower and approaching
+                                   high-teen EBITDA margins with low capex intensity (~3% of revenue).Extremely cheap trading 6.6x
+                                   management’s EBITDA target. Good FCF generator with a 14% 2023 levered FCF yield. Expected to
+                                   divest certain businesses to crystallize value. Last year insiders purchased nearly \$6mm in
+                                   stock at an average price of \$23.5. Currently trading at 6.6x management’s \$450mm EBITDA target.
+                                   On SOTP basis, with 10-12x EBITDA on ATS segment and 5-6x on the FBS segment, price target of
+                                   \$32-43/share.
+                                   [Source](https://twitter.com/InvestSpecial/status/1627984064601894915)"""),
              ]
 
     def yield_per_day(x):

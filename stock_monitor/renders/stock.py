@@ -1,5 +1,6 @@
 from altair import Axis, Chart, Scale, X, Y, layer, Tooltip, value, datum, condition, Y2, Y2Datum, Text
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pandas import DataFrame
 from stock_monitor.models import Stock
 
@@ -122,7 +123,7 @@ def atr_strategy(stock: Stock) -> Stock:
                                        fontSize=12) \
         .encode(x=value(0))
 
-    buy_price = stock.history.loc[stock.buy_date.replace(tzinfo=None)]["Open"]
+    buy_price = stock.history.loc[stock.buy_date.date().isoformat()]["Open"]
     take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
         .encode(y=datum(buy_price * (1 + 0.25)))
     take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
@@ -227,7 +228,6 @@ def idea_strategy(stock: Stock) -> Stock:
     assert stock.price_chart is not None, "Idea strategy appliable only to the already evaluated strategy"
     assert stock.expectation is not None, "Idea strategy valid only if we have expectations."
 
-    last_date = stock.history.reset_index().Date.max()
     base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)))
 
     expectation_line = base.mark_line(color="#ABCEE2", strokeDash=[1, 2]) \
@@ -239,9 +239,9 @@ def idea_strategy(stock: Stock) -> Stock:
         .encode(x=value(0))
 
     yield_rule = base.mark_rule(color="#ABCEE2", ) \
-        .transform_filter(f"year(datum.Date)=={last_date.year} && "
-                          f"month(datum.Date)=={last_date.month - 1} && "
-                          f"date(datum.Date)=={last_date.day}") \
+        .transform_filter(f"year(datum.Date)=={stock.last_date.year} && "
+                          f"month(datum.Date)=={stock.last_date.month - 1} && "
+                          f"date(datum.Date)=={stock.last_date.day}") \
         .encode(Y("Close:Q"),
                 Y2Datum(
                     datum=stock.expectation.price))
