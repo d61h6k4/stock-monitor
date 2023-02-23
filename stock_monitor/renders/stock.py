@@ -118,8 +118,8 @@ def atr_strategy(stock: Stock) -> Stock:
     price = df["Close"].last(offset='1d')
     sell_price = (price - 2 * atr).values[0]
     cut_loss = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(sell_price))
-    cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=20, dy=7,
-                                       text=f"sell on {sell_price}",
+    cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=30, dy=7,
+                                       text=f"sell on {sell_price:,.2f}",
                                        fontSize=12) \
         .encode(x=value(0))
 
