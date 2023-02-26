@@ -270,6 +270,31 @@ def ideas(period: str, interval: str):
                                    On SOTP basis, with 10-12x EBITDA on ATS segment and 5-6x on the FBS segment, price target of
                                    \$32-43/share.
                                    [Source](https://twitter.com/InvestSpecial/status/1627984064601894915)"""),
+             Stock("NTDOY", period=period, interval=interval,
+                   expectation=Expectation(price=30, date=datetime(2027, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Nintendo today offers a robust 3x upside to reach intrinsic value estimate of ~\$110bn EV.
+                                   The market is massively mispricing Nintendo’s “App Store Platform” or third-party software
+                                   business.Nintendo Switch is a thriving distribution channel that has already attracted a large
+                                   thriving ecosystem of third-party games. This marks a major strategic shift in how Nintendo views
+                                   its console business.As a result, Software sales have inflected in recent years, overtaking
+                                   hardware for the first time in 2022. Primed for continued massive margin expansion, from already
+                                   improved ~35% to 50%, based on reasonable extrapolations of the present trends.Game seg.
+                                   is worth \$65bn on \$12bn fwd. rev, 33% EBIT margin and 23x NOPAT
+                                   App Store Platform is worth \$45bn on \$3.5bn FY27 rev, 87% margin and 30x NOPAT
+                                   Suming up to \$110bn vs \$37bn EV today.
+                                   [Source](https://twitter.com/InvestSpecial/status/1629419792699383808)."""),
+             Stock("FTAI", period=period, interval=interval,
+                   expectation=Expectation(price=94, date=datetime(2027, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Aircraft and engine lessor that has gone through a major transformation from a complex “mess”
+                                   of assets to a pure-play aviation company. On the cusp of seeing substantial growth in its parts
+                                   & service business and that should translate into a higher multiple. Product and services segment
+                                   is set to contribute half of the profitability vs 15% currently. Trades materially below peers.
+                                   Survived major setbacks of Covid and the Russia/Ukraine war with a number of aircrafts seized
+                                   or destroyed. Recently spun-out infrastructure assets, which not only simplified and derisked the
+                                   FTAI story but also improved the balance sheet. 6.3% dividend yield limits the downside.
+                                   EBITDA set to grow from \$423m in 2022 to $1b in 2026. Multiple expected to expand from 9.7x today to 12x.
+                                   Leasing peers trade at 10x ’23 EBITDA and product comps at 15x.
+                                   [Source](https://twitter.com/InvestSpecial/status/1629419792699383808)"""),
              ]
 
     def yield_per_day(x):
