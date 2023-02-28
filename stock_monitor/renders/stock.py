@@ -110,6 +110,8 @@ def atr_strategy(stock: Stock) -> Stock:
     stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
 
     df = Stock(stock.ticker_name, period="1y", interval="1d").history
+
+    buy_price = df.loc[stock.buy_date.date().isoformat()]["Open"]
     # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
     atr = (DataFrame([df["High"] - df["Low"],
                       (df["High"] - df["Close"].shift(1)).fillna(0.0),
@@ -123,7 +125,6 @@ def atr_strategy(stock: Stock) -> Stock:
                                        fontSize=12) \
         .encode(x=value(0))
 
-    buy_price = stock.history.loc[stock.buy_date.date().isoformat()]["Open"]
     take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
         .encode(y=datum(buy_price * (1 + 0.25)))
     take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
