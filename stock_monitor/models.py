@@ -63,7 +63,8 @@ class Stock:
         # when buy date is today but we don't have data for today yet.
         if self.buy_date is not None:
             assert isinstance(self.last_date, datetime), (self.ticker_name, self.history.Date)
-            if self.last_date < self.buy_date:
+            first_date = self.history.reset_index().Date.min()
+            if self.last_date < self.buy_date or first_date > self.buy_date:
                 self.buy_date = None
             else:
                 self.buy_date = datetime(self.buy_date.year, self.buy_date.month, self.buy_date.day, self.buy_date.hour,
