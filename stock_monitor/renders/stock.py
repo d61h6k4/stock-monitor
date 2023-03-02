@@ -135,7 +135,7 @@ def atr_strategy(stock: Stock) -> Stock:
     if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=3))
         texts.append('too early')
-    elif stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
+    if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=8))
         texts.append('reevaluate')
 
