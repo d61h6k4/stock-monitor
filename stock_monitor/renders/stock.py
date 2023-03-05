@@ -125,6 +125,12 @@ def atr_strategy(stock: Stock) -> Stock:
                                        fontSize=12) \
         .encode(x=value(0))
 
+    cut_loss_eight_prt = base.mark_line(stroke="#F03F35", strokeDash=[1, 5]) \
+        .encode(y=datum(buy_price * (1.0 - 0.08)))
+    cut_loss_eight_prt_text = cut_loss_eight_prt.mark_text(color="#F03F35", dx=70, dy=-7,
+                                                           text=f"sell on {sell_price:,.2f} (-8%)",
+                                                           fontSize=8) \
+        .encode(x=value(0))
     take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
         .encode(y=datum(buy_price * (1 + 0.25)))
     take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
@@ -143,7 +149,8 @@ def atr_strategy(stock: Stock) -> Stock:
                              'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
     rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
 
-    chart = t_line + cut_loss + cut_loss_text + rules + rules_text + take_gain + take_gain_text
+    chart = t_line + cut_loss + cut_loss_text + rules + rules_text + take_gain + \
+            take_gain_text + cut_loss_eight_prt + cut_loss_eight_prt_text
 
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
