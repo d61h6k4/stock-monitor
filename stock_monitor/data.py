@@ -530,16 +530,6 @@ def arbitrages(period: str):
                                 but predictable transaction expenses. The main risk is NAV volatility, however, due to
                                 short timeline NAV changes are likelty to be minimal.
                                 """),
-           Arbitrage(target=Stock(ticker_name="ONEM", period=period), buyer=Stock(ticker_name="AMZN", period=period),
-                     offer_price=18,
-                     additional_buyer_ratio=0, expecting_closing=datetime(2023, 3, 22, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - regulatory approval. Several senators sent a letter to FTC,
-                                expressing concerns about Amazon potentially dominating the primary care market as well
-                                as acquiring vast amounts of personal data. FTC has already requested additional
-                                information from the parties. However, an eventual merger block seems unlikely, given
-                                Amazon's limited presence in the primary care market, the highly fragmented nature of
-                                the industry, and a negligible One Mediacal market share.
-                                """),
            Arbitrage(target=Stock(ticker_name="FORG", period=period), buyer="Thoma Bravo", offer_price=23.25,
                      additional_buyer_ratio=0, expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - antitrust approval. FORG is getting acquired by PE firm Thoma Bravo.
@@ -581,17 +571,5 @@ def arbitrages(period: str):
                                 earn-out for its historical acquisition from Dec'20. Information on the earn-out is
                                 limited but the maximum stated size is \$58m in CCHW shares. At current prices,
                                  the maximum earn-out would lower the exchange rate to 0.5174 and reduce the spread to 23%.
-                                """),
-           Arbitrage(target=Stock(ticker_name="IDFB", period=period), buyer=Stock(ticker_name="BG.VI", period=period),
-                     offer_price=12.05, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 2, 28, tzinfo=timezone.utc),
-                     commentary=r"""**Acquisition of a US community bank by a European bank.**
-                                    **Main risk** - regulatory approval. The merger was announced in Feb'22. BAWAG is a
-                                    large Vienna-listed holding company owning one of Austria's largest banks. The
-                                    acquisition would allow the buyer - which currently provides loans in the US - to
-                                    obtain a local banking license and would thus support its further US expansion
-                                    efforts. While the target is a tiny Idaho-located community bank, regulatory issues
-                                    are possible given a lack of such cross-border merger precedents. In early 2022,
-                                    the Federal Reserve Board approved BAWAG's attempt to establish a representative
-                                    office in the US. The buyer's management expects the transaction to close by Feb'23""")]
+                                """),]
     return sorted(res, key=lambda x: x.expecting_closing)
