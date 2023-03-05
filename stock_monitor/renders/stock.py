@@ -128,7 +128,7 @@ def atr_strategy(stock: Stock) -> Stock:
     cut_loss_eight_prt = base.mark_line(stroke="#F03F35", strokeDash=[1, 5]) \
         .encode(y=datum(buy_price * (1.0 - 0.08)))
     cut_loss_eight_prt_text = cut_loss_eight_prt.mark_text(color="#F03F35", dx=70, dy=-7,
-                                                           text=f"sell on {sell_price:,.2f} (-8%)",
+                                                           text=f"sell on {buy_price * (1.0 - 0.08):,.2f} (-8%)",
                                                            fontSize=8) \
         .encode(x=value(0))
     take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
