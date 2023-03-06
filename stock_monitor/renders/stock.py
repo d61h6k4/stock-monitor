@@ -111,7 +111,11 @@ def atr_strategy(stock: Stock) -> Stock:
 
     df = Stock(stock.ticker_name, period="1y", interval="1d").history
 
-    buy_price = df.loc[stock.buy_date.date().isoformat()]["Open"]
+    if stock.buy_date is not None:
+        buy_price = df.loc[stock.buy_date.date().isoformat()]["Open"]
+    else:
+        buy_price = 0
+        
     # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
     atr = (DataFrame([df["High"] - df["Low"],
                       (df["High"] - df["Close"].shift(1)).fillna(0.0),
