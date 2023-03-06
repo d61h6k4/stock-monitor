@@ -3,7 +3,8 @@ from pandas import DataFrame
 from streamlit import altair_chart, tabs, write, caption, sidebar, selectbox, set_page_config, markdown, title, form, \
     number_input, select_slider, form_submit_button, subheader, text_input
 from stock_monitor.models import Stock, Arbitrage
-from stock_monitor.renders.stock import base_strategy, vix_strategy, idea_strategy, mad_strategy, atr_strategy
+from stock_monitor.renders.stock import base_strategy, vix_strategy, idea_strategy, mad_strategy, atr_strategy, \
+    eight_prt_strategy
 from stock_monitor.renders.arbitrages import arbitrage_strategy
 from stock_monitor.data import arbitrages, stocks, vix_stocks, tax_loss_jan_stocks, ideas
 
@@ -33,7 +34,8 @@ def render_position_size():
                       your losses will not exceed **{risk_ratio}%** of the size of your portfolio.
                    """
             markdown(msg)
-            markdown(f"Another strategy based on ATR: buy **{atr_shares_num}** shares which cost today **${atr_position_size:,.2f}**")
+            markdown(
+                f"Another strategy based on ATR: buy **{atr_shares_num}** shares which cost today **${atr_position_size:,.2f}**")
             render_ticker(Stock(ticker_name, period="3mo", interval="1d", buy_date=s.last_date))
 
 
@@ -65,8 +67,7 @@ def render_vix_strategy(stock: Stock):
 
 
 def render_ticker(stock: Stock):
-    if stock.price_chart is None:
-        stock = mad_strategy(atr_strategy(stock))
+    stock = mad_strategy(atr_strategy(eight_prt_strategy(base_strategy(stock))))
 
     title(stock.title)
     altair_chart(vconcat(stock.price_chart.properties(width=1192),

@@ -6,8 +6,6 @@ from stock_monitor.models import Stock
 
 
 def base_strategy(stock: Stock) -> Stock:
-    loss_th = 0.08
-
     open_close_color = condition("datum.Open <= datum.Close",
                                  value("#06982d"),
                                  value("#ae1325"))
@@ -28,45 +26,46 @@ def base_strategy(stock: Stock) -> Stock:
         Y('Open:Q'),
         Y2('Close:Q')
     )
-    t_line = rule + bar
-
+    chart = rule + bar
     stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
+
+    stock.title = f"{stock.ticker_name}"
+    stock.price_chart = chart
+
+    return stock
+
+
+def eight_prt_strategy(stock: Stock) -> Stock:
+    assert stock.price_chart is not None, "8% strategy appliable only to the already evaluated strategy"
+
     if stock.buy_date is None:
-        stock.title = f"{stock.ticker_name}"
-        stock.price_chart = t_line
         return stock
 
-    description = "\n\nSell when the stock price crosses `cut the loss` line."
-    buy_price = stock.history.iloc[stock.history.Date.searchsorted(stock.buy_date)]["Open"]
+    base = Chart(stock.history.reset_index()).encode(
+        X("Date:T", axis=Axis(title=None))
+    )
 
-    cut_loss = base.mark_line(stroke="#F03F35", strokeDash=[1, 2]).encode(y=datum(buy_price * (1 - loss_th)))
-    cut_loss_text = cut_loss.mark_text(color="#F03F35", dx=60, dy=7,
-                                       text=f"cut the loss (-{100 * loss_th:.0f}% of buy price)",
-                                       fontSize=8) \
+    df = Stock(stock.ticker_name, period="1y", interval="1d").history
+    buy_price = df.loc[stock.buy_date.date().isoformat()]["Open"]
+
+    cut_loss_eight_prt = base.mark_line(stroke="#F03F35", strokeDash=[1, 5]) \
+        .encode(y=datum(buy_price * (1.0 - 0.08)))
+    cut_loss_eight_prt_text = cut_loss_eight_prt.mark_text(color="#F03F35", dx=70, dy=-7,
+                                                           text=f"sell on {buy_price * (1.0 - 0.08):,.2f} (-8%)",
+                                                           fontSize=8) \
         .encode(x=value(0))
-    filter_buy_date = f"year(datum.Date)>={stock.buy_date.year} && " \
-                      f"month(datum.Date)>={stock.buy_date.month - 1} && " \
-                      f"date(datum.Date)>={stock.buy_date.day}"
-    cut_loss_intersection = base.mark_point(color="#F03F35") \
-        .encode(y="Close") \
-        .transform_filter(filter_buy_date) \
-        .transform_filter(datum.Close < buy_price * (1 - loss_th))
-    take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
+    take_gain_eight_prt = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
         .encode(y=datum(buy_price * (1 + 0.25)))
-    take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
-                                         fontSize=8) \
+    take_gain_eight_prt_text = take_gain_eight_prt.mark_text(color="#32B67A", dx=70, dy=-7,
+                                                             text="take the gain (+25% of buy price)",
+                                                             fontSize=8) \
         .encode(x=value(0))
-    take_gain_intersection = base.mark_point(color="#32B67A") \
-        .encode(y="Close") \
-        .transform_filter(filter_buy_date) \
-        .transform_filter(datum.Close > buy_price * (1 + 0.25))
-
     dates = [stock.buy_date]
     texts = ["bought"]
     if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=3))
         texts.append('too early')
-    elif stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
+    if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=8))
         texts.append('reevaluate')
 
@@ -74,74 +73,22 @@ def base_strategy(stock: Stock) -> Stock:
                              'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
     rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
 
-    chart = t_line + cut_loss + cut_loss_text + cut_loss_intersection + take_gain + take_gain_text + \
-            take_gain_intersection + rules + rules_text
+    chart = rules + rules_text + take_gain_eight_prt + take_gain_eight_prt_text + \
+            cut_loss_eight_prt + cut_loss_eight_prt_text
 
-    stock.title = f"{stock.ticker_name}"
-    stock.price_chart = chart
-    stock.description += description
+    stock.price_chart += chart
 
     return stock
 
 
 def atr_strategy(stock: Stock) -> Stock:
-    open_close_color = condition("datum.Open <= datum.Close",
-                                 value("#06982d"),
-                                 value("#ae1325"))
+    assert stock.price_chart is not None, "ATR strategy appliable only to the already evaluated strategy"
 
-    base = Chart(stock.history.reset_index()).encode(X("Date:T", axis=Axis(title=None)),
-                                                     color=open_close_color)
-
-    rule = base.mark_rule().encode(
-        Y(
-            'Low:Q',
-            title=f'{stock.ticker_name}',
-            scale=Scale(zero=False)
-        ),
-        Y2('High:Q')
+    base = Chart(stock.history.reset_index()).encode(
+        X("Date:T", axis=Axis(title=None))
     )
-
-    bar = base.mark_bar().encode(
-        Y('Open:Q'),
-        Y2('Close:Q')
-    )
-    t_line = rule + bar
-
-    stock.volume_chart = base.mark_bar().encode(Y('Volume:Q'))
 
     df = Stock(stock.ticker_name, period="1y", interval="1d").history
-
-    eight_prt_rules = base
-    if stock.buy_date is not None:
-        buy_price = df.loc[stock.buy_date.date().isoformat()]["Open"]
-
-        cut_loss_eight_prt = base.mark_line(stroke="#F03F35", strokeDash=[1, 5]) \
-            .encode(y=datum(buy_price * (1.0 - 0.08)))
-        cut_loss_eight_prt_text = cut_loss_eight_prt.mark_text(color="#F03F35", dx=70, dy=-7,
-                                                               text=f"sell on {buy_price * (1.0 - 0.08):,.2f} (-8%)",
-                                                               fontSize=8) \
-            .encode(x=value(0))
-        take_gain_eight_prt = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
-            .encode(y=datum(buy_price * (1 + 0.25)))
-        take_gain_eight_prt_text = take_gain_eight_prt.mark_text(color="#32B67A", dx=70, dy=-7,
-                                                                 text="take the gain (+25% of buy price)",
-                                                                 fontSize=8) \
-            .encode(x=value(0))
-        dates = [stock.buy_date]
-        texts = ["bought"]
-        if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
-            dates.append(stock.buy_date + timedelta(weeks=3))
-            texts.append('too early')
-        if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
-            dates.append(stock.buy_date + timedelta(weeks=8))
-            texts.append('reevaluate')
-
-        rules = Chart(DataFrame({'Date': dates,
-                                 'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
-        rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
-
-        eight_prt_rules = rules + rules_text + take_gain_eight_prt + take_gain_eight_prt_text + \
-                          cut_loss_eight_prt + cut_loss_eight_prt_text
 
     # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
     atr = (DataFrame([df["High"] - df["Low"],
@@ -156,10 +103,9 @@ def atr_strategy(stock: Stock) -> Stock:
                                        fontSize=12) \
         .encode(x=value(0))
 
-    chart = t_line + cut_loss + cut_loss_text + eight_prt_rules
+    chart = cut_loss + cut_loss_text
 
-    stock.title = f"{stock.ticker_name}"
-    stock.price_chart = chart
+    stock.price_chart += chart
 
     return stock
 
