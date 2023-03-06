@@ -307,7 +307,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "VST", "CNQ", "PHPD.L", "IPI"]:
+    for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "CNQ", "PHPD.L", "IPI", "BABA"]:
         buy_date = None
         description = None
         if ticker_name == "FSTX":
@@ -332,14 +332,6 @@ def stocks(period: str, interval: str):
                              Utility, energy.
                              While waiting for recession.
                           """
-        elif ticker_name == "VST":
-            buy_date = datetime(2022, 12, 16, tzinfo=timezone.utc)
-            description = """Vistra Corp. is an integrated retail electricity and power generation company, which
-                             provides essential resources for customers, commerce and communities. The Company offers
-                             its products and services to market in Columbia, Canada and Japan.
-                             Utility, energy.
-                             While waiting for recession.
-                          """
         elif ticker_name == "CNQ":
             buy_date = datetime(2022, 12, 19, tzinfo=timezone.utc)
             description = """Canadian Natural Resources Limited is an independent crude oil and natural gas exploration,
@@ -357,6 +349,11 @@ def stocks(period: str, interval: str):
             description = r"""IPI is a small US-based Potash producer with a call option on Permian basin water rights.
                               The company has a solid balance sheet. The stock trades at 9x FCF. And it has a tiny 9mn share float.
                               Russo-Ukrane war (Russia and Belarus are the biggest Potash producers).
+                           """
+        elif ticker_name == "BABA":
+            buy_date = datetime(2023, 3, 6, tzinfo=timezone.utc)
+            description = r"""Alibaba Group Holding Limited.
+                              Bet on China reopening, Alibaba is Consumer Cyclical, so should benefit from reopening.
                            """
         assert buy_date is not None
         assert description is not None
