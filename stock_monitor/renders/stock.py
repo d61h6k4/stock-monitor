@@ -111,11 +111,38 @@ def atr_strategy(stock: Stock) -> Stock:
 
     df = Stock(stock.ticker_name, period="1y", interval="1d").history
 
+    eight_prt_rules = base
     if stock.buy_date is not None:
         buy_price = df.loc[stock.buy_date.date().isoformat()]["Open"]
-    else:
-        buy_price = 0
-        
+
+        cut_loss_eight_prt = base.mark_line(stroke="#F03F35", strokeDash=[1, 5]) \
+            .encode(y=datum(buy_price * (1.0 - 0.08)))
+        cut_loss_eight_prt_text = cut_loss_eight_prt.mark_text(color="#F03F35", dx=70, dy=-7,
+                                                               text=f"sell on {buy_price * (1.0 - 0.08):,.2f} (-8%)",
+                                                               fontSize=8) \
+            .encode(x=value(0))
+        take_gain_eight_prt = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
+            .encode(y=datum(buy_price * (1 + 0.25)))
+        take_gain_eight_prt_text = take_gain_eight_prt.mark_text(color="#32B67A", dx=70, dy=-7,
+                                                                 text="take the gain (+25% of buy price)",
+                                                                 fontSize=8) \
+            .encode(x=value(0))
+        dates = [stock.buy_date]
+        texts = ["bought"]
+        if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
+            dates.append(stock.buy_date + timedelta(weeks=3))
+            texts.append('too early')
+        if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
+            dates.append(stock.buy_date + timedelta(weeks=8))
+            texts.append('reevaluate')
+
+        rules = Chart(DataFrame({'Date': dates,
+                                 'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
+        rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
+
+        eight_prt_rules = rules + rules_text + take_gain_eight_prt + take_gain_eight_prt_text + \
+                          cut_loss_eight_prt + cut_loss_eight_prt_text
+
     # https://raposa.trade/blog/atr-and-how-top-traders-size-their-positions/
     atr = (DataFrame([df["High"] - df["Low"],
                       (df["High"] - df["Close"].shift(1)).fillna(0.0),
@@ -129,32 +156,7 @@ def atr_strategy(stock: Stock) -> Stock:
                                        fontSize=12) \
         .encode(x=value(0))
 
-    cut_loss_eight_prt = base.mark_line(stroke="#F03F35", strokeDash=[1, 5]) \
-        .encode(y=datum(buy_price * (1.0 - 0.08)))
-    cut_loss_eight_prt_text = cut_loss_eight_prt.mark_text(color="#F03F35", dx=70, dy=-7,
-                                                           text=f"sell on {buy_price * (1.0 - 0.08):,.2f} (-8%)",
-                                                           fontSize=8) \
-        .encode(x=value(0))
-    take_gain = base.mark_line(stroke="#32B67A", strokeDash=[1, 5]) \
-        .encode(y=datum(buy_price * (1 + 0.25)))
-    take_gain_text = take_gain.mark_text(color="#32B67A", dx=70, dy=-7, text="take the gain (+25% of buy price)",
-                                         fontSize=8) \
-        .encode(x=value(0))
-    dates = [stock.buy_date]
-    texts = ["bought"]
-    if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
-        dates.append(stock.buy_date + timedelta(weeks=3))
-        texts.append('too early')
-    if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
-        dates.append(stock.buy_date + timedelta(weeks=8))
-        texts.append('reevaluate')
-
-    rules = Chart(DataFrame({'Date': dates,
-                             'text': texts})).mark_rule(color="#ABCEE2", strokeDash=[1, 5]).encode(x="Date:T")
-    rules_text = rules.mark_text(color="#ABCEE2", angle=270, baseline="bottom").encode(text="text:N")
-
-    chart = t_line + cut_loss + cut_loss_text + rules + rules_text + take_gain + \
-            take_gain_text + cut_loss_eight_prt + cut_loss_eight_prt_text
+    chart = t_line + cut_loss + cut_loss_text + eight_prt_rules
 
     stock.title = f"{stock.ticker_name}"
     stock.price_chart = chart
