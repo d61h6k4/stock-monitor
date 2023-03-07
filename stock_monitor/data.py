@@ -295,6 +295,27 @@ def ideas(period: str, interval: str):
                                    EBITDA set to grow from \$423m in 2022 to $1b in 2026. Multiple expected to expand from 9.7x today to 12x.
                                    Leasing peers trade at 10x ’23 EBITDA and product comps at 15x.
                                    [Source](https://twitter.com/InvestSpecial/status/1629419792699383808)"""),
+             Stock("AE", period=period, interval=interval,
+                   expectation=Expectation(price=120, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Transportation and logistics company serving the energy and chemical sectors, primarily onshore.
+                                   Has momentum in each of its core business segments. Trades under 3x EBITDA.
+                                   New management is turning the business around.Previously poorly managed for many years and run like
+                                   a private company under Adams family control. In Nov’22 all 44% of the family’s ownership was cashed
+                                   out at \$36/share. Current management team led by the current CEO was hired in 2018 to turn around
+                                   operations. Despite the pandemic, since then the company has been meaningfully building adjusted FCF.
+                                   Recently completed highly accretive acquisitions of Firebird Bulk Carriers and Phoenix Oil for about
+                                   \$40m in cash. Repurchases and acquisitions, the net debt is close to zero. Expected to generate \$40m
+                                   of adj. EBITDA in 2022 and \$50m+ in 2023. Trades at 3x 2022 adjusted EBITDA and 2.5x 2023 estimated
+                                   adj. EBITDA. At 6x multiple would be worth $120/share."""),
+             Stock("DSEY", period=period, interval=interval,
+                   expectation=Expectation(price=9, date=datetime(2023, 6, 30, tzinfo=timezone.utc)),
+                   description=r"""Diversey is a provider of cleaning products and services to institutional customers such as hospitals,
+                                   hotels, and food and beverage producers. Stock is trading at a 50% discount from its Jan’22 levels due
+                                   to the compression of margins and a strong USD. Headwinds are expected to turn into tailwinds as margins
+                                   begin normalizing while the strong dollar seems to have topped. Plus DSEY operates a pretty sticky
+                                   business and has a scale advantage over its peers usually the #1 or #2 player in most markets.
+                                   Trades at 11x depressed 2022 EBITDA or 8x E2025 normalized EBITDA.
+                                   At 10-12x EBITDA multiple, stock is worth \$9-12/share."""),
              ]
 
     def yield_per_day(x):
@@ -307,13 +328,10 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "FSTX", "KOP", "CEG", "CNQ", "PHPD.L", "IPI", "BABA"]:
+    for ticker_name in ["TGNA", "KOP", "CEG", "CNQ", "BABA"]:
         buy_date = None
         description = None
-        if ticker_name == "FSTX":
-            buy_date = datetime(2022, 11, 30, tzinfo=timezone.utc)
-            description = "Arbitrage"
-        elif ticker_name == "TGNA":
+        if ticker_name == "TGNA":
             buy_date = datetime(2022, 12, 1, tzinfo=timezone.utc)
             description = "Arbitrage"
         elif ticker_name == "KOP":
@@ -339,17 +357,6 @@ def stocks(period: str, interval: str):
                              Energy, oil & gas.
                              War in Ukraine and sanctions on the Russia.
                           """
-        elif ticker_name == "PHPD.L":
-            buy_date = datetime(2023, 2, 6, tzinfo=timezone.utc)
-            description = r"""Palladium ETF. Palladium is a shiny metal used in many electronic and industrial products.
-                              China is reopening.
-                           """
-        elif ticker_name == "IPI":
-            buy_date = datetime(2023, 2, 13, tzinfo=timezone.utc)
-            description = r"""IPI is a small US-based Potash producer with a call option on Permian basin water rights.
-                              The company has a solid balance sheet. The stock trades at 9x FCF. And it has a tiny 9mn share float.
-                              Russo-Ukrane war (Russia and Belarus are the biggest Potash producers).
-                           """
         elif ticker_name == "BABA":
             buy_date = datetime(2023, 3, 6, tzinfo=timezone.utc)
             description = r"""Alibaba Group Holding Limited.
@@ -406,17 +413,6 @@ def arbitrages(period: str):
                                 substantial vertical integration. Recently ICE agreed to an extended FTC review with reiterating
                                 its expectation merger completion by H1'23. Since then, however, a congresswoman came
                                 out, urging the FTC to tightly scrutinize the transaction
-                                """),
-           Arbitrage(target=Stock(ticker_name="FSTX", period=period), buyer=Stock(ticker_name="1177.HK", period=period),
-                     offer_price=7.12, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 1, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - regulatory approval. The market seems to be concerned that the merger
-                                might get blocked by CDIUS due to the buyer being a Chinese firm. Such regulatory
-                                concerns are quite unusual given this is a tiny acquisition of an oncology treatment
-                                developer with a very early-stage pipeline. However, a couple of weeks ago, parties had
-                                to withdraw and refile the merger documents to CFIUS. As a result of this, the
-                                transaction end date was extended till the 19th Dec. Downside to pre-announcement price
-                                is very steep, which also partally explains the spread.
                                 """),
            Arbitrage(target=Stock(ticker_name="TGNA", period=period),
                      buyer="Standard General", offer_price=24.15,
@@ -496,14 +492,6 @@ def arbitrages(period: str):
                                 shareholder and regulatory approval are likely to pass given the larget premium over
                                 the historical TBV as wll as the small size of the combined enterprise.
                                 """),
-           Arbitrage(target=Stock(ticker_name="OIIM", period=period), buyer="Management", offer_price=4.93,
-                     additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - Chinese privatization. The spread exists mainly due to the market's
-                                skepticism towards anything China-realted. Privatization is led by a reputable PE firm
-                                that has carried out similar transactions in the past. Moreover, management is  also
-                                particiapating in the buyout that increase the chances of a successful closing.
-                                """),
            Arbitrage(target=Stock(ticker_name="SJR", period=period), buyer=Stock(ticker_name="RCI", period=period),
                      offer_price=30.12, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
@@ -568,5 +556,5 @@ def arbitrages(period: str):
                                 earn-out for its historical acquisition from Dec'20. Information on the earn-out is
                                 limited but the maximum stated size is \$58m in CCHW shares. At current prices,
                                  the maximum earn-out would lower the exchange rate to 0.5174 and reduce the spread to 23%.
-                                """),]
+                                """), ]
     return sorted(res, key=lambda x: x.expecting_closing)
