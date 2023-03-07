@@ -61,7 +61,7 @@ def eight_prt_strategy(stock: Stock) -> Stock:
                                                              fontSize=8) \
         .encode(x=value(0))
     dates = [stock.buy_date]
-    texts = ["bought"]
+    texts = [f"bought ({buy_price:,.2f})"]
     if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=3))
         texts.append('too early')
