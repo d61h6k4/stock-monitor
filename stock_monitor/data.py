@@ -316,6 +316,29 @@ def ideas(period: str, interval: str):
                                    business and has a scale advantage over its peers usually the #1 or #2 player in most markets.
                                    Trades at 11x depressed 2022 EBITDA or 8x E2025 normalized EBITDA.
                                    At 10-12x EBITDA multiple, stock is worth \$9-12/share."""),
+             Stock("BTI", period=period, interval=interval,
+                   expectation=Expectation(price=58, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""British American Tabacco - at only 7.8x fwd earnings and nearing inflection point in terms of growth.
+                                   At a lower valuation than during the worst of the GFC, and roughly in-line with COVID lows. As the company
+                                   adds non-combustibles to their mix, margins should continue to move higher. The market is more willing to
+                                   pay a premium multiple for a tobacco business with a larger % of non-smoking products in the portfolio
+                                   (as happened with \$PM case). Inflation-proof non-cyclical stock with a stable 8% dividend yield.
+                                   Together with EPS growth of 6-7% per year, BTI can be a 14-15% IRR stock for investors without rerating.
+                                   That's before any EPS growth from non-combustibles. Bears point out that tobacco names will never trade
+                                   at historical P/E multiples owing to heavy government regulation and the movement toward ESG investing.
+                                   But the irony is that regulation only ensures that the supply side of the industry remains tight.BTI is
+                                   expected to generate £4.26 of EPS in 2024. Historically traded at 12x EBITDA and 13x PE
+                                   Re-rating to 10x 2024 eps results in a \$58/share price target.
+                                   [Source](https://twitter.com/InvestSpecial/status/1633420824442019842)"""),
+             Stock("CZR", period=period, interval=interval,
+                   expectation=Expectation(price=150, date=datetime()),
+                   description=r"""The largest gaming operator in the US with over 50 properties. 50% selloff from Oct'21 highs due to
+                                   recession fears/risk aversion looks unwarranted as CZS offers a stable 15% FCF yield. Meanwhile,
+                                   the downside looks protected by CZR’s owned real estate. Most importantly, there is the optionality
+                                   of FCF expansion through normalization of growth CAPEX, interest expense reduction through debt repayments,
+                                   and digital business inflection to profitability as it benefits from i-gaming growth.
+                                   At 15x EBITDA (4x below average peer multiple over the last decade), the company would be valued at \$150/share.
+                                   [Source](https://twitter.com/InvestSpecial/status/1633420824442019842)""")
              ]
 
     def yield_per_day(x):
