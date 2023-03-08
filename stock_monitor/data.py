@@ -331,7 +331,7 @@ def ideas(period: str, interval: str):
                                    Re-rating to 10x 2024 eps results in a \$58/share price target.
                                    [Source](https://twitter.com/InvestSpecial/status/1633420824442019842)"""),
              Stock("CZR", period=period, interval=interval,
-                   expectation=Expectation(price=150, date=datetime()),
+                   expectation=Expectation(price=150, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
                    description=r"""The largest gaming operator in the US with over 50 properties. 50% selloff from Oct'21 highs due to
                                    recession fears/risk aversion looks unwarranted as CZS offers a stable 15% FCF yield. Meanwhile,
                                    the downside looks protected by CZR’s owned real estate. Most importantly, there is the optionality
