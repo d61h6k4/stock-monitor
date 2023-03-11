@@ -338,7 +338,19 @@ def ideas(period: str, interval: str):
                                    of FCF expansion through normalization of growth CAPEX, interest expense reduction through debt repayments,
                                    and digital business inflection to profitability as it benefits from i-gaming growth.
                                    At 15x EBITDA (4x below average peer multiple over the last decade), the company would be valued at \$150/share.
-                                   [Source](https://twitter.com/InvestSpecial/status/1633420824442019842)""")
+                                   [Source](https://twitter.com/InvestSpecial/status/1633420824442019842)"""),
+             Stock("WBA", period=period, interval=interval,
+                   expectation=Expectation(price=70, date=datetime(2023, 8, 1, tzinfo=timezone.utc)),
+                   description=r"""Wallgreens Boots Alliance - trades near all-time lows on virtually every metric. Fundamentals are
+                                   expected to inflect in the second half of FY23. Company’s YOY EPS trajectory is projected to flip
+                                   from about -31% in the first half, to 29% in the back-half. This will be driven by lower COVID headwinds,
+                                   improvements in WBA’s Healthcare business, the timing of reimbursements, and lower COGS. The company has
+                                   been transitioning under its new CEO into a multi-channel technology-driven healthcare provider and a
+                                   one-stop shop for all healthcare needs. This is expected to drive longer-term EPS growth in the 13-15% range.
+                                   Another catalyst is the potential sale of its large UK subsidiary Boots – rumors have been circulating
+                                   that it might get sold at the right price. Trades at an 8.1x PE for 2023 and 7.3x for 2024.
+                                   At historical discount levels (5-10%) would be \$70 stock.
+                                   [Source](https://twitter.com/InvestSpecial/status/1634143032609046530)"""),
              ]
 
     def yield_per_day(x):
