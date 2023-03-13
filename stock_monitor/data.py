@@ -363,7 +363,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "KOP", "CEG", "CNQ", "BABA"]:
+    for ticker_name in ["TGNA", "KOP", "CEG", "CNQ", "GSMG"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
@@ -392,10 +392,11 @@ def stocks(period: str, interval: str):
                              Energy, oil & gas.
                              War in Ukraine and sanctions on the Russia.
                           """
-        elif ticker_name == "BABA":
-            buy_date = datetime(2023, 3, 6, tzinfo=timezone.utc)
-            description = r"""Alibaba Group Holding Limited.
-                              Bet on China reopening, Alibaba is Consumer Cyclical, so should benefit from reopening.
+        elif ticker_name == "GSMG":
+            buy_date = datetime(2023, 3, 13, tzinfo=timezone.utc)
+            description = r"""Glory Star New Media Group Holdings Limited, through its subsidiaries, provides advertisement
+                              and content production services in the People’s Republic of China.
+                              Arbitrage.
                            """
         assert buy_date is not None
         assert description is not None
