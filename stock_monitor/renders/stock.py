@@ -61,7 +61,7 @@ def eight_prt_strategy(stock: Stock) -> Stock:
                                                              fontSize=8) \
         .encode(x=value(0))
 
-    chart_first_date = self.history.reset_index().Date.min()
+    chart_first_date = stock.history.reset_index().Date.min()
     dates = [max(stock.buy_date, chart_first_date)]
     texts = [f"bought ({buy_price:,.2f})"]
     if chart_first_date <= stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
