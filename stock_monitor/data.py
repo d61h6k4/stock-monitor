@@ -69,18 +69,6 @@ def ideas(period: str, interval: str):
                                   \$3.08/share in Aug’22. Management’s internal value estimate of \$5/share.
                                   **Exp. gain: +70% to\$3.08+**
                                   [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
-             Stock("SI", period=period, interval=interval,
-                   expectation=Expectation(price=120, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
-                   description=r"""FDIC-regulated bank which specializes in serving the crypto-currency ecosystem and
-                                  acquired the Diem platform from \$META. An institution with a very liquid asset book
-                                  of government securities trading below tangible book. No credit risk exposure to
-                                  crypto.The stock is down from \$220 to \$30 over the past year. At 1xBV, the downside
-                                  is very well protected with material optionality from crypto recovery or Diem getting
-                                  regulatory approval.Trades at 1xBV. In an upside scenario, it is a differentiated
-                                  financial institution worth several multiples of BV. If Diem takes off \$SI becomes a
-                                  high-growth technology company.
-                                  **Exp. gain: 2x-4x.**
-                                  [Source](https://twitter.com/InvestSpecial/status/1610585909128302593)"""),
              Stock("AMKR", period=period, interval=interval,
                    expectation=Expectation(price=87, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
                    description=r"""Semiconductor assembly services provider – the world’s most wonderfully boring

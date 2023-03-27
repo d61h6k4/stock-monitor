@@ -60,12 +60,14 @@ def eight_prt_strategy(stock: Stock) -> Stock:
                                                              text="take the gain (+25% of buy price)",
                                                              fontSize=8) \
         .encode(x=value(0))
-    dates = [stock.buy_date]
+
+    chart_first_date = self.history.reset_index().Date.min()
+    dates = [max(stock.buy_date, chart_first_date)]
     texts = [f"bought ({buy_price:,.2f})"]
-    if stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
+    if chart_first_date <= stock.buy_date + timedelta(weeks=3) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=3))
         texts.append('too early')
-    if stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
+    if chart_first_date <= stock.buy_date + timedelta(weeks=8) < datetime.now(tz=timezone.utc):
         dates.append(stock.buy_date + timedelta(weeks=8))
         texts.append('reevaluate')
 
