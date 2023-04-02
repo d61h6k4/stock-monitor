@@ -339,6 +339,28 @@ def ideas(period: str, interval: str):
                                    that it might get sold at the right price. Trades at an 8.1x PE for 2023 and 7.3x for 2024.
                                    At historical discount levels (5-10%) would be \$70 stock.
                                    [Source](https://twitter.com/InvestSpecial/status/1634143032609046530)"""),
+             Stock("GPRE", period=period, interval=interval,
+                   expectation=Expectation(price=60, date=datetime(2024, 4, 2, tzinfo=timezone.utc)),
+                   description=r"""Green Plains is transitioning from a legacy ethanol company into a diversified bio-refinery after the
+                                   acquisition of Fluid Quip in 2020. The company is now at an inflection point where the market will start
+                                   to see a meaningful increase in financial performance. Half of GPRE’s facilities have already been converted
+                                   to include these AgTech enhancements while the remainder should be converted within 18 months.
+                                   Q1’23 earnings will mark the beginning where half of GPRE’s platform runs at planned production capacity
+                                   Activist Ancora is now pushing for strategic alternatives, including a sale, suggesting a strategic acquirer
+                                   could pay \$50/share or more. GPRE trades at <5x E2023 EBITDA of around \$450m.
+                                   Company is worth around \$60-\$65/share over the next 12-18 months.
+                                   [Source](https://twitter.com/InvestSpecial/status/1642450715284062208)"""),
+             Stock("RMBL", period=period, interval=interval,
+                   expectation=Expectation(price=25, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""RumbleOn is the largest power sports dealership group in the US. Currently, RMBL is misunderstood and
+                                   being viewed as yet another COVID beneficiary. However, RMBL is sufficiently resilient during near-term
+                                   macro bumpiness and has a compelling LT strategy for value creation. RMBL’s organic growth, with used
+                                   volume growth being the key component, will allow the company to outperform peers this year.RMBL has
+                                   multiple levels to create value including accretive M&A, opening their fulfillment/distribution centers
+                                   to the public, and focusing on effective servicing at dealerships. Despite high leverage, the risk of
+                                   breaching debt covenants is low. 2024 EBITDA expected at around \$130m. Using a 6x EBITDA multiple results
+                                   in a \$25/share price target.
+                                   [Source](https://twitter.com/InvestSpecial/status/1642450715284062208)"""),
              ]
 
     def yield_per_day(x):
@@ -499,46 +521,6 @@ def arbitrages(period: str):
                                 now re-filed under a normal procedure as advised by Chinese regulators. This month the documents
                                 have been accepted and regulatory review is underway.
                                 Management reiterated the expected closing date to be in mid-late 2023."""),
-           Arbitrage(target=Stock(ticker_name="IAA", period=period), buyer=Stock(ticker_name="RBA", period=period),
-                     offer_price=10, additional_buyer_ratio=0.5804,
-                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - shareholder approval. The current spread largely reflects the risk of IAA
-                                shareholder approval (meeting date TBD). Recently, reputable activist Ancore (4% stake)
-                                voiced its opposition to the merger, arguing that it undervalues the company. Given the
-                                strong strategic rationale and relatively low transaction multiple, there is a decent
-                                chance for an improved offer. Both parties seem confident that regulatory approvals will pass.
-                                """),
-           Arbitrage(target=Stock(ticker_name="HVBC", period=period), buyer=Stock(ticker_name="CZFS", period=period),
-                     offer_price=6.1, additional_buyer_ratio=0.32,
-                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - expensive hedging. The key reason for the spread is high borrow fees,
-                                currently standing at 13%. Merger is expected to close succesfully by H1'23. Both
-                                shareholder and regulatory approval are likely to pass given the larget premium over
-                                the historical TBV as wll as the small size of the combined enterprise.
-                                """),
-           Arbitrage(target=Stock(ticker_name="SJR", period=period), buyer=Stock(ticker_name="RCI", period=period),
-                     offer_price=30.12, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - regulatory approval. Regulators have blocked the transaction saying
-                                it will significantly dampen competition in Canda (where telecom rates are already
-                                among the highest in the world). To alleviate antitrust concerns, the companies have
-                                in turn agreed to divest RCI's wireless service division. However, Canada's Competition
-                                Committee recently stated that the proposed divestment is not an effective remdey.
-                                Anticipated settlement during the attempted mediation has failed. This month, the
-                                heaing started a competition Tribunal. Both parties expect to receive regulatory
-                                clearance sometime in 2023.
-                                """),
-           Arbitrage(target=Stock(ticker_name="FCRD", period=period), buyer=Stock(ticker_name="CCAP", period=period),
-                     offer_price=1.89,
-                     additional_buyer_ratio=0.2063,
-                     expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - NAV volatiltiy. This is essentally a NAV for NAV merger with an
-                                additional cash portion from buyer's external manager. Final consideration will be
-                                determined at the time of closing, which is expected in Q1'23. The spread likely exists
-                                due to small capitalization, somewhat confusing consideration calculations, and unknown,
-                                but predictable transaction expenses. The main risk is NAV volatility, however, due to
-                                short timeline NAV changes are likelty to be minimal.
-                                """),
            Arbitrage(target=Stock(ticker_name="FORG", period=period), buyer="Thoma Bravo", offer_price=23.25,
                      additional_buyer_ratio=0, expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - antitrust approval. FORG is getting acquired by PE firm Thoma Bravo.
@@ -546,15 +528,6 @@ def arbitrages(period: str):
                                 year Thomas Bravo has already acquired 2 players in the IAM space - one of which is a
                                 direct peer to FORG. Recently, reports came out that Thomas Bravo plans to pull and
                                 refile its merger docs with DOJ. Merger is expected to close in the first half of 2023.
-                                """),
-           Arbitrage(target=Stock(ticker_name="SGFY", period=period), buyer=Stock(ticker_name="CVS", period=period),
-                     offer_price=30.5, additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - regulatory approval. The reason for the small spread is still pending
-                                regualtory approval. Recently FTC requested additional information due to
-                                anti-competitive concerns of the proporsed merger. CSV's managements suggests the deal
-                                will pass as both companies provide different products and services. Merger is expected
-                                to close in H1'23.
                                 """),
            Arbitrage(target=Stock(ticker_name="GSMG", period=period), buyer="Management", offer_price=1.55,
                      additional_buyer_ratio=0, expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
