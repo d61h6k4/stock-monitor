@@ -361,6 +361,44 @@ def ideas(period: str, interval: str):
                                    breaching debt covenants is low. 2024 EBITDA expected at around \$130m. Using a 6x EBITDA multiple results
                                    in a \$25/share price target.
                                    [Source](https://twitter.com/InvestSpecial/status/1642450715284062208)"""),
+             Stock("BAIN.PA", period=period, interval=interval,
+                   expectation=Expectation(price=150, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""SBM: A unique investment in the ultra-rich – with operating leverage and growth.
+                                   If even part way accurate, this analysis suggests significant potential upside on a post-COVID recovery
+                                   as the rentals are revalued. We view a more appropriate valuation as closer to €150/share for the group.
+                                   [Source](https://east72.com.au/wp-content/uploads/2023/04/E72DT-QUARTERLY-REPORT-Mar-2023.pdf)"""),
+             Stock("APT", period=period, interval=interval,
+                   expectation=Expectation(price=4.5, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Relatively mediocre business, however, it is cheap on all metrics. Trades at 7x EBIT, slightly above net
+                                   current assets. Well-protected downside and meaningful potential upside.The company manufactures/sells
+                                   single-use protective apparel products and building supply products. Net cash balance sheet and rational
+                                   capital allocation strategy. Uses all FCF to buy back stock, S/O declined from 27m in 2006 to 13m today.
+                                   Shares might skyrocket on the next viral outbreak, as has already happened due to H1N1 in 2009 and COVID in 2020.
+                                   Attractive M&A target for both financial and strategic buyers.Shares might skyrocket on the next viral outbreak,
+                                   as has already happened due to H1N1 in 2009 and COVID in 2020. Attractive M&A target for both financial and
+                                   strategic buyers. EV/sales at 0.52x, EV/EBIT is 6.8x, and EV/NOPAT is 8.6x.
+                                   NCAV per share is \$3.77 (1.14x) and TBVPS is \$4.85 (0.89x). Exp. gain: TBVPS is set to compound at 8%
+                                   annually in the absence of any viral outbreaks.
+                                   [Source](https://twitter.com/InvestSpecial/status/1643537169309483008)"""),
+             Stock("AUE.SI", period=period, interval=interval,
+                   expectation=Expectation(price=1.15, date=datetime(2023, 6, 30, tzinfo=timezone.utc)),
+                   description=r"""An interesting special situation play with a very limited downside. Golden Energy and Resources
+                                   is a holding company of two publically listed coal subsidiaries. It is currently subject to a
+                                   takeover proposal by the controlling shareholder. Original lowball offer was raised by 17% after
+                                   Singaporean minority investor ‘watchdog’ called for an improved bid. The amended offer was not
+                                   declared final and there is a decent chance it gets raised again. Buyer looks motivated to get the deal done.
+                                   Offer is expected to be raised to around 108-115 cents.
+                                   [Source](https://twitter.com/InvestSpecial/status/1642823074541182976)"""),
+             Stock("CEG", period=period, interval=interval,
+                   expectation=Expectation(price=115, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Constellation Energy, a recent spinoff, operates 13 nuclear power plants in the US. As of the
+                                   Inflation Reduction Act’s (IRA) subsidies, CEG thus offers a minimum FCF yield of around 8.5%
+                                   while allowing for full upside potential at higher power prices.  Furthermore, the downside looks
+                                   somewhat protected as the company trades at <50% below replacement cost. The stock offers additional
+                                   optionality if the company takes advantage of IRA-supported tax-credit opportunities in clean hydrogen.
+                                   12-13x EBITDA multiple on floor earnings implies a \$115-125/share stock price.
+                                   [Source](https://twitter.com/InvestSpecial/status/1642823074541182976)
+                                """)
              ]
 
     def yield_per_day(x):
@@ -393,7 +431,7 @@ def stocks(period: str, interval: str):
                              of clean energy and sustainable solutions to homes, businesses, public sector, community
                              aggregations and a range of wholesale customers, such as municipalities, cooperatives.
                              Utility, energy.
-                             While waiting for recession.
+                             See CEG in Ideas.
                           """
         elif ticker_name == "CNQ":
             buy_date = datetime(2022, 12, 19, tzinfo=timezone.utc)
@@ -449,7 +487,7 @@ def arbitrages(period: str):
                                     depend on the outcome of NEA trial, last month. JBLU's management reiterated
                                     confidence in merger closing in H1'24"""),
            Arbitrage(target=Stock(ticker_name="BKI", period=period), buyer=Stock(ticker_name="ICE", period=period),
-                     offer_price=68, additional_buyer_ratio=0.144,
+                     offer_price=68, additional_buyer_ratio=0.0682,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. Shareholders have already approved the merger. However,
                                 Community Home Lender Association has called regulators to block the merger over antitrust
@@ -463,7 +501,7 @@ def arbitrages(period: str):
            Arbitrage(target=Stock(ticker_name="TGNA", period=period),
                      buyer="Standard General", offer_price=24.15,
                      additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 2, 28, tzinfo=timezone.utc),
+                     expecting_closing=datetime(2023, 5, 28, tzinfo=timezone.utc),
                      commentary="""**Main risk** - regulatory approval. The buyer consortium includes Standard General,
                                 Apollo, and Cox Media. Various industry players and unions have voiced their concerns
                                 that combined TGNA/Cox Media will control too much of the market share (39% of U.S. TVH)
@@ -473,6 +511,8 @@ def arbitrages(period: str):
                                 ownership rules, whereas the merger will not affect competition. Recently Telecom
                                 regulators noted they have no objections to the merger. However, both FCC and DOJ
                                 reviews are still ongoing. Merger end date has now bee extended till Feb'23.
+                                The spread has widened from teen levels to over 40%. Merger end date is set for
+                                May 23 after which either party can walk away from the transaction without penalty.
                                 """),
            Arbitrage(target=Stock(ticker_name="TSEM", period=period), buyer=Stock(ticker_name="INTC", period=period),
                      offer_price=53, additional_buyer_ratio=0,
@@ -530,13 +570,19 @@ def arbitrages(period: str):
                                 refile its merger docs with DOJ. Merger is expected to close in the first half of 2023.
                                 """),
            Arbitrage(target=Stock(ticker_name="GSMG", period=period), buyer="Management", offer_price=1.55,
-                     additional_buyer_ratio=0, expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - Chinese company and material downside. The price was already raised
-                                once from the initial \\$1.27\\/share, which was rejected by the special committee. An
-                                improved offer was appoved and a definitive agreement is now in place. Major shareholder
-                                US hedge fund Shah Capital is rolling its 11% stake. Shareholder approval has been granted.
-                                Downside is very material, which coupled with GSMG being a Chineese company, probably
-                                explains the current spread.
+                     additional_buyer_ratio=0, expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
+                     commentary=r"""**Main risk** - Privatization offer withdrawal.
+                                    The spread hovered at less than 5% since shareholder approval in Sep'22 as
+                                    the market expected prompt merger closing. More than half a year later, the
+                                    merger is still pending, meanwhile, the management did not provide any
+                                    explanation for 118% why it is taking so long. This scared investors and
+                                    the spread gradually widened to above 100%. With the recent annual results release,
+                                    the company did not provide any updates on the transaction, noting that the
+                                    privatization is "yet to be consummated". The market clearly does not believe the
+                                    merger will close as the stock currently trades below pre-announcement levels.
+                                    Historically US-listed Chinese privatizations in definitive agreement stage have
+                                    had a very high succesful closing rate, However such a prolonged lag indicates elevated
+                                    merger break risk.
                                 """),
            Arbitrage(target=Stock(ticker_name="CCHWF", period=period), buyer=Stock(ticker_name="CRLBF", period=period),
                      offer_price=0,
@@ -553,5 +599,66 @@ def arbitrages(period: str):
                                 earn-out for its historical acquisition from Dec'20. Information on the earn-out is
                                 limited but the maximum stated size is \$58m in CCHW shares. At current prices,
                                  the maximum earn-out would lower the exchange rate to 0.5174 and reduce the spread to 23%.
-                                """), ]
+                                """),
+           Arbitrage(target=Stock(ticker_name="INFI", period=period), buyer=Stock("MEIP", period=period),
+                     offer_price=0, additional_buyer_ratio=1.0449,
+                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
+                     commentary=r"""**Tiny all-stock biopharma merger.**
+                                    Main risk - buyer's shareholder approval.
+                                    Merger spread stood at minimal levels upon anouncement in Feb'23 and then gradually widened to 50% in March.
+                                    This seems to have been driven by the risk of MEIP's shareholder opposition as the transaction terms appear
+                                    to be quite 60% unfavorable for the buyer. This is also indicated by MEIP's share price fall of 20% upon
+                                    the announcement. As part of the transaction, the buyer is required to keep \$80m in net cash vs \$4m for
+                                    INFI while giving away a 42% ownership of the combined entity to INFl's equity holders.
+                                    MEIP would add INFI's phase 2 drug candidate to its early-stage pipeline. In liquidation scenario MEIP
+                                    could be worth materially above the current share price levels."""),
+           Arbitrage(target=Stock(ticker_name="FHN", period=period), buyer=Stock("TD", period=period),
+                     offer_price=25, additional_buyer_ratio=0,
+                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
+                     commentary=r"""**Largest Canadian bank acquiring a regional US peer.**
+                                    **Main risk** - downward price adjustment. The spread on this regional bank merger used to stand at minimal
+                                    levels despite still pending regulatory approvals. The spread widen to 20% in March on the news that the
+                                    parties will not be able to receive regulatory approvals by the merger 40% outside date of May'23.
+                                    The spread increased further to over 40% amid the subsequent banking industry fall-out.
+                                    Aside from the pending regulatory aprrovals, the current spread also reflects the risk of a downward price
+                                    adjustment given that US bank indices are down significantly since the merger agreement was signed more
+                                    than a year ago. The buyer's management has mentioned that negotiations regarding a merger consideration
+                                    adjustment are ongoing. TD has remained committed to closing the transaction and the parties are in
+                                    discussions to extend the outside date US-listed Chinese company privatization"""),
+           Arbitrage(target=Stock(ticker_name="ACI", period=period), buyer=Stock(ticker_name="KR", period=period),
+                     offer_price=27.25, additional_buyer_ratio=0,
+                     expecting_closing=datetime(2024, 3, 30, tzinfo=timezone.utc),
+                     commentary=r"""**Merger of two grocery store chains.**
+                                    **Main risk** - regulatory approval. Merger of two grocery store chains coming after AC announced strategic
+                                    alternatives in 2022. The transaction is synergistic from a geographical perspective - management states
+                                    that AC operates in several parts of the country with very few or no Kroger stores. The main risk is
+                                    antitrust approvals as the merger would combine the two of the biggest supermarket companies in the country.
+                                    US senators as well as a couple of farmer/consumer groups have raised anticompetitive concerns to the FTC.
+                                    The buyer KR has already received a second request from the FTC. However, both sides are confident of
+                                    circumventing the regulatory hurdles with proposed divestitures of a large number of stores. The companies
+                                    have recently started to look for potential buyers of stores in overlapping areas."""),
+           Arbitrage(target=Stock(ticker_name="SGEN", period=period), buyer=Stock(ticker_name="PFE", period=period),
+                     offer_price=229, additional_buyer_ratio=0,
+                     expecting_closing=datetime(2024, 3, 30, tzinfo=timezone.utc),
+                     commentary=r"""**Prizer's large acquisition in the cancer treatment space.**
+                                    **Main risk** - regulatory approval. The current spread seems to exist due to the likely scrutiny from
+                                    antitrust regulators and potentially prolonged closing timeline. The transaction would give Pfizer a
+                                    leading position in cancer treatment space where the company already owns a sizable portfolio of drugs.
+                                    This might increase the combined company's power to negotiate with insurers. Industry analysts have
+                                    noted that divestitures in some areas, such as bladder cancer treatment, might be needed. SGEN's shareholder
+                                    approval seems likely, given a massive premium to pre-announcement levels. The merger is expected to close
+                                    in late 2023-early 2024"""),
+           Arbitrage(target=Stock(ticker_name="TCRR", period=period), buyer=Stock(ticker_name="ADAP", period=period),
+                     offer_price=0, additional_buyer_ratio=1.5117,
+                     expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
+                     commentary=r"""**All-stock merger between two clinical-stage biopharmas**
+                                    **Main risk** - small capitalization, steep downside, shareholder approvals
+                                    The spread exists due to shareholder approval risks. ADAP's share price dropped 25% upon the announcement,
+                                    indicating potential equity holder opposition to the deal. Any pushback, however, seems unlikely given that
+                                    the transaction is primarily an equity raise for the buyer which is acquiring \$149m of the target's gross cash
+                                    for \$64m worth of its stock. The merger would provide ADAP with additional liquidity required to pursue
+                                    commercialization of its drug portfolio. TCRR is a cash-burning machine with no commercial-stage assets,
+                                    suggesting its shareholders would face dilutive equity raises and/or a prolonged strategic review if the
+                                    current deal breaks. TCRR insiders own a sizable 25% of the company. ADAP management owns 17%.""")
+           ]
     return sorted(res, key=lambda x: x.expecting_closing)
