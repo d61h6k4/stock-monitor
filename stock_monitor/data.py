@@ -398,7 +398,32 @@ def ideas(period: str, interval: str):
                                    optionality if the company takes advantage of IRA-supported tax-credit opportunities in clean hydrogen.
                                    12-13x EBITDA multiple on floor earnings implies a \$115-125/share stock price.
                                    [Source](https://twitter.com/InvestSpecial/status/1642823074541182976)
-                                """)
+                                """),
+             Stock("PENN", period=period, interval=interval,
+                   expectation=Expectation(price=85, date=datetime(2025, 1, 30, tzinfo=timezone.utc)),
+                   description=r"""Casino operator with 43 properties + digital assets. Since pre-pandemic, sales grew by 20% and
+                                   margins significantly improved. Despite these positives, PENN trades at the same EV as pre-covid.
+                                   Core business comprises 85% of revenue and provides solid downside protection.
+                                   On top of that, PENN's digital assets present a call option on OSB/iCasino industry. Both digital
+                                   assets continue to grow and are at breakeven now. Sustainable margin improvement has been mainly
+                                   achieved through cost savings. Management's compensation is heavily tied to share price appreciation
+                                   over the next 3 years. The company has started buying back shares. Land-based businesses are expected
+                                   to deliver ~\$5/share of levered FCF by '25. At today's 11x multiple, that's \$55/share value.
+                                   Digital assets are worth an additional \$30/share.
+                                   [Source](https://twitter.com/InvestSpecial/status/1644625210794995713)"""),
+             Stock("LNW", period=period, interval=interval,
+                   expectation=Expectation(price=150, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Gaming content creator/manufacturer/distributor for land-based and digital casinos. Oligopoly with
+                                   75% recurring revenue and high switching costs. Has now assembled an all-star team after hiring
+                                   around 50 high-level executives from rival Aristrocrat. Core business is expected to benefit from
+                                   an increase in casino CAPEX following two years of negligible spending. Also, market is currently
+                                   ascribing nearly 0 value to LNW’s two digital assets – digital casino games and mobile/social gaming.
+                                   Digital assets are highly synergistic to its main business and are expected to benefit from digital
+                                   casino legalisation in the US and growing TAM for mobile/social gaming.
+                                   LNW trades 6.5x 2024 EBITDA vs 10x for closest peer Aristocrat. Optionality to re-rate closer to
+                                   video game focused peers (trade at 17-19x EBITDA). Stock is expected to return 3.7x MOIC.
+                                   [Source](https://twitter.com/InvestSpecial/status/1644625210794995713)
+                   """)
              ]
 
     def yield_per_day(x):
