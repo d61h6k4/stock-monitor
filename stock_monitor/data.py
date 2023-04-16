@@ -423,7 +423,20 @@ def ideas(period: str, interval: str):
                                    LNW trades 6.5x 2024 EBITDA vs 10x for closest peer Aristocrat. Optionality to re-rate closer to
                                    video game focused peers (trade at 17-19x EBITDA). Stock is expected to return 3.7x MOIC.
                                    [Source](https://twitter.com/InvestSpecial/status/1644625210794995713)
-                   """)
+                   """),
+             Stock("SOMA.V", period=period, interval=interval,
+                   expectation=Expectation(price=6, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Imagine you can invest in gold as a safe haven, but with the characteristics of an exponential tech stock.
+                                   If Soma Gold proves they have the resources, it could simply expand annual production from 36K to 75K.
+                                   This growth is already permitted and should give us a 10 bagger. I believe Soma Gold is going to be
+                                   Segovia 2.0 as they are also starting at 500K ounces of resource and 50K ounces of production.
+                                   Over time this will grow to multimillion ounces of resource and 100K+ ounces of production.
+                                   Catalysts: Drill results update coming. 3 drill rigs on site + 1 drill rig incoming this month.
+                                   AISC will be below \$1000/ounce due to mechanized mining. Gold loan is fully repaid in January.
+                                   Long term note repayment starts in July. Production will increase from 35K to 50K
+                                   [Source](https://twitter.com/GoldForecast/status/1646418350996705283)
+                  """),
+             
              ]
 
     def yield_per_day(x):
