@@ -436,7 +436,15 @@ def ideas(period: str, interval: str):
                                    Long term note repayment starts in July. Production will increase from 35K to 50K
                                    [Source](https://twitter.com/GoldForecast/status/1646418350996705283)
                   """),
-             
+             Stock("TM.V", period=period, interval=interval,
+                   expectation=Expectation(price=1.5, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Trigon Metals Inc. (TM:TSXV) is a Canadian exploration, development, and mining company focused on copper
+                                   and silver assets in Africa. Trigon’s current priority is the restart of its flagship project, the Kombat
+                                   Mine in Namibia. The Kombat Mine was once one of the largest copper producers in Namibia having historically
+                                   produced 12.5 Mt of ore at 2.6% Cu. Trigon plans to bring Kombat back into production in FY23 with 4.0 Mlbs
+                                   of copper expected to be mined in FY24 and growing to 22.1 Mlbs by FY26.
+                                   [Source](https://mcusercontent.com/4bc421505c66d079778a0d0be/files/95cf91a8-23ab-97c9-b8ba-0f921b470b3e/20230403_Atrium_TM_Initiation_Report.02.pdf)
+                   """)
              ]
 
     def yield_per_day(x):
