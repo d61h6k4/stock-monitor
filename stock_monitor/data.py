@@ -497,12 +497,12 @@ def stocks(period: str, interval: str):
                              See CEG in Ideas.
                           """
         elif ticker_name == "SOMA.V":
-            buy_date = datetime(2023, 4, 15, tzinfo=timezone.utc)
+            buy_date = datetime(2023, 4, 17, tzinfo=timezone.utc)
             description = r"""Imagine you can invest in gold as a safe haven, but with the characteristics of an exponential tech stock.
                               If Soma Gold proves they have the resources, it could simply expand annual production from 36K to 75K.
                              """
         elif ticker_name == "TM.V":
-            buy_date = datetime(2023, 4, 15, tzinfo=timezone.utc)
+            buy_date = datetime(2023, 4, 17, tzinfo=timezone.utc)
             description = r"""Trigon Metals Inc. (TM) is a Canadian exploration, development, and mining company focused on copper
                                 and silver assets in Africa."""
 
