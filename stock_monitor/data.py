@@ -444,6 +444,30 @@ def ideas(period: str, interval: str):
                                    produced 12.5 Mt of ore at 2.6% Cu. Trigon plans to bring Kombat back into production in FY23 with 4.0 Mlbs
                                    of copper expected to be mined in FY24 and growing to 22.1 Mlbs by FY26.
                                    [Source](https://mcusercontent.com/4bc421505c66d079778a0d0be/files/95cf91a8-23ab-97c9-b8ba-0f921b470b3e/20230403_Atrium_TM_Initiation_Report.02.pdf)
+                   """),
+             Stock("EHTH", period=period, interval=interval,
+                   expectation=Expectation(price=25.38, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""eHealth is a digital health insurance broker with secular tailwinds from the continued Medicare Advantage
+                                   growth till 2040. EHTH was classified as an un-investable stock in an un-investable industry on top of a
+                                   damning short report from Muddy Waters. Report pointed to low-quality earnings due to mandatory ASC606
+                                   adoption and abusing its constraints with aggressive growth tactics. EHTH is in a turnaround mode with new
+                                   mgmt, reversing bad growth policies and industry players behaving more disciplined. Churn is expected to
+                                   stabilize back to normalized levels. 100% upside opportunity protected by a floor valuation.
+                                   The liquidation value of the commissions receivables is higher than the current market cap.
+                                   Depending on the assumed churn levels, the stock has 70% upside in the base case and 400% upside for the
+                                   bull case. BV of commissions receivables is \$25.38/share after net debt and preferred
+                                   [Source](https://twitter.com/InvestSpecial/status/1649352951897415680)
+                   """),
+             Stock("BGEO.L", period=period, interval=interval,
+                   expectation=Expectation(price=80, date=datetime(2025, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""BGEO is a London-listed leading retail and commercial bank in the country of Georgia.
+                                   The bank operates in an attractive duopoly market with strong and improving country-level fundamentals.
+                                   Should benefit from the recent influx of Russian immigrants. BGEO trades at just 1x book value and 4x
+                                   earnings whilst continuing to return capital through buybacks and dividends. Its Western-trained management
+                                   is excellent and has been able to return consistent 20%+ ROEs over the last 15 years.
+                                   At a ~6x P/E or ~1.5x P/B 2025 exit multiple, combined with \£6/shr of cum. dividends, stock is
+                                   expected to trade at \£80 /shr.
+                                   [Source](https://twitter.com/InvestSpecial/status/1649352951897415680)
                    """)
              ]
 
