@@ -481,7 +481,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V"]:
+    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
@@ -505,6 +505,10 @@ def stocks(period: str, interval: str):
             buy_date = datetime(2023, 4, 17, tzinfo=timezone.utc)
             description = r"""Trigon Metals Inc. (TM) is a Canadian exploration, development, and mining company focused on copper
                                 and silver assets in Africa."""
+        elif ticker_name == "FTAI":
+            buy_date = datetime(2023, 4, 17, tzinfo=timezone.utc)
+            description = r"""Aircraft and engine lessor that has gone through a major transformation from a complex “mess” of
+                              assets to a pure-play aviation company."""
 
         assert buy_date is not None
         assert description is not None
