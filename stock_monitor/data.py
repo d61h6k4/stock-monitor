@@ -481,19 +481,12 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "KOP", "CEG", "CNQ", "GSMG"]:
+    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
             buy_date = datetime(2022, 12, 1, tzinfo=timezone.utc)
             description = "Arbitrage"
-        elif ticker_name == "KOP":
-            buy_date = datetime(2022, 12, 6, tzinfo=timezone.utc)
-            description = """Koppers Holdings Inc. has three business segments: Railroad and Utility Products and
-                             Services (RUPS), Performance Chemicals (PC) and Carbon Materials and Chemicals (CMC).
-                             Basic materials, chemistry.
-                             While waiting for recession.
-                          """
         elif ticker_name == "CEG":
             buy_date = datetime(2022, 12, 6, tzinfo=timezone.utc)
             description = """Constellation Energy Corporation, formerly Constellation Newholdco, Inc., is a clean
@@ -503,19 +496,16 @@ def stocks(period: str, interval: str):
                              Utility, energy.
                              See CEG in Ideas.
                           """
-        elif ticker_name == "CNQ":
-            buy_date = datetime(2022, 12, 19, tzinfo=timezone.utc)
-            description = """Canadian Natural Resources Limited is an independent crude oil and natural gas exploration,
-                             development and production company.
-                             Energy, oil & gas.
-                             War in Ukraine and sanctions on the Russia.
-                          """
-        elif ticker_name == "GSMG":
-            buy_date = datetime(2023, 3, 13, tzinfo=timezone.utc)
-            description = r"""Glory Star New Media Group Holdings Limited, through its subsidiaries, provides advertisement
-                              and content production services in the People’s Republic of China.
-                              Arbitrage.
-                           """
+        elif ticker_name == "SOMA.V":
+            buy_date = datetime(2023, 4, 15, tzinfo=timezone.utc)
+            description = r"""Imagine you can invest in gold as a safe haven, but with the characteristics of an exponential tech stock.
+                              If Soma Gold proves they have the resources, it could simply expand annual production from 36K to 75K.
+                             """
+        elif ticker_name == "TM.V":
+            buy_date = datetime(2023, 4, 15, tzinfo=timezone.utc)
+            description = r"""Trigon Metals Inc. (TM) is a Canadian exploration, development, and mining company focused on copper
+                                and silver assets in Africa."""
+
         assert buy_date is not None
         assert description is not None
         res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date, description=description))
