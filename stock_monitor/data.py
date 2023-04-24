@@ -481,7 +481,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI"]:
+    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
@@ -509,6 +509,14 @@ def stocks(period: str, interval: str):
             buy_date = datetime(2023, 4, 17, tzinfo=timezone.utc)
             description = r"""Aircraft and engine lessor that has gone through a major transformation from a complex “mess” of
                               assets to a pure-play aviation company."""
+        elif ticker_name == "CRNT":
+            buy_date = datetime(2023, 4, 20, tzinfo=timezone.utc)
+            description = r"""Vendor for global wireless network operators specializing in backhaul solutions. Shareholders have
+                                recently rejected a hostile takeover by peer $AVNW at $3.8/share. Renewed talks between AVNW and CRNT
+                                present the potential for near-term upside realization."""
+        elif ticker_name == "ATLX":
+            buy_date = datetime(2023, 4, 24, tzinfo=timezone.utc)
+            description = r"""Meme stock, lithium :P"""
 
         assert buy_date is not None
         assert description is not None
