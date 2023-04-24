@@ -468,6 +468,26 @@ def ideas(period: str, interval: str):
                                    At a ~6x P/E or ~1.5x P/B 2025 exit multiple, combined with \£6/shr of cum. dividends, stock is
                                    expected to trade at \£80 /shr.
                                    [Source](https://twitter.com/InvestSpecial/status/1649352951897415680)
+                   """),
+             Stock("OSW", period=period, interval=interval,
+                   expectation=Expectation(price=22, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Provider of spa services on cruise ships. Quasi-monopoly with over 90% of the cruise ship market.
+                                   Long-term 7-10% topline growth. Trades at 10-12x 2024 FCF. Capital returns coming.
+                                   100% upside. Onshore spa competitors face difficulty replicating OSW’s global breadth and scale.
+                                   Due to relatively minimal expense, cruise ship operators have no incentives to switch or in-house services.
+                                   Historically, churn has been almost nonexistent. Expected to initiate a dividend this year or next at the latest.
+                                   Due to minimal capex needs, set to become a cash-flow return machine.
+                                   [Source](https://twitter.com/InvestSpecial/status/1650422425018937345)
+                   """),
+             Stock("RGS", period=period, interval=interval,
+                   expectation=Expectation(price=7, date=datetime(2025, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""Hair salon franchisor with 5,000 units. Covid-driven headwinds masked the fact that RGS has
+                                   wrapped up a major business model transition to the franchised model The business has bottomed
+                                   out and is on the path to recovery. Worth $7, representing a 6x return A recession-proof,
+                                   asset-light business that is generating 30%+ EBITDA. The new CEO joined in 2022 and is successfully
+                                   turning the business around. Both the business model transition and liquidity profile improvement
+                                   have gone unnoticed by the street.
+                                   [Source](https://twitter.com/InvestSpecial/status/1650422425018937345)
                    """)
              ]
 
