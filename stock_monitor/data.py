@@ -483,7 +483,7 @@ def ideas(period: str, interval: str):
                    expectation=Expectation(price=7, date=datetime(2025, 12, 31, tzinfo=timezone.utc)),
                    description=r"""Hair salon franchisor with 5,000 units. Covid-driven headwinds masked the fact that RGS has
                                    wrapped up a major business model transition to the franchised model The business has bottomed
-                                   out and is on the path to recovery. Worth $7, representing a 6x return A recession-proof,
+                                   out and is on the path to recovery. Worth \$7, representing a 6x return A recession-proof,
                                    asset-light business that is generating 30%+ EBITDA. The new CEO joined in 2022 and is successfully
                                    turning the business around. Both the business model transition and liquidity profile improvement
                                    have gone unnoticed by the street.
