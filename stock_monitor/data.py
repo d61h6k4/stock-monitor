@@ -508,7 +508,28 @@ def ideas(period: str, interval: str):
                                    turnaround that has taken place. The market is also concerned about growing competitive risks; however,
                                    these fears are likely over-blown and provide an opportunity to buy shares in Gogo at attractive prices.
                                    [Source](https://mcusercontent.com/08f9a0d6280bf283b8bc58473/files/16fa3f9e-10cd-3666-5625-bad7f6c56620/LVS_Advisory_GOGO_Write_Up_April_2022_.pdf?utm_source=substack&utm_medium=email)
-                  """)
+                  """),
+             Stock("SCHW", period=period, interval=interval,
+                   expectation=Expectation(price=80, date=datetime(2023, 9, 15, tzinfo=timezone.utc)),
+                   description=r"""SCHW unfairly sold off following the SVB fallout. Market's concerns are misplaced.
+                                   SCHW is unlikely to be required to raise cheap equity for regulatory reasons. 81% of deposits
+                                   are FDIC insured while the remaining 19% are easily covered by SCHW’s liquid securities portfolio.
+                                   Depositors are unlikely to flee. SCHW does not have a negative TBV after adjusting for taxation
+                                   on unrealized HTM losses and YTD gains. Set to earn \$4.5bn in an extreme scenario of a pure brokerage
+                                   (all deposits flee). Or \$8bn a year in another extreme of deposit sorting stopping today.
+                                   This compares to $\94bn market cap.
+                                   [Source](https://twitter.com/InvestSpecial/status/1651887289553780737)
+                   """),
+             Stock("DEA", period=period, interval=interval,
+                   expectation=Expectation(price=17, date=datetime(2023, 8, 15, tzinfo=timezone.utc)),
+                   description=r"""Cheap low-risk REIT that leases class A office properties to US govt agencies. The highest quality tenant in the world.
+                                   Low renewal risk and vacancy of only 1.2%. 8% dividend is sustainable. Much higher
+                                   return than treasuries, but with similar risk.Strong balance sheet with low-cost fixed-rate
+                                   debt with no significant near-term maturities. Debt/EV at 46%. Solid management with
+                                   longstanding relationships with various government agencies.Trades at 11.5x 2022 FFO and
+                                   12x E2023 FFO whilst offering an 8% dividend yield.
+                                   [Source](https://twitter.com/InvestSpecial/status/1651887289553780737)
+                   """)
              ]
 
     def yield_per_day(x):
