@@ -488,7 +488,27 @@ def ideas(period: str, interval: str):
                                    turning the business around. Both the business model transition and liquidity profile improvement
                                    have gone unnoticed by the street.
                                    [Source](https://twitter.com/InvestSpecial/status/1650422425018937345)
-                   """)
+                   """),
+             Stock("CBD", period=period, interval=interval,
+                   expectation=Expectation(price=6, date=datetime(2023, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""CBD is a Brazilian holding company that is spinning off its Colombian grocery chain, Grupo Exito,
+                                   in the second quarter of 2023. Shareholders will receive 4 shares of Grupo Exito, which is currently
+                                   trading at a higher value than CBD's remaining assets (referred to as the "stub"). However,
+                                   the stub includes multiple assets that should be worth at least \$0.50/share, as well as a
+                                   high-end grocery chain in Brazil. Assuming the stub trades at 0 and Exito is valued correctly,
+                                   the potential upside is around 20%. The author believes that both the stub and Exito should be worth at
+                                   least \$6.00/share in the long term, which is at least a double from the current price.
+                                   [Source](https://www.clarksquarecapital.com/p/companhia-brasileira-de-distribuicao?publication_id=802343&utm_source=substack&utm_medium=email)
+                  """),
+             Stock("GOGO", period=period, interval=interval,
+                   expectation=Expectation(price=28, date=datetime(2027, 12, 31, tzinfo=timezone.utc)),
+                   description=r"""In conclusion, Gogo is a high-quality business operating in a structurally growing industry.
+                                   The business is well- managed by highly incentivized insiders. The stock is not widely followed by investors
+                                   and the investors that are aware of the company do not fully appreciate the business transformation and
+                                   turnaround that has taken place. The market is also concerned about growing competitive risks; however,
+                                   these fears are likely over-blown and provide an opportunity to buy shares in Gogo at attractive prices.
+                                   [Source](https://mcusercontent.com/08f9a0d6280bf283b8bc58473/files/16fa3f9e-10cd-3666-5625-bad7f6c56620/LVS_Advisory_GOGO_Write_Up_April_2022_.pdf?utm_source=substack&utm_medium=email)
+                  """)
              ]
 
     def yield_per_day(x):

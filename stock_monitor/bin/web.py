@@ -36,7 +36,8 @@ def render_position_size():
             markdown(msg)
             markdown(
                 f"Another strategy based on ATR: buy **{atr_shares_num}** shares which cost today **${atr_position_size:,.2f}**")
-            render_ticker(Stock(ticker_name, period="3mo", interval="1d", buy_date=s.last_date))
+            render_ticker(Stock(ticker_name, period="6mo", interval="1d", buy_date=s.last_date))
+            markdown(s.business_summary)
 
 
 def render_sentiment():

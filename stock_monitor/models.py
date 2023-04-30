@@ -37,6 +37,7 @@ class Stock:
     interval: str = "1d"
     # propagated data
     history: DataFrame | None = None
+    business_summary: str | None = None
     # optional data
     buy_date: datetime | None = None
     last_date: datetime | None = None
@@ -68,6 +69,7 @@ class Stock:
             else:
                 self.buy_date = datetime(self.buy_date.year, self.buy_date.month, self.buy_date.day, self.buy_date.hour,
                                          self.buy_date.minute, self.buy_date.second, tzinfo=self.history.index.tz)
+        self.business_summary = ticker.get_info().get("longBusinessSummary", "NO DATA")
 
 
 @dataclass
