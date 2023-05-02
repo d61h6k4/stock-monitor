@@ -529,7 +529,28 @@ def ideas(period: str, interval: str):
                                    longstanding relationships with various government agencies.Trades at 11.5x 2022 FFO and
                                    12x E2023 FFO whilst offering an 8% dividend yield.
                                    [Source](https://twitter.com/InvestSpecial/status/1651887289553780737)
-                   """)
+                   """),
+             Stock("GB", period=period, interval=interval,
+                   expectation=Expectation(price=20, date=datetime(2023, 10, 15, tzinfo=timezone.utc)),
+                   description=r"""A less visible and safer bet on China reopening. Provider of VAT tax refund services for international
+                                   travelers, ~70% market share. Essentially a small royalty on travelers purchasing luxury goods abroad.
+                                   As China re-opens profits will inflect above pre-COVID. Some re-opened regions are spending 3x on like
+                                   for like basis through GB vs what they were pre-COVID. This business has 80% incremental margins from
+                                   any new revenue, >40% EBITDA margins, and 85% FCF conversion. Trades <10x 2019 EBITDA, without any credit
+                                   for dramatically higher luxury goods prices or cost take-outs since then.
+                                   As China reopens, GB could do \$1+/share of FCFresulting in a \$20+ stock.
+                                   [Source](https://twitter.com/InvestSpecial/status/1653327568173400067)
+                   """),
+             Stock("IWG.L", period=period, interval=interval,
+                   expectation=Expectation(price=430, date=datetime(2030, 1, 1, tzinfo=timezone.utc)),
+                   description=r"""Global operator of flexible working spaces with 4x the locations of their next-largest competitor.
+                                   Currently in the early stages of transferring the majority of the current business into the
+                                   franchised operations. If successful, would result in the transfer of a significant part of lease
+                                   liabilities and the cost base onto a 3rd parties. This would leave IWG with a far higher margin royalty
+                                   stream likely to be valued by the market on a more generous multiple. The currently large operating lease
+                                   liability (even if non-recourse and tied to individual properties) is a significant concern among investors.
+                                   Set to generate 29p EPS by 2025, 55p by 2030. SOTP: mature estate + franchised business + The Instant Group,
+                                   results in 430p fair value today."""),
              ]
 
     def yield_per_day(x):
@@ -542,7 +563,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX"]:
+    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX", "FIP"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
@@ -578,6 +599,13 @@ def stocks(period: str, interval: str):
         elif ticker_name == "ATLX":
             buy_date = datetime(2023, 4, 24, tzinfo=timezone.utc)
             description = r"""Meme stock, lithium :P"""
+        elif ticker_name == "FIP":
+            buy_date = datetime(2023, 5, 1, tzinfo=timezone.utc)
+            description = r"""Recent spin-off from $FTAI with 4 infrastructure assets: 3 energy terminals and a railroad business.
+                                EBITDA is set to increase from $140m today to $250m in the next 12-18 months. FPI’s Jefferson terminal
+                                is now on cusp of generating strong earnings. Transtar railroad earnings have been consistently increasing
+                                through new business initiatives. Construction of the 485MW power plant at Long Ridge is complete.
+                                Downside is well protected at current share price levels."""
 
         assert buy_date is not None
         assert description is not None
