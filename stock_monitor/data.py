@@ -628,7 +628,7 @@ def stocks(period: str, interval: str):
                                 is now on cusp of generating strong earnings. Transtar railroad earnings have been consistently increasing
                                 through new business initiatives. Construction of the 485MW power plant at Long Ridge is complete.
                                 Downside is well protected at current share price levels."""
-        elif tricker_name == "CBD":
+        elif ticker_name == "CBD":
             buy_date = datetime(2023, 5, 4, tzinfo=timezone.utc)
             description = r"""CBD is a Brazilian holding company that is spinning off its Colombian grocery chain, Grupo Exito,
                               in the second quarter of 2023. """
