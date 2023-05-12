@@ -551,6 +551,28 @@ def ideas(period: str, interval: str):
                                    liability (even if non-recourse and tied to individual properties) is a significant concern among investors.
                                    Set to generate 29p EPS by 2025, 55p by 2030. SOTP: mature estate + franchised business + The Instant Group,
                                    results in 430p fair value today."""),
+             Stock("MTB", period=period, interval=interval,
+                   expectation=Expectation(price=260, date=datetime(2028, 1, 1, tzinfo=timezone.utc)),
+                   description=r"""The bank is oversold on fears caused by the collapse of SVB and other banks.
+                                   However, MTB is run by a conservative mgmt team in markets with stickier deposit bases.
+                                   That does not make them immune to dumb ideas, but it greatly reduces the risk to shareholders.
+                                   MTB has consistently earned mid-teens ROTE. Pays out a healthy dividend, and uses excess capital
+                                   to buyback stock. Last year's merger with People's United provides significant scale benefits,
+                                   which should become evident shortly. In 2022, MTB earned \$14.42 per share.
+                                   Expected to earn north of \$20/share in 4-5 years, with excess cash used for buybacks.
+                                   At 13x multiple would be a \$260 stock.
+                                   [Source](https://twitter.com/InvestSpecial/status/1656583775957008385)
+                   """),
+             Stock("GEO.TO", period=period, interval=interval,
+                   expectation=Expectation(price=7.3, date=datetime(2024, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""Drilling company providing sample extraction services for gold miners in Africa and South America.
+                                   Trades at 2.4x TTM EV/EBITDA despite highly recurring revenue, and positive FCF while growing both
+                                   the revenues and earnings at a decent clip. Low trading multiple should expand as investors realize
+                                   we are at the beginning of a long cycle of growth for the industry. Increasing free cash flow allows
+                                   GEO to continue returning capital to shareholders through dividends and share buybacks.
+                                   An attractive target to other drillers due to its long-term relationships with mining companies.
+                                   CEO with 39% ownership of GEO said openly that he is open to sale at 5x EBITDA or more.
+                                   In a sale scenario GEO is worth at least 5x E2024 EBITDA, which implies a C\$7.3/share price target.""")
              ]
 
     def yield_per_day(x):
@@ -563,7 +585,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX", "FIP"]:
+    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX", "FIP", "CBD"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
@@ -601,11 +623,15 @@ def stocks(period: str, interval: str):
             description = r"""Meme stock, lithium :P"""
         elif ticker_name == "FIP":
             buy_date = datetime(2023, 5, 1, tzinfo=timezone.utc)
-            description = r"""Recent spin-off from $FTAI with 4 infrastructure assets: 3 energy terminals and a railroad business.
-                                EBITDA is set to increase from $140m today to $250m in the next 12-18 months. FPI’s Jefferson terminal
+            description = r"""Recent spin-off from \$FTAI with 4 infrastructure assets: 3 energy terminals and a railroad business.
+                                EBITDA is set to increase from \$140m today to \$250m in the next 12-18 months. FPI’s Jefferson terminal
                                 is now on cusp of generating strong earnings. Transtar railroad earnings have been consistently increasing
                                 through new business initiatives. Construction of the 485MW power plant at Long Ridge is complete.
                                 Downside is well protected at current share price levels."""
+        elif tricker_name == "CBD":
+            buy_date = datetime(2023, 5, 4, tzinfo=timezone.utc)
+            description = r"""CBD is a Brazilian holding company that is spinning off its Colombian grocery chain, Grupo Exito,
+                              in the second quarter of 2023. """
 
         assert buy_date is not None
         assert description is not None
