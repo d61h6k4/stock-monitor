@@ -572,7 +572,13 @@ def ideas(period: str, interval: str):
                                    GEO to continue returning capital to shareholders through dividends and share buybacks.
                                    An attractive target to other drillers due to its long-term relationships with mining companies.
                                    CEO with 39% ownership of GEO said openly that he is open to sale at 5x EBITDA or more.
-                                   In a sale scenario GEO is worth at least 5x E2024 EBITDA, which implies a C\$7.3/share price target.""")
+                                   In a sale scenario GEO is worth at least 5x E2024 EBITDA, which implies a C\$7.3/share price target."""),
+             Stock("PKN.WA", period=period, interval=interval,
+                   expectation=Expectation(price=180, date=datetime(2028, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""In my opinion ORLEN has the potential the be an investment comparable to PetroChina.
+                                   I am bullish on oil prices and ORLEN gives me trough the ridiculously low valuation a good downside protection.
+                                   Here is another quote from Buffet regarding PetroChina.
+                                   [Source](https://moderninvesting.substack.com/p/the-next-petrochina)"""),
              ]
 
     def yield_per_day(x):
