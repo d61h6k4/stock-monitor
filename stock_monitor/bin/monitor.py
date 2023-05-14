@@ -41,7 +41,6 @@ def main():
         watch(idea)
 
     for stock in tqdm(stocks(period="3mo", interval="1d"), desc="Processing portfolio..."):
-        unwatch(stock)
         monitor(stock)
 
 
