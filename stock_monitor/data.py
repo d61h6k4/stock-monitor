@@ -639,7 +639,7 @@ def stocks(period: str, interval: str):
             description = r"""CBD is a Brazilian holding company that is spinning off its Colombian grocery chain, Grupo Exito,
                               in the second quarter of 2023. """
         elif ticker_name == "SCHW":
-            buy_date = datetime(2023, 5, 16, tzinfo=timezone.utc),
+            buy_date = datetime(2023, 5, 16, tzinfo=timezone.utc)
             description = r"""SCHW unfairly sold off following the SVB fallout."""
 
     assert buy_date is not None
