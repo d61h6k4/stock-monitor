@@ -646,8 +646,7 @@ def stocks(period: str, interval: str):
     assert description is not None
     res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date, description=description))
 
-
-return res
+    return res
 
 
 def arbitrages(period: str):
