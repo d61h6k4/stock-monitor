@@ -642,9 +642,9 @@ def stocks(period: str, interval: str):
             buy_date = datetime(2023, 5, 16, tzinfo=timezone.utc)
             description = r"""SCHW unfairly sold off following the SVB fallout."""
 
-    assert buy_date is not None
-    assert description is not None
-    res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date, description=description))
+        assert buy_date is not None
+        assert description is not None
+        res.append(Stock(ticker_name, period=period, interval=interval, buy_date=buy_date, description=description))
 
     return res
 
