@@ -579,6 +579,35 @@ def ideas(period: str, interval: str):
                                    I am bullish on oil prices and ORLEN gives me trough the ridiculously low valuation a good downside protection.
                                    Here is another quote from Buffet regarding PetroChina.
                                    [Source](https://moderninvesting.substack.com/p/the-next-petrochina)"""),
+             Stock("KD", period=period, interval=interval,
+                   expectation=Expectation(price=70, date=datetime(2028, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""IT services provider spun off from $IBM. Badco was often positioned as a loss leader by \$IBM to sell more hardware.
+                                   As a result, KD has no pre-tax income today. By no longer being part of IBM, it can now gradually
+                                   reprice loss-making contracts. \$KD may face increased customer churn as it works through a
+                                   backlog of pre-spin contracts. However, its excellent reputation and low valuation more
+                                   than compensate for the risk. KD trades at just 0.3x sales vs peers at least 2x that.
+                                   [Source](https://drive.google.com/file/d/1NN2NPtT-OZ3-XT0h1Djx8yHrbV6g2mqh/view)"""),
+             Stock("ALOT", period=period, interval=interval,
+                   expectation=Expectation(price=24, date=datetime(2025, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""Primarily a manufacturer of airplane cockpit printers plus a provider of label printers.
+                                   Cockpit business is an actual monopoly protected from larger peers due to a small and
+                                   niche enough market on top of the FAA's expensive regulatory framework.
+                                   Crux of thesis centers around the expected increase in airplane production to pre-Covid
+                                   levels leading to continued growth in revenues and earnings. At 10x 2024E EBITDA multiple vs peers at 15x,
+                                   ALOT is \$24/share stock.
+                                   [Source](https://static1.squarespace.com/static/635cafa2259a125cc55eae33/t/64387c7cf1e5c4626d787d38/1681423485063/Atai+Capital+-+Q1-2023+Letter.pdf)"""),
+             Stock("BNED", period=period, interval=interval,
+                   expectation=Expectation(price=3, date=datetime(2023, 12, 15, tzinfo=timezone.utc)),
+                   description=r"""Textbook retailer transitioning into a durable omnichannel player based on its First Day Complete (FDC) program.
+                                   Via the FDC, \$BNED provides the students with all their books directly through the school by bundling the costs
+                                   into a tuition fee. Due to publishers' discounts, students save 30-50%, schools receive commissions on sales,
+                                   and publishers actually get paid. While new economics are attractive only 20% of schools are on the platform.
+                                   This is about to change with \$BNED recently making the conversion mandatory. If transition is successful,
+                                   there is a path to $125m+ in EBITDA. Given the attractive economics and presence of an activist with a
+                                   10% stake, the target seems achievable. Overlooked due to small \$100m Mcap and minimal coverage.
+                                   [Source](https://static1.squarespace.com/static/5498841ce4b0311b8ddc012b/t/644bdf2a12435708a8affde7/1682693930744/Greenhaven+Road+2023+Q1+Quarterly+Letter%5B69%5D.pdf)"""),
+             
+
              ]
 
     def yield_per_day(x):
