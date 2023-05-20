@@ -606,7 +606,6 @@ def ideas(period: str, interval: str):
                                    there is a path to $125m+ in EBITDA. Given the attractive economics and presence of an activist with a
                                    10% stake, the target seems achievable. Overlooked due to small \$100m Mcap and minimal coverage.
                                    [Source](https://static1.squarespace.com/static/5498841ce4b0311b8ddc012b/t/644bdf2a12435708a8affde7/1682693930744/Greenhaven+Road+2023+Q1+Quarterly+Letter%5B69%5D.pdf)"""),
-             
 
              ]
 
@@ -620,7 +619,7 @@ def ideas(period: str, interval: str):
 
 def stocks(period: str, interval: str):
     res = []
-    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX", "FIP", "CBD", "SCHW"]:
+    for ticker_name in ["TGNA", "CEG", "SOMA.V", "TM.V", "FTAI", "CRNT", "ATLX", "FIP", "CBD", "SCHW", "AMKR"]:
         buy_date = None
         description = None
         if ticker_name == "TGNA":
@@ -651,7 +650,7 @@ def stocks(period: str, interval: str):
         elif ticker_name == "CRNT":
             buy_date = datetime(2023, 4, 20, tzinfo=timezone.utc)
             description = r"""Vendor for global wireless network operators specializing in backhaul solutions. Shareholders have
-                                recently rejected a hostile takeover by peer $AVNW at $3.8/share. Renewed talks between AVNW and CRNT
+                                recently rejected a hostile takeover by peer \$AVNW at \$3.8/share. Renewed talks between AVNW and CRNT
                                 present the potential for near-term upside realization."""
         elif ticker_name == "ATLX":
             buy_date = datetime(2023, 4, 24, tzinfo=timezone.utc)
@@ -670,6 +669,11 @@ def stocks(period: str, interval: str):
         elif ticker_name == "SCHW":
             buy_date = datetime(2023, 5, 16, tzinfo=timezone.utc)
             description = r"""SCHW unfairly sold off following the SVB fallout."""
+        elif ticker_name == "AMKR":
+            buy_date = datetime(2023, 5, 18, tzinfo=timezone.utc)
+            description = r"""Semiconductor assembly services provider – the world’s most wonderfully boring businesses to own.
+                                At 9x earnings and shifting into higher margin services. For a semi business, it has very low
+                                cyclicality and low capex needs, and yet is delivering above-industry revenue growth with 3 year CAGR of 20%."""
 
         assert buy_date is not None
         assert description is not None
