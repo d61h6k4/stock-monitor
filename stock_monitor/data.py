@@ -606,7 +606,6 @@ def ideas(period: str, interval: str):
                                    there is a path to $125m+ in EBITDA. Given the attractive economics and presence of an activist with a
                                    10% stake, the target seems achievable. Overlooked due to small \$100m Mcap and minimal coverage.
                                    [Source](https://static1.squarespace.com/static/5498841ce4b0311b8ddc012b/t/644bdf2a12435708a8affde7/1682693930744/Greenhaven+Road+2023+Q1+Quarterly+Letter%5B69%5D.pdf)"""),
-
              ]
 
     def yield_per_day(x):
@@ -892,3 +891,19 @@ def arbitrages(period: str):
                                     current deal breaks. TCRR insiders own a sizable 25% of the company. ADAP management owns 17%.""")
            ]
     return sorted(res, key=lambda x: x.expecting_closing)
+
+
+def oil_and_gas_stocks(period, interval) -> list[Stock]:
+    return [
+        Stock("E", period=period, interval=interval,
+              description="""Market Cap: 44.38B. P/E: 245x. Dividend: 8.24%. Insider Ownership: 32%. P/B: 0.69x"""),
+        Stock("EC", period=period, interval=interval,
+              description=r"""- Market Cap: 37B. Forward P/E: 8.89x. Dividend: 5.85%. P/B: 2x"""),
+        Stock("EQNR", period=period, interval=interval,
+              description="""Market Cap: 52.4B. Forward P/E: 8.54x. P/B: 1.20x. Dividend: 7.04%. Insider Ownership: 67%"""),
+        Stock("PCCYF", period=period, interval=interval,
+              description="""Market Cap: 131B. Forward P/E: 10.58x. P/B: 0.39x. Dividend: 6.24%. Insider Ownership: 86%"""),
+        Stock("SSL", period, interval, description="Market Cap: 7B. Forward P/E: 4.06x. P/B: 0.37x. Dividend: 9.96%"),
+        Stock("YPF", period, interval,
+              description="""Market Cap: 4B. Forward P/E: 19.52x. P/B: 0.34x. Dividend: 1.92%"""),
+    ]

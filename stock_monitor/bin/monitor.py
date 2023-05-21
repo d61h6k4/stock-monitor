@@ -3,7 +3,7 @@ import json
 
 from tqdm import tqdm
 from stock_monitor.models import Stock
-from stock_monitor.data import ideas, stocks
+from stock_monitor.data import ideas, stocks, oil_and_gas_stocks
 
 _BOT_URL = "https://lochaufwallstrasse.de/bot/conversations/dbihbka/trigger_intent?output_channel=callback"
 
@@ -41,6 +41,9 @@ def main():
         watch(idea)
 
     for stock in tqdm(stocks(period="3mo", interval="1d"), desc="Processing portfolio..."):
+        monitor(stock)
+
+    for stock in tqdm(oil_and_gas_stocks(period="3mo", interval="1d"), desc="Processing Oil&Gas..."):
         monitor(stock)
 
 
