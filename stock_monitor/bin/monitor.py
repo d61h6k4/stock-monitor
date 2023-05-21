@@ -44,7 +44,7 @@ def main():
         monitor(stock)
 
     for stock in tqdm(oil_and_gas_stocks(period="3mo", interval="1d"), desc="Processing Oil&Gas..."):
-        monitor(stock)
+        watch(stock)
 
 
 if __name__ == "__main__":
