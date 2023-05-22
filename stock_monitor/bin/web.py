@@ -130,11 +130,11 @@ for tab_name, tab in zip(tabs_name, tabs(tabs_name)):
             with tab:
                 for s in stocks(PERIOD, INTERVAL):
                     render_ticker(s)
-        case "Ideas":
+        case "O&G":
             with tab:
                 for s in oil_and_gas_stocks(PERIOD, INTERVAL):
-                    render_idea(s)
-        case "O&G":
+                    render_ticker(s)
+        case "Ideas":
             with tab:
                 for s in ideas(PERIOD, INTERVAL):
                     render_idea(s)
