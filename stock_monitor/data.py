@@ -606,6 +606,14 @@ def ideas(period: str, interval: str):
                                    there is a path to $125m+ in EBITDA. Given the attractive economics and presence of an activist with a
                                    10% stake, the target seems achievable. Overlooked due to small \$100m Mcap and minimal coverage.
                                    [Source](https://static1.squarespace.com/static/5498841ce4b0311b8ddc012b/t/644bdf2a12435708a8affde7/1682693930744/Greenhaven+Road+2023+Q1+Quarterly+Letter%5B69%5D.pdf)"""),
+             Stock("PLYA", period=period, interval=interval,
+                   expectation=Expectation(price=15.20, date=datetime(2024, 8, 15, tzinfo=timezone.utc)),
+                   description=r"""PLYA is the only publicly traded, all-inclusive resort owner-operator and has a portfolio of 25 all-inclusive
+                                   resorts across Mexico, Jamaica, and the Dominican Republic.Management is being proactive in creating value
+                                   for shareholders by exploring sale opportunities for the lower to mid-tier assets (presumably at valuations
+                                   above the stock's current valuation in the public market) with the goal of buying back stock.
+                                   [Source](https://static1.squarespace.com/static/601ae5e60b044d0313307aca/t/6463e51fc22ddc3d0b6189c9/1684268319477/2023+Q1_Voss+Value+Funds+Letter+to+Partners.pdf)
+                   """),
              ]
 
     def yield_per_day(x):
