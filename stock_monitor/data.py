@@ -614,6 +614,61 @@ def ideas(period: str, interval: str):
                                    above the stock's current valuation in the public market) with the goal of buying back stock.
                                    [Source](https://static1.squarespace.com/static/601ae5e60b044d0313307aca/t/6463e51fc22ddc3d0b6189c9/1684268319477/2023+Q1_Voss+Value+Funds+Letter+to+Partners.pdf)
                    """),
+             Stock("NIL-B.ST", period, interval,
+                   expectation=Expectation(price=120, date=datetime(2025, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""Profitable every year over the past 11 years. Conservative balance sheet with an equity ratio >50% and a net cash position.
+                                   Yet even on current levels, the company is cheap, trading at around 6-7x EV/EBIT, 7x 2022 PE and a 8% dividend yield.
+                                   In 2023, profits may be a bit lower than in 2022, as evidenced by the first quarter. Yet the further the year progresses,
+                                   the easier comps will get and in the next 2 or 3 yearsNilorn is an interesting nanocap company which has proven it can
+                                   generate high returns in a cyclical sector.
+                                   [Source](https://augustusville.substack.com/p/nilorngruppen?utm_source=substack&utm_medium=email)
+                   """),
+             Stock("PAH3.DE", period, interval,
+                   expectation=Expectation(price=270, date=datetime(2028, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""If we value Porsche SE, we will simply add up everything the company owns, and subtract the debt.
+                                   The 12.5% ownership of Porsche AG is worth around 13.4 billion euros. The 31.9% ownership of
+                                   Volkswagen is worth approximately 21.7 billion euros. However, Porsche SE also has a debt of 6.6
+                                   billion euros. If we add up the values: 13.4 billion + 21.7 billion - 6.6 billion, we get 28.5
+                                   billion euros. At present, Porsche SE is worth around 28.5 billion euros or 93 euros per share.
+                                   But these numbers may not be accurate because Volkswagen’s stock has dropped by 52% from its peak.
+                                   [Source](https://moderninvesting.substack.com/p/porsche-excellence-or-value-trap?utm_source=substack&utm_medium=email)"""),
+             Stock("FGH", period, interval,
+                   expectation=Expectation(price=10, date=datetime(2025, 6, 15, tzinfo=timezone.utc)),
+                   description=r"""The current value of the investments, cash, and real estate can be ballparked between ~\$81.7M-\$90.7M,
+                                   the book value sits at ~\$42.7M and the market cap is \$34M. Sum-of-the-parts story has been the stable
+                                   thesis for the better part of a year and a half now and hasn’t worked yet. So, the question begs, will it ever?
+                                   [Source](https://www.wsgresearch.com/p/fg-group-holdings-multiple-ways-to?utm_source=substack&utm_medium=email)"""),
+             Stock("OB", period, interval,
+                   expectation=Expectation(price=8, date=datetime(2024, 1, 15, tzinfo=timezone.utc)),
+                   description=r"""Revenue and EBITDA are set to accelerate over the back half of 2023. OB has a defensible position in a
+                                   duopoly industry. Furthermore, the move toward measurable results and greater user privacy should result
+                                   in long-term tailwinds for the company. OB is incredibly asymmetric given that net cash makes up ~60%
+                                   of the market cap and has an extremely low valuation of ~2.1x EBITDA on my 2023 estimate and ~1.3x on
+                                   2024E. On guided numbers, it trades at ~3x EBITDA. Outbrain’s management team has proven to be skilled
+                                   at capital allocation and is likely to continue to add value over time.
+                                   [Source](https://www.clarksquarecapital.com/p/outbrain-ob?utm_source=substack&utm_medium=email)"""),
+             Stock("TOELF", period, interval,
+                   expectation=Expectation(price=200, date=datetime(2025, 6, 15, tzinfo=timezone.utc)),
+                   description=r"""Tokyo Electron’s business can best be thought of in the following way. The company dominates in coating
+                                   equipment with a market share in the industry of around 90%, a level similar to ASML in lithography.
+                                   And the company has strong positions in etch, deposition, cleaning and probing tools with global market
+                                   shares ranging from 25 to around 40 percent.
+                                   [Source](https://www.techfund.one/p/tokyo-electron-a-strong-semicap-player)"""),
+             Stock("ANTM.JK", period, interval,
+                   expectation=Expectation(price=2700, date=datetime(2025, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""Our initial target range for ANTAM is between IDR 2,700-3,200 (currently at IDR 1,935). In our bull case,
+                                   our view is that the stock could double over the next 2-3 years. Factors driving business growth are strong
+                                   macro and fundamental demand for nickel and gold products, as well as stable to increasing commodity prices.
+                                   We are seeing surging demand for EV battery materials from manufacturers in China and ASEAN; a flourishing
+                                   EV supply chain in Indonesia will complement this.
+                                   [Source](https://www.pyramidsandpagodas.com/p/aneka-tambang-antmjk-indonesian-nickel?utm_source=substack&utm_medium=email)"""),
+             Stock("MAU.PA", period, interval,
+                   expectation=Expectation(price=5, date=datetime(2024, 12, 15, tzinfo=timezone.utc)),
+                   description=r"""E&P company focused in Africa, but with additional interests in France, Italy, Colombia and Venezuela.
+                                   Combining some exciting prospects in Namibia with the upside from the sanction lifting in Venezuela plus
+                                   an M&A halted in Nigeria pending resolution.
+                                   [Source](https://moram.substack.com/p/moram-the-natural-gas-market-explained?utm_source=substack&utm_medium=email)
+                   """),
              ]
 
     def yield_per_day(x):
