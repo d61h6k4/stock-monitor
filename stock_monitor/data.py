@@ -165,21 +165,6 @@ def ideas(period: str, interval: str):
                                    With Vascepa roll-out, HLS is worth \$25/share.
                                    **Exp. gain: +150% to \$25/share.**.
                                    [Source](https://twitter.com/InvestSpecial/status/1615303074473451521)"""),
-             Stock("TCMD", period=period, interval=interval,
-                   expectation=Expectation(price=17, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
-                   description=r"""Meditech company with two products for treating underserved chronic conditions at home.
-                                   Flexitouch for lymphedema and Afflovest for bronchiectasis/fibrosis. Currently,
-                                   TCMD is underearning as investment in Flexitouch salesforce havs't yet paid off due
-                                   to covid. The sales of the second product (Afflovest, acquired in Sep’21) are still
-                                   ramping up, but eventually, 50-60% of incremental revenue should drop down to EBIT.
-                                   The market for Afflovest remains very large and underpenetrated.– Demand has been so
-                                   great thus far in 2022 – the company not only increased revenue guidance for
-                                   Afflovest from \$20m to \$35m (100% yoy growth) but also had to sign on a second
-                                   source supplier to be able to meet the demand.– Assuming Afflovest sales of \$70m
-                                   by '25, it would do ~\$25m of EBITDA with little capex requirements vs. current EV of \$230m.
-                                   Remaining \$208m of Flexitouch sales come free.
-                                   **Exp. gain: +70% to \$17/share in two years.**
-                                   [Source](https://twitter.com/InvestSpecial/status/1617847238239076353)"""),
              Stock("APD", period=period, interval=interval,
                    expectation=Expectation(price=600, date=datetime(2027, 12, 31, tzinfo=timezone.utc)),
                    description=r"""Large-cap producer of atmospheric and industrial gases (oxygen, nitrogen, hydrogen
@@ -195,20 +180,6 @@ def ideas(period: str, interval: str):
                                    paying much for the tremendous optionality around hydrogen, gasification, and carbon
                                    capture. **Exp. gain: +100% to $600/share in 5 years.**
                                    [Source](https://twitter.com/InvestSpecial/status/1618241155103064071)"""),
-             Stock("ALGN", period=period, interval=interval,
-                   expectation=Expectation(price=120, date=datetime(2023, 6, 30, tzinfo=timezone.utc)),
-                   description=r"""Producer of Invisalign clear teeth aligners. Invented and won the category,
-                                   crushed the competition – 75% market share. However, the market does not appreciate
-                                   how much the demand was pulled forward during COVID. Has grown 20-25% during
-                                   2010-2019, but then growth exploded to 50-60% in 2021. Channel checks indicate
-                                   prescribers of Invisalign are seeing a slowdown in their business, with the 2022
-                                   year expected to be down 10% vs 2019 levels. Given that treatment times are 6-18
-                                   months in length, this slowdown is not yet fully visible in ALGN numbers, but
-                                   inventory is increasing and deferred revenue growth is decelerating. 2023 earnings
-                                   are set to decline from \$8/share today to closer to \$6/share.
-                                   At 20-25x PE, the target is \$120-\$150/share.
-                                   **Exp. gain: 20-40% to \$120-\$150/share.**
-                                   [Source](https://twitter.com/InvestSpecial/status/1620009107309699072)"""),
              Stock("CAL", period=period, interval=interval,
                    expectation=Expectation(price=40, date=datetime(2023, 6, 30, tzinfo=timezone.utc)),
                    description=r"""Diversified footwear retailer at 5x PE. Owns the Famous Footwear brand of stores
@@ -458,17 +429,6 @@ def ideas(period: str, interval: str):
                                    bull case. BV of commissions receivables is \$25.38/share after net debt and preferred
                                    [Source](https://twitter.com/InvestSpecial/status/1649352951897415680)
                    """),
-             Stock("BGEO.L", period=period, interval=interval,
-                   expectation=Expectation(price=80, date=datetime(2025, 12, 31, tzinfo=timezone.utc)),
-                   description=r"""BGEO is a London-listed leading retail and commercial bank in the country of Georgia.
-                                   The bank operates in an attractive duopoly market with strong and improving country-level fundamentals.
-                                   Should benefit from the recent influx of Russian immigrants. BGEO trades at just 1x book value and 4x
-                                   earnings whilst continuing to return capital through buybacks and dividends. Its Western-trained management
-                                   is excellent and has been able to return consistent 20%+ ROEs over the last 15 years.
-                                   At a ~6x P/E or ~1.5x P/B 2025 exit multiple, combined with \£6/shr of cum. dividends, stock is
-                                   expected to trade at \£80 /shr.
-                                   [Source](https://twitter.com/InvestSpecial/status/1649352951897415680)
-                   """),
              Stock("OSW", period=period, interval=interval,
                    expectation=Expectation(price=22, date=datetime(2024, 12, 31, tzinfo=timezone.utc)),
                    description=r"""Provider of spa services on cruise ships. Quasi-monopoly with over 90% of the cruise ship market.
@@ -603,7 +563,7 @@ def ideas(period: str, interval: str):
                                    into a tuition fee. Due to publishers' discounts, students save 30-50%, schools receive commissions on sales,
                                    and publishers actually get paid. While new economics are attractive only 20% of schools are on the platform.
                                    This is about to change with \$BNED recently making the conversion mandatory. If transition is successful,
-                                   there is a path to $125m+ in EBITDA. Given the attractive economics and presence of an activist with a
+                                   there is a path to \$125m+ in EBITDA. Given the attractive economics and presence of an activist with a
                                    10% stake, the target seems achievable. Overlooked due to small \$100m Mcap and minimal coverage.
                                    [Source](https://static1.squarespace.com/static/5498841ce4b0311b8ddc012b/t/644bdf2a12435708a8affde7/1682693930744/Greenhaven+Road+2023+Q1+Quarterly+Letter%5B69%5D.pdf)"""),
              Stock("PLYA", period=period, interval=interval,
