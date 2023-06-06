@@ -629,6 +629,47 @@ def ideas(period: str, interval: str):
                                    an M&A halted in Nigeria pending resolution.
                                    [Source](https://moram.substack.com/p/moram-the-natural-gas-market-explained?utm_source=substack&utm_medium=email)
                    """),
+             Stock("CUTR", period, interval,
+                   expectation=Expectation(price=365, date=datetime(2026, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""Medial aesthetic company with a new groundbreaking acne treatment device AviClear.
+                                   Stock is oversold due to a recent boardroom brawl and a pullback in near-term guidance
+                                   due to the sales team focusing on AviClear instead of the base business. The recent boardroom
+                                   turmoil, although disruptive in the short term, is likely to pave the way for leadership upgrades.
+                                   AviClear is the first FDA-approved laser acne treatment device and has many advantages over its
+                                   main competitor Accure. AviClear has a unique business model where an annual fee of \$5k and \$1.5k
+                                   fee per patient is charged, instead of selling the device outright for \$100k+. Dermatologists and
+                                   key opinion leaders have expressed confidence in its potential to change the landscape of acne treatment.
+                                   The addressable market is substantial, with over 60 million people suffering from acne in the US alone.
+                                   If AviClear captures just 10% of the market, it could result in significant sales and earnings growth for Cutera.
+                                   [Source](https://ideahive.substack.com/p/new-pitch-cutera-cutr)
+                   """),
+             Stock("SDRL", period, interval,
+                   expectation=Expectation(price=105, date=datetime(2026, 4, 15, tzinfo=timezone.utc)),
+                   description=r"""Seadrill is an offshore drilling contractor operating in key regions known as the Golden Triangle.
+                                   Last year SDRL emerged from a restructuring that wiped out \$12bn of debt and put the company in a net cash position.
+                                   The remaining debt is expected to be refinanced/paid down shortly paving the way for capital returns.
+                                   The company has a robust order backlog, with approximately \$2.6 billion in contracts as of April 2023.
+                                   This backlog provides stability in cash flows for the near term, while also allowing Seadrill to take
+                                   advantage of higher day rates in 2025 and beyond. SDRL also stands out among its peers with one of the
+                                   youngest and most technologically advanced fleets. Following a recent acquisition, SDRL's working
+                                   drillship fleet has increased by 67\%. This provides increased upside potential in the ongoing offshore
+                                   drilling upcycle. At current rates, Seadrill will likely generate a third of its current EV in FCF by 2025-2026.
+                                   [Source](https://ideahive.substack.com/p/new-pitch-seadrill-srdl)"""),
+             Stock("FINMY", period, interval,
+                   expectation=Expectation(price=30, date=datetime(2026, 3, 15, tzinfo=timezone.utc)),
+                   description=r"""Leonardo Spa is an Italian multinational defense, security, and aerospace business. An improved
+                                   backdrop for defense spending is expected to drive a significant acceleration in revenue and
+                                   earnings for Leonardo over the next 3+ years. Historically low FCF conversion (~30\% of EBITA)
+                                   has been one of the main reasons why investors have shied away from Leonardo in the past.
+                                   The company has now completed a series of restructurings which have been a ~\€200m drag to
+                                   free cash flow. Leonardo is now on a credible pathway to improve FCF conversion to ~70\%.
+                                   This should drive a multiple re-rating as investors begin to see that FINMY is actually
+                                   cheap on a free cash flow basis. Meanwhile, the company's real debt figure of \€1.7bn is
+                                   manageable, coming in at slightly under 1.0x leverage. Management has noted debt paydown as
+                                   its NO1 priority. Debt could be paid down in its entirety within the next 2-3 years.
+                                   Recent public listing of a subsidiary will shine a light on the cheapness of the remaining core business.
+                                   The replacement of the CEO, who was convicted of fraud, is likely to drive increased ownership by institutional funds.
+                                   [Source](https://ideahive.substack.com/p/new-pitch-leonardo-spa-finmy)"""),
              ]
 
     def yield_per_day(x):
@@ -750,22 +791,6 @@ def arbitrages(period: str):
                                 its expectation merger completion by H1'23. Since then, however, a congresswoman came
                                 out, urging the FTC to tightly scrutinize the transaction
                                 """),
-           Arbitrage(target=Stock(ticker_name="TGNA", period=period),
-                     buyer="Standard General", offer_price=24.15,
-                     additional_buyer_ratio=0,
-                     expecting_closing=datetime(2023, 5, 28, tzinfo=timezone.utc),
-                     commentary="""**Main risk** - regulatory approval. The buyer consortium includes Standard General,
-                                Apollo, and Cox Media. Various industry players and unions have voiced their concerns
-                                that combined TGNA/Cox Media will control too much of the market share (39% of U.S. TVH)
-                                Other concerns include potential staff reductions, lower local news coverage and
-                                renegotiations of retransmission fees. Analsis of TGNA and Cox Media's US household
-                                coverage suggests that the combined company would still be withing the limits of FCC
-                                ownership rules, whereas the merger will not affect competition. Recently Telecom
-                                regulators noted they have no objections to the merger. However, both FCC and DOJ
-                                reviews are still ongoing. Merger end date has now bee extended till Feb'23.
-                                The spread has widened from teen levels to over 40%. Merger end date is set for
-                                May 23 after which either party can walk away from the transaction without penalty.
-                                """),
            Arbitrage(target=Stock(ticker_name="TSEM", period=period), buyer=Stock(ticker_name="INTC", period=period),
                      offer_price=53, additional_buyer_ratio=0,
                      expecting_closing=datetime(2023, 12, 31, tzinfo=timezone.utc),
@@ -836,22 +861,6 @@ def arbitrages(period: str):
                                     had a very high succesful closing rate, However such a prolonged lag indicates elevated
                                     merger break risk.
                                 """),
-           Arbitrage(target=Stock(ticker_name="CCHWF", period=period), buyer=Stock(ticker_name="CRLBF", period=period),
-                     offer_price=0,
-                     additional_buyer_ratio=0.5579, expecting_closing=datetime(2023, 3, 30, tzinfo=timezone.utc),
-                     commentary=r"""**Main risk** - potential dilution to the consideration due to certain earn-out
-                                provisions, regulatory approval and the buyer walking away. The merger has received
-                                shareholder approval. Some asset divestitures required by the regulators have already
-                                been announced. The spread, however, has recently widened given failed attempts to
-                                pass the federal marijuana banking legislation which has made a big negative impact
-                                on the sector's short-term outlook. This has raised the risk of total proceeds from
-                                divestitures not reaching the targeted \$300m. The market seems to think that both
-                                sides will be unable to complete the divestitures. Also, the merger exchange ratio
-                                is subject to proration adjustment by the amount of Columbia Care shares issued as an
-                                earn-out for its historical acquisition from Dec'20. Information on the earn-out is
-                                limited but the maximum stated size is \$58m in CCHW shares. At current prices,
-                                 the maximum earn-out would lower the exchange rate to 0.5174 and reduce the spread to 23%.
-                                """),
            Arbitrage(target=Stock(ticker_name="INFI", period=period), buyer=Stock("MEIP", period=period),
                      offer_price=0, additional_buyer_ratio=1.0449,
                      expecting_closing=datetime(2023, 6, 30, tzinfo=timezone.utc),
@@ -911,7 +920,7 @@ def arbitrages(period: str):
                                     for \$64m worth of its stock. The merger would provide ADAP with additional liquidity required to pursue
                                     commercialization of its drug portfolio. TCRR is a cash-burning machine with no commercial-stage assets,
                                     suggesting its shareholders would face dilutive equity raises and/or a prolonged strategic review if the
-                                    current deal breaks. TCRR insiders own a sizable 25% of the company. ADAP management owns 17%.""")
+                                    current deal breaks. TCRR insiders own a sizable 25% of the company. ADAP management owns 17%."""),
            ]
     return sorted(res, key=lambda x: x.expecting_closing)
 
