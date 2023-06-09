@@ -670,6 +670,18 @@ def ideas(period: str, interval: str):
                                    Recent public listing of a subsidiary will shine a light on the cheapness of the remaining core business.
                                    The replacement of the CEO, who was convicted of fraud, is likely to drive increased ownership by institutional funds.
                                    [Source](https://ideahive.substack.com/p/new-pitch-leonardo-spa-finmy)"""),
+             Stock("MMK.VI", period, interval,
+                   expectation=Expectation(price=193, date=datetime(2024, 1, 15, tzinfo=timezone.utc)),
+                   description=r"""Therefore, MMK can be confidently considered between fairly valued to somewhat undervalued
+                                   (definitely not overvalued in my opinion). Assuming a “normalised” 9x multiple of EBITDA,
+                                   in a transaction with a strategic buyer MMK could be worth up to \€193 (+41% potential upside)
+                                   on 2023 consensus numbers. If we believe it could go back to peak 2022 EBITDA, the target price
+                                   can potentially be \€258 (+88% upside).
+                                   To be clear, this is a 2 to 5 years investment story (no real catalyst for a quick re-rating on the horizon):
+                                   the attractiveness of MMK packaging business models remains intact, but the full-realisation of the underlying
+                                   potential of the investments in acquired and organic growth will require time.
+                                   [Source](https://mrmarketmiscalculates.substack.com/p/mayr-melnhof-karton-ag?token=eyJ1c2VyX2lkIjoxODk0ODI4NSwicG9zdF9pZCI6MTI3MDYyMzY3LCJpYXQiOjE2ODYzMTIyODMsImV4cCI6MTY4ODkwNDI4MywiaXNzIjoicHViLTU5NzUyNyIsInN1YiI6InBvc3QtcmVhY3Rpb24ifQ.S_QngJnYFMAcCo_bk5RC8ugwpf5Cybcg7VV1xOzIbvE&utm_source=substack&utm_medium=email)
+                   """),
              ]
 
     def yield_per_day(x):
